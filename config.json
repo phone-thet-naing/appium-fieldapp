@@ -1,0 +1,22 @@
+{
+    "reports": [
+        {
+            "targets": [
+                {
+                    "name": "teams",
+                    "inputs": {
+                        "url": "<teams-incoming-webhook-url>"
+                    }
+                }
+            ],
+            "results": [
+                {
+                    "type": "testng",
+                    "files": [
+                        "path/to/testng-results.xml"
+                    ]
+                }
+            ]
+        }
+    ]
+}
