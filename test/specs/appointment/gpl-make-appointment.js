@@ -1,5 +1,6 @@
 const MakeAppointmentHelper = require('../../utils/helpers/make-appointment.helper')
 const NgasayaContractHelper = require('../../utils/make-ngasaya')
+const Util = require('../../utils/utility-functions')
 
 // const appointment_data = {
 //     "create_new_group": true,
@@ -7,6 +8,8 @@ const NgasayaContractHelper = require('../../utils/make-ngasaya')
 // }
 
 const groupList = require("../../data/input_data.json")["group_list_gpl_interview"]
+
+// import groupList from '../../data/input_data.json'
 
 // Appointment Data
 const appointment_data = require("../../data/input_data.json")["appointment_data_gpl_interview"]
@@ -22,6 +25,9 @@ const ngasaya_data = require("../../data/input_data.json")["ngasaya_data_gpl_int
 describe('Make Group Interview Appointment', () => {
 
     it('Make Group Interview Appointment', async () => {
+
+        await Util.goToHomeScreen();
+
         let createNewGroup = true
 
         for (const group of groupList) {

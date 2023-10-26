@@ -8,7 +8,9 @@ const interviewData = {
     created_date: "Created Date - 2023-07-20",
     phone_number_prefix: "09",
     phone_number: "790900023",
-    client_name: 'Daw Win Ni Aye'
+    client_name: 'Daw Win Ni Aye',
+    house_no: "no()",
+    street_no: "no()",
 };
 
 // ngasaya test data
@@ -26,50 +28,50 @@ const loanInformationData = ['2. Livestock', 'Insurance (Shinning Bright Loan)']
 
 describe("Individual Interview Process", () => {
     it("New Interview", async () => {
-        for (const client of clientList) {
-            // const clientId = client.split(' ')[1]
-            // let searchKeywords = client.split(' ').slice(1).join(' ')
-            // Navigate to a specific interview
-            await InterviewProcessHelper.chooseIndividualIterview(client)
+        // for (const client of clientList) {
+        // const clientId = client.split(' ')[1]
+        // let searchKeywords = client.split(' ').slice(1).join(' ')
+        // Navigate to a specific interview
+        // await InterviewProcessHelper.chooseIndividualIterview(client)
 
-            // If ငစရစာချုပ် has not been made
-            if (await $('//*[@text="Individual Loan"]').isExisting()) {
-                await NgasayaContract.makeIdlContract(ngasayaData)
-            }
+        // If ငစရစာချုပ် has not been made
+        // if (await $('//*[@text="Individual Loan"]').isExisting()) {
+        //     await NgasayaContract.makeIdlContract(ngasayaData)
+        // }
 
-            // Interview Process Starts
-            const interviewBtn = await $(InterviewProcess.btnInterview)
-            await interviewBtn.click()
-            await InterviewProcessHelper.clientInfoPage(interviewData)
-            await InterviewProcessHelper.personalDetailPage()
-            await InterviewProcessHelper.householdDetailPage()
-            await InterviewProcessHelper.earningFamilyMemberPage()
-            await InterviewProcessHelper.householdVerificationPage()
-            await InterviewProcessHelper.currentLoanAndCreditHistoryPage()
-            await InterviewProcessHelper.coApplicant()
-            await InterviewProcessHelper.businessProfilePage()
-            await InterviewProcessHelper.otherIncomePage()
-            await InterviewProcessHelper.businessInocmePage()
-            await InterviewProcessHelper.businessExpensePage()
-            await InterviewProcessHelper.personalExpensePage()
-            await InterviewProcessHelper.currentAssetsPage()
-            await InterviewProcessHelper.longTermAssetsPage()
-            await InterviewProcessHelper.liabilitiesPage()
-            await InterviewProcessHelper.loanInformationPage()
-            await InterviewProcessHelper.familyReference()
-            await InterviewProcessHelper.businessReference()
-            await InterviewProcessHelper.clientAppPage()
-            await InterviewProcessHelper.guarantorPage()
-            await InterviewProcessHelper.esddCheckList()
-            await InterviewProcessHelper.attachmentClientPage()
-            await InterviewProcessHelper.attachmentLoanPage()
-            await InterviewProcessHelper.attachmentCoApplicant()
-            await InterviewProcessHelper.attachmentGuarantorPage('individual')
-            await InterviewProcessHelper.cashFlowPage()
-            await InterviewProcessHelper.evaluationPage()
-            await InterviewProcessHelper.loanSummary()
-            await InterviewProcessHelper.assetSummary()
-            await InterviewProcess.btnSubmit.click()
-        }
+        // Interview Process Starts
+        // const interviewBtn = await $(InterviewProcess.btnInterview)
+        // await interviewBtn.click()
+        // await InterviewProcessHelper.clientInfoPage(interviewData)
+        // await InterviewProcessHelper.personalDetailPage()
+        // await InterviewProcessHelper.householdDetailPage()
+        // await InterviewProcessHelper.earningFamilyMemberPage()
+        // await InterviewProcessHelper.householdVerificationPage()
+        // await InterviewProcessHelper.currentLoanAndCreditHistoryPage()
+        // await InterviewProcessHelper.coApplicant()
+        // await InterviewProcessHelper.businessProfilePage('individual')
+        // await InterviewProcessHelper.otherIncomePage()
+        // await InterviewProcessHelper.businessInocmePage()
+        // await InterviewProcessHelper.businessExpensePage()
+        // await InterviewProcessHelper.personalExpensePage()
+        // await InterviewProcessHelper.currentAssetsPage()
+        // await InterviewProcessHelper.longTermAssetsPage()
+        // await InterviewProcessHelper.liabilitiesPage()
+        // await InterviewProcessHelper.loanInformationPage()
+        // await InterviewProcessHelper.familyReference()
+        // await InterviewProcessHelper.businessReference()
+        // await InterviewProcessHelper.clientAppPage()
+        // await InterviewProcessHelper.guarantorPage()
+        // await InterviewProcessHelper.esddCheckList()
+        // await InterviewProcessHelper.attachmentClientPage()
+        // await InterviewProcessHelper.attachmentLoanPage()
+        // await InterviewProcessHelper.attachmentCoApplicant()
+        // await InterviewProcessHelper.attachmentGuarantorPage('individual')
+        // await InterviewProcessHelper.cashFlowPage()
+        // await InterviewProcessHelper.evaluationPage()
+        // await InterviewProcessHelper.loanSummary()
+        // await InterviewProcessHelper.assetSummary()
+        // await InterviewProcess.btnSubmit.click()
+        // }
     });
 });

@@ -1,4 +1,4 @@
-const LoginScreen = require('../../screen-objects/login.screen')
+const LoginScreen = require('../../screenobjects/login.screen')
 const userCredentials = require('../../data/input_data.json').user_credentials
 
 const validCredentials = userCredentials.valid_credentials
