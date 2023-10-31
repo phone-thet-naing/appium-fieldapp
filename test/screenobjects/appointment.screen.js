@@ -98,6 +98,14 @@ class AppointmentScreen {
         await this.new_member_dob_picker.click();
         await this.dateOkBtn.click();
     }
+
+    get ivDate() {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/ivDate"]')
+    }
+
+    get radioSelectBtn() {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/layoutSelectIcon"]')
+    }
 }
 
 module.exports = new AppointmentScreen()

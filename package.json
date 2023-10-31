@@ -6,8 +6,7 @@
   "scripts": {
     "test": "wdio wdio.conf.js",
     "wdio": "wdio run ./wdio.conf.js",
-    "run:test": "run test",
-    "make_idl_appointment_new_client": " -- --spec test/specs/appointment/idl-make-appointment.js --grep 'Make appointment with new client'"
+    "run:test": "run test"
   },
   "keywords": [],
   "author": "",

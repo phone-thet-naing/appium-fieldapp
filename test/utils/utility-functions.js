@@ -180,6 +180,11 @@ class Utility {
     }
   }
 
+  async flingToEnd(className, maxSwipe) {
+    const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).flingToEnd(${maxSwipe})`
+    await $(query)
+  }
+
   getRandomIndex(max, min) {
     return Math.floor(Math.random() * (max - min) + min);
   }
