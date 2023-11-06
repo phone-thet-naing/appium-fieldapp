@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: 20.5.1
 
+      - name: Start Android Emulator
+        run: emulator -avd Pixel_3_API_31 -no-window -no-audio
+        env:
+          ANDROID_SDK_ROOT: C:\Users\Hana\AppData\Local\Android\Sdk\emulator
+
       - name: Install dependencies
         run: npm install
 
@@ -25,7 +30,7 @@ jobs:
         run: |
           # Install Appium globally
           npm install -g appium
-          
+
           # Install Appium dependencies for Windows
           npm install -g appium-windows-driver
 
