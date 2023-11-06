@@ -3,6 +3,7 @@ const AppointmentScreen = require('../../screenobjects/appointment.screen')
 const Util = require('../utility-functions')
 const { main } = require("appium")
 const Main = require('../../screenobjects/main')
+const { isMemberName } = require("typescript")
 // const AppointmentScreen = require('../../screen_objects/appointment.screen-debug')
 var adjective = ["Excited", "Anxious", "Overweight", "Demonic", "Jumpy", "Misunderstood", "Squashed", "Gargantuan", "Broad", "Crooked", "Curved", "Deep", "Even", "Excited", "Anxious", "Overweight", "Demonic", "Jumpy", "Misunderstood", "Squashed", "Gargantuan", "Broad", "Crooked", "Curved", "Deep", "Even", "Flat", "Hilly", "Jagged", "Round", "Shallow", "Square", "Steep", "Straight", "Thick", "Thin", "Cooing", "Deafening", "Faint", "Harsh", "High-pitched", "Hissing", "Hushed", "Husky", "Loud", "Melodic", "Moaning", "Mute", "Noisy", "Purring", "Quiet", "Raspy", "Screeching", "Shrill", "Silent", "Soft", "Squeaky", "Squealing", "Thundering", "Voiceless", "Whispering"]
 var object = ["Taco", "Operating System", "Sphere", "Watermelon", "Cheeseburger", "Apple Pie", "Spider", "Dragon", "Remote Control", "Soda", "Barbie Doll", "Watch", "Purple Pen", "Dollar Bill", "Stuffed Animal", "Hair Clip", "Sunglasses", "T-shirt", "Purse", "Towel", "Hat", "Camera", "Hand Sanitizer Bottle", "Photo", "Dog Bone", "Hair Brush", "Birthday Card"]
@@ -174,46 +175,70 @@ class MakeAppointmentHelper {
         await selectedLeader.click()
     }
 
+    async chooseMember() {
+        const memberList = await driver.waitUntil(async () => {
+            const checkboxList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/cbGroupUser"]');
+            if (checkboxList.length < 2) {
+                return false;
+            }
+            return checkboxList;
+        })
+
+        const memberNameList = await driver.waitUntil(async () => {
+            const tvNameList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvGroupMemberName"]');
+            if (tvNameList.length < 2) {
+                return false;
+            }
+            return tvNameList;
+        })
+
+        for (let i = 0; i < memberList.length; i++) {
+            if (await memberList[i].getAttribute('checked') === 'false') {
+                await memberNameList[i].click()
+            }
+        }
+    }
+
+    // This code will choose a random group from existing groups
+    async chooseRandomGroup() {
+        await Util.flingToEnd('androidx.recyclerview.widget.RecyclerView', Math.floor((Math.random() * 4) + 1));
+
+        // This will generate a random index for displayed checkbox btns
+        const randomGroup = await driver.waitUntil(async () => {
+            const chooseBtnList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/choose_group_button"]');
+            if (chooseBtnList.length < 2) {
+                return false;
+            }
+
+            return chooseBtnList[Math.floor(Math.random() * (chooseBtnList.length - 1))];
+        })
+
+        await randomGroup.click();
+    }
+
     async makeGroupAppointment(group, createNewGroup) {
         // Go to appointment
         await HomeScreen.appointmentIcon.click()
 
-        // await this.fillAppointmentData('Group Loan')
         await this.fillAppointmentData('Group Loan')
 
-        // Create New Group
-        if (createNewGroup) {
-            await AppointmentScreen.createNewGroup.click() // click create new group
-            await AppointmentScreen.actionSpinner.click() // click actions spinner
-            await $(`//*[@text="${'Add Existing Member'}"]`).click() // click action []
-            // await AppointmentScreen.addExistingMemberIcon.click();
-            await $(`//*[@text="ADD MEMBERS"]`).waitForExist({ timeout: 3000 })
-            for (const client of group) {
-                // Get search keywords from 
-                let searchKeywords = client.split(' ').slice(1).join(' ')
-                await AppointmentScreen.searchBar.setValue(searchKeywords)
-                await $(`android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${client}")`)
-                await $(`//*[@text="${client}"]`).waitForExist({ timeout: 60000 })
-                await $(`//*[@text="${client}"]`).click()
-                await driver.pause(1000)
-            }
-            await AppointmentScreen.addBtn.click()
-            await driver.pause(1000)
-            await $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/chkGroupLeader"]`).click()
-            const groupLeaderRadioBtnList = await $$(AppointmentScreen.checkGroupLeader)
-            const btnCount = groupLeaderRadioBtnList.length
-            await groupLeaderRadioBtnList[Math.floor(Math.random() * btnCount)].click()
-            await AppointmentScreen.createNewNgasayaBtn.click()
-            // await driver.pause(3000)
-            await expect($('//*[@text="ငစရစာချုပ်"]')).toExist()
-        }
+        await this.chooseRandomGroup();
+
+        await this.chooseMember()
+
+        await this.chooseLeader();
+
+        await AppointmentScreen.createNewNgasayaBtn.click()
 
     }
 
-    async makeGroupAppointmentWithNewGroup() {
-        // await HomeScreen.appointmentIcon.click()
+    /**
+     * 
+     * @param {*} param0 
+     */
+    async makeGroupAppointmentWithNewGroup({ totalMembers }) {
+        await HomeScreen.appointmentIcon.click()
 
-        // await this.fillAppointmentData('Group Loan')
         await this.fillAppointmentData('Group Loan')
 
         await AppointmentScreen.createNewGroup.waitForExist({ timeoutMsg: 'Create button not found' });
@@ -223,7 +248,7 @@ class MakeAppointmentHelper {
         await Main.asyncClick($(`//*[@text="${'Add Existing Member'}"]`))
 
         // argument -> number of members
-        await this.addMember(2)
+        await this.addMember(totalMembers)
 
         await this.chooseLeader()
 
@@ -231,23 +256,29 @@ class MakeAppointmentHelper {
 
     }
 
+    // This code will make an appointment with an existing client
     async makeIndividualAppointment(desired_client) {
 
-        await HomeScreen.appointmentIcon.click()
+        // await HomeScreen.appointmentIcon.click()
         // Fill Appointment Data
         await this.fillAppointmentData('Individual Loan')
 
+        await expect(await AppointmentScreen.addExistingMemberIcon).toExist();
         await AppointmentScreen.addExistingMemberIcon.click();
-        const client = desired_client
-        // const clientId = client.slice(4, 9)
-        // await AppointmentScreen.searchBar.setValue(clientId)
-        let searchKeywords = client.split(' ').slice(1).join(' ')
-        await AppointmentScreen.searchBar.setValue(searchKeywords)
-        await $(`android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${client}")`)
-        await $(`//*[@text="${client}"]`).waitForExist({ timeout: 60000 })
-        await $(`//*[@text="${client}"]`).click()
-        await driver.pause(1000)
-        await AppointmentScreen.addBtn.click();
+
+        await this.addMember(1);
+
+        // const client = desired_client
+        // // const clientId = client.slice(4, 9)
+        // // await AppointmentScreen.searchBar.setValue(clientId)
+        // let searchKeywords = client.split(' ').slice(1).join(' ')
+        // await AppointmentScreen.searchBar.setValue(searchKeywords)
+        // await $(`android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${client}")`)
+        // await $(`//*[@text="${client}"]`).waitForExist({ timeout: 60000 })
+        // await $(`//*[@text="${client}"]`).click()
+        // await driver.pause(1000)
+
+        // await AppointmentScreen.addBtn.click();
         await AppointmentScreen.createAppointmentBtn.click();
     }
 

@@ -25,20 +25,7 @@ const listLabels = [
 describe("sample", () => {
   it("general testing", async () => {
 
-    const loanAmountTextBox = await driver.waitUntil(async () => {
-      const editBoxList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/edtLoanAmount"]');
-
-      if (editBoxList.length < 2) {
-        return false
-      }
-
-      return editBoxList
-    })
-
-    // console.log('total edit box => ', loanAmountTextBox)
-    for await (const item of loanAmountTextBox) {
-      console.log(await item.getText());
-    }
+    await InterviewProcessHelper.businessProfilePage('individual');
 
   });
 });

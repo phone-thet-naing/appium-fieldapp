@@ -19,15 +19,19 @@ class Utility {
     //   await driver.back();
     // }
 
-    await driver.waitUntil(async () => {
-      if (await HomeScreen.clientMenu.isExisting() !== true) {
-        await driver.back()
-        return false
-      }
-      return (await HomeScreen.clientMenu.isExisting() === true);
-    }, {
-      timeoutMsg: 'Client menu not found'
-    })
+    while (!(await HomeScreen.appointmentIcon.isExisting())) {
+      await driver.back();
+    }
+
+    // await driver.waitUntil(async () => {
+    //   if (await HomeScreen.clientMenu.isExisting() !== true) {
+    //     await driver.back()
+    //     return false
+    //   }
+    //   return (await HomeScreen.clientMenu.isExisting() === true);
+    // }, {
+    //   timeoutMsg: 'Client menu not found'
+    // })
   }
 
   get signatureDoneBtn() {

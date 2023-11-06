@@ -85,6 +85,10 @@ class NgasayaScreen {
     return $('//*[@resource-id="android:id/date_picker_header_date"]');
   }
 
+  get tvSignMultiple() {
+    return ('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSign"]')
+  }
+
   get ivSign() 
   {
     return ('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/ivSign"]');

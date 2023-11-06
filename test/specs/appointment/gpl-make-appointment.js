@@ -25,23 +25,16 @@ const ngasaya_data = require("../../data/input_data.json")["ngasaya_data_gpl_int
 describe('Make Group Interview Appointment', () => {
 
     it.only('Make Group Appointment with New Group', async () => {
-        // await Util.goToHomeScreen();
+        await Util.goToHomeScreen();
 
-        await MakeAppointmentHelper.makeGroupAppointmentWithNewGroup()
-        await NgasayaContractHelper.makeNgaSaYaContract(ngasaya_data)
+        await MakeAppointmentHelper.makeGroupAppointmentWithNewGroup({ totalMembers: 5 });
+        await NgasayaContractHelper.makeNgaSaYaContract(ngasaya_data);
     })
 
     it('Make Group Interview Appointment', async () => {
-
         await Util.goToHomeScreen();
 
-        let createNewGroup = true
-
-        for (const group of groupList) {
-            await MakeAppointmentHelper.makeGroupAppointment(group, createNewGroup)
-            return;
-            await NgasayaContractHelper.makeNgaSaYaContract(ngasaya_data)
-        }
-
+        await MakeAppointmentHelper.makeGroupAppointment();
+        await NgasayaContractHelper.makeNgaSaYaContract(ngasaya_data);
     })
 })

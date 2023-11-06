@@ -30,6 +30,17 @@ exports.config = {
   exclude: [
     // 'path/to/excluded/files'
   ],
+
+  // Test suites
+  suites: {
+    collection: [
+      [
+        './test/specs/collection/OverdueCollectionTest.js',
+        './test/specs/collection/FutureCollectionTest.js',
+        './test/specs/collection/VSavingCollectionTest.js'
+      ]
+    ]
+  },
   //
   // ============
   // Capabilities
@@ -57,12 +68,12 @@ exports.config = {
       // capabilities for local Appium web tests on an Android Emulator
       platformName: "Android", // or "iOS"
       // "appium:deviceName": "KZONY5EULZMBVOKV", // or "iPhone Simulator",
-      "appium:deviceName": "android_device", // Pixel 5
+      "appium:deviceName": "emulator-5554", // Pixel 5
       "appium:platformVersion": "12.0", // or "16.2" (for running iOS v16)
       "appium:automationName": "UiAutomator2", // or "XCUITest"
       "appium:app": path.join(
         process.cwd(),
-        "./app/android/Hana-MFI-Field-App-2.3.0 - 2030002-uat.apk"
+        "./app/android/Hana-MFI-Field-App-2.3.1 - 2030104-uat.apk"
       ),
       "appium:appPackage": "com.hanamicrofinance.FieldApp.uat",
       "appium:appActivity":
@@ -151,7 +162,7 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: 600000,
+    timeout: 1_800_000,
   },
   //
   // =====

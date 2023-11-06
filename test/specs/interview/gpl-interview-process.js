@@ -42,7 +42,7 @@ describe("Group Interview Process", () => {
 
     // // Interview Process Starts
     const interviewBtnList = await $$(InterviewProcess.btnInterview);
-    for (const interviewBtn of interviewBtnList) {
+    for await (const interviewBtn of interviewBtnList) {
       await interviewBtn.click();
       await InterviewProcessHelper.clientInfoPage();
       await InterviewProcessHelper.personalDetailPage();

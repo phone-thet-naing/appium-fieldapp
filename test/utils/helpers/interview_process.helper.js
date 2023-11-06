@@ -2,6 +2,7 @@ const HomeScreen = require("../../screenobjects/home.screen");
 const InterviewProcess = require("../../screenobjects/interview-process.screen");
 const Util = require("../utility-functions");
 const Main = require("../../screenobjects/main");
+const interviewProcessScreen = require("../../screenobjects/interview-process.screen");
 
 class InterviewProcessHelper {
   async navigateToInterview(desiredGroupLeader) {
@@ -236,30 +237,93 @@ class InterviewProcessHelper {
       }
     }
 
-    await Util.scrollTextIntoViewByClass(
-      "android.widget.ScrollView",
-      "အလုပ်သမား ဦးရေ *"
-    );
+    await Util.scrollTextIntoViewByClass("android.widget.ScrollView", "အလုပ်သမား ဦးရေ *");
 
-    const numberOfWorkers = await $(InterviewProcess.editText);
-    if (await numberOfWorkers.getText() == "") {
-      await numberOfWorkers.setValue(10);
+    // Set အလုပ်သမားဦးရေ with a random number
+    const numberOfWorkersInputBox = await driver.waitUntil(async () => {
+      const inputbox = await $$(InterviewProcess.editText);
+
+      if (inputbox.length < 1) return false
+
+      return inputbox[0]
+    })
+
+    if (await numberOfWorkersInputBox.getText() == "") {
+      await numberOfWorkersInputBox.setValue(Math.floor(Math.random() * 10));
     }
 
     // If it was Individual Interview
     if (interviewType == "individual") {
-      const advantageOfLocation = await $$(InterviewProcess.checkBoxes);
-      await advantageOfLocation[Math.floor(Math.random() * 3)].click();
-      await Util.scrollToEndByClass();
+      const desiredLabel = "တည်နေရာ အားသာချက် *";
 
-      const timeOfConvenienceList = await $$(InterviewProcess.checkBoxes);
-      await timeOfConvenienceList[Math.floor(Math.random() * 3)].click();
+      while (!(await $(`//*[@text="${desiredLabel}"]`).isDisplayed())) {
+        await Util.scrollTextIntoViewByClass(undefined, desiredLabel);
+      }
+
+      // Setting a random တည်နေရာအားသာချက်
+      const randomAdvantage = await driver.waitUntil(async () => {
+        const checkboxList = await $$(InterviewProcess.checkBoxes);
+        if (checkboxList.length < 4) {
+          return false;
+        }
+
+        let randomIndex = Math.floor(Math.random() * checkboxList.length);
+
+        return checkboxList[randomIndex];
+      })
+
+      if (await randomAdvantage.getAttribute('checked') === 'true') {
+        await randomAdvantage.click();
+        await randomAdvantage.click();
+      } else {
+        await randomAdvantage.click();
+      }
+
+      await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+
+      const randomTimeOfConvenience = await driver.waitUntil(async () => {
+        const checkboxList = await $$(InterviewProcess.checkBoxes);
+        if (checkboxList.length < 3) {
+          return false;
+        }
+
+        let randomIndex = Math.floor(Math.random() * checkboxList.length);
+
+        return checkboxList[randomIndex];
+      })
+
+      if (await randomTimeOfConvenience.getAttribute('checked') === 'true') {
+        await randomTimeOfConvenience.click();
+        await randomTimeOfConvenience.click();
+      } else {
+        await randomTimeOfConvenience.click();
+      }
     }
 
     // if NEXT button was not displayed in DOM scroll to it
     while (!await InterviewProcess.nextBtn.isDisplayed()) {
       await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
     }
+    await InterviewProcess.nextBtn.click();
+  }
+
+  async otherIncomeIndividual() {
+    const incomeInputList = await driver.waitUntil(async () => {
+      const editBoxList = await $$(InterviewProcess.editText);
+
+      if (editBoxList.length < 3) {
+        return false;
+      }
+      return editBoxList;
+    })
+
+    for await (const inputbox of incomeInputList) {
+      if (await inputbox.getText() == "") {
+        await inputbox.setValue(Math.floor(Math.random() * 7 + 1) * 100000);
+      }
+    }
+
+
     await InterviewProcess.nextBtn.click();
   }
 
@@ -599,18 +663,24 @@ class InterviewProcessHelper {
   }
 
   async attachmentCoApplicant() {
-    await Util.scrollTextIntoViewByClass(
-      "android.widget.ScrollView",
-      "Co-applicant photo *"
-    );
-    const attachmentList = await $$(InterviewProcess.ivImage);
-    for (const currentAttachment of attachmentList) {
-      await currentAttachment.click();
-      await this.uploadPhoto();
+    const requiredFields = [
+      "Co-applicant photo *",
+      "Co-applicant NRC Front *",
+      "Co-applicant NRC Back *",
+      "Co-applicant household list *",
+    ];
+
+    await this.uploadRequiredPhotos(requiredFields);
+
+    while (!await InterviewProcess.signField.isDisplayed()) {
+      await Util.scrollIntoView(undefined, "com.hanamicrofinance.FieldApp.uat:id/ivSign");
     }
-    await Util.scrollToEndByClass();
-    await InterviewProcess.signField.click();
+    await Main.asyncClick(InterviewProcess.signField);
     await Util.drawSignature();
+
+    while (!(await InterviewProcess.nextBtn.isDisplayed())) {
+      await Util.scrollToEndByClass();
+    }
     await InterviewProcess.nextBtn.click();
   }
 
@@ -679,31 +749,69 @@ class InterviewProcessHelper {
   }
 
   async assetSummary() {
-    await Util.scrollToEndByClass();
+    // await Util.scrollToEndByClass();
+    await Util.scrollTextIntoViewByClass(undefined, 'DONE')
     await InterviewProcess.doneBtn.click();
   }
 
   async coApplicant() {
-    const edTextList1 = await $$(InterviewProcess.editText);
-    for (let i = 0; i < edTextList1.length; i++) {
-      switch (i) {
-        case 0:
-          if (await edTextList1[i].getText() == "") {
-            await edTextList1[i].setValue("Mr. Dummy Name");
-          }
-          break;
+    const desiredLabel = 'အတူလျှောက်ထားသူ၏အမည် *';
 
-        case 1:
-          if (await edTextList1[i].getText() == "") {
-            await edTextList1[i].setValue("09751999000");
-          }
-          break;
+    while (!(await $(`//*[@text="${desiredLabel}"]`).isDisplayed())) {
+      await Util.scrollTextIntoViewByClass(undefined, desiredLabel);
+    }
 
-        default:
-          break;
+    const coapplicantName = await driver.waitUntil(async () => {
+      const editText = await $$(InterviewProcess.editText);
+
+      if (editText.length < 1) {
+        return false;
       }
+
+      return editText[0];
+    })
+
+    if (await coapplicantName.getText() == "") {
+      await coapplicantName.setValue('Mr. CoApplicant');
     }
     await this.fillNrc();
+
+    const coapplicantPhoneLabel = "NEXT";
+    while (!(await $(`//*[@text="${coapplicantPhoneLabel}"]`).isExisting())) {
+      await Util.scrollTextIntoViewByClass(undefined, coapplicantPhoneLabel);
+    }
+
+    const coapplicantPhone = await driver.waitUntil(async () => {
+      const editText = await $$(InterviewProcess.editText);
+
+      if (editText.length < 2) {
+        return false;
+      }
+
+      return editText[0];
+    })
+
+    await coapplicantPhone.setValue('09790900023');
+
+    // const edTextList1 = await $$(InterviewProcess.editText);
+    // for (let i = 0; i < edTextList1.length; i++) {
+    //   switch (i) {
+    //     case 0:
+    //       if (await edTextList1[i].getText() == "") {
+    //         await edTextList1[i].setValue("Mr. Dummy Name");
+    //       }
+    //       break;
+
+    //     case 1:
+    //       if (await edTextList1[i].getText() == "") {
+    //         await edTextList1[i].setValue("09751999000");
+    //       }
+    //       break;
+
+    //     default:
+    //       break;
+    //   }
+    // }
     await Util.scrollToEndByClass();
 
     const addressBox = await driver.waitUntil(async () => {
@@ -749,31 +857,6 @@ class InterviewProcessHelper {
     await InterviewProcess.nextBtn.click();
   }
 
-  // if (loanType === "individual") {
-  //   await $(InterviewProcess.ivImage).waitForExist({ timeout: 3000 });
-  //   let attachmentList = await $$(InterviewProcess.ivImage);
-
-  //   await attachmentList[attachmentList.length - 1].click();
-  //   await this.uploadPhotoFromGallery();
-  //   await $('//*[@text="Interview Appointment"]').waitForExist({
-  //     timeout: 3000,
-  //   });
-
-  //   await Util.scrollToEndByClass("android.widget.ScrollView");
-
-  //   attachmentList = await $$(InterviewProcess.ivImage);
-  //   for (let attachment of attachmentList) {
-  //     await attachment.click();
-  //     await this.uploadPhotoFromGallery();
-  //   }
-  // } else if (loanType === "group") {
-  //   const attachmentList = await $$(InterviewProcess.ivImage);
-  //   for (const currentAttachment of attachmentList) {
-  //     // await currentAttachment.waitForExist({ timeout: 5000, timeoutMsg: 'Attachment Not Found' })
-  //     await currentAttachment.click();
-  //     await this.uploadPhotoFromGallery();
-  //   }
-  // }
 }
 
 module.exports = new InterviewProcessHelper();
