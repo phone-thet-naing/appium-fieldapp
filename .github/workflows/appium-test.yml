@@ -1,0 +1,33 @@
+# .github/workflows/appium-test.yml
+
+name: Appium Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  appium-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.5.1
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Appium (Windows)
+        run: |
+          # Install Appium globally
+          npm install -g appium
+          
+          # Install Appium dependencies for Windows
+          npm install -g appium-windows-driver
+
+      - name: Run Appium Tests
+        run: npm test
