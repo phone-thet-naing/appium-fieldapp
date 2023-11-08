@@ -35,10 +35,10 @@ describe("Group Interview Process", () => {
     // // Navigate to a specific interview
     // await InterviewProcessHelper.navigateToInterview();
 
-    // // If ငစရစာချုပ် has not been made
-    // if (await $('//*[@text="ငစရစာချုပ်"]').isExisting()) {
-    //   await NgasayaContract.makeNgaSaYaContract(ngasaya_data);
-    // }
+    // If ငစရစာချုပ် has not been made
+    if (await $('//*[@text="ငစရစာချုပ်"]').isExisting()) {
+      await NgasayaContract.makeNgaSaYaContract(ngasaya_data);
+    }
 
     // // Interview Process Starts
     const interviewBtnList = await $$(InterviewProcess.btnInterview);

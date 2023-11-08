@@ -37,7 +37,7 @@ class InterviewProcessHelper {
   async chooseIndividualIterview(data) {
     await HomeScreen.toInterview.click();
     await $(InterviewProcess.interviewTypeTabs).waitForExist({
-      timeout: 5000
+      timeout: 5000,
     });
     const items = await $$(InterviewProcess.interviewTypeTabs);
     await items[2].click();
@@ -94,7 +94,7 @@ class InterviewProcessHelper {
 
   async personalDetailPage() {
     await $('//*[@text="PERSONAL DETAIL"]').waitForExist({
-      timeout: 6000
+      timeout: 6000,
     });
     // // ပညာအရည်အချင်း
     // await InterviewProcess.clickDropDown(1)
@@ -147,7 +147,7 @@ class InterviewProcessHelper {
         await inputBox.setValue(Math.floor(Math.random() * 35 + 15));
       }
     }
-    while (!await InterviewProcess.nextBtn.isDisplayed()) {
+    while (!(await InterviewProcess.nextBtn.isDisplayed())) {
       await Util.scrollTextIntoViewByClass(undefined, "NEXT");
     }
 
@@ -169,8 +169,10 @@ class InterviewProcessHelper {
   }
 
   async businessProfilePage(interviewType) {
-
-    if (!await $('//*[@text="လုပ်ငန်း အမျိုးအစား *"]').isDisplayed() || !await $('//*[@text="လက်ရှိ လုပ်ငန်းအုပ်စု *"]').isDisplayed()) {
+    if (
+      !(await $('//*[@text="လုပ်ငန်း အမျိုးအစား *"]').isDisplayed()) ||
+      !(await $('//*[@text="လက်ရှိ လုပ်ငန်းအုပ်စု *"]').isDisplayed())
+    ) {
       await Util.scrollToBeginning();
     }
 
@@ -178,7 +180,7 @@ class InterviewProcessHelper {
     const businessGroupDropdown = await $(InterviewProcess.spinner);
     await businessGroupDropdown.click();
     await $(InterviewProcess.tvItem).waitForExist({
-      timeout: 3000
+      timeout: 3000,
     });
     const businessTypeItems = await $$(InterviewProcess.tvItem);
     await businessTypeItems[Math.floor(Math.random() * 4)].click();
@@ -237,20 +239,30 @@ class InterviewProcessHelper {
       }
     }
 
-    await Util.scrollTextIntoViewByClass("android.widget.ScrollView", "အလုပ်သမား ဦးရေ *");
+    await Util.scrollTextIntoViewByClass(
+      "android.widget.ScrollView",
+      "အလုပ်သမား ဦးရေ *"
+    );
 
     // Set အလုပ်သမားဦးရေ with a random number
-    const numberOfWorkersInputBox = await driver.waitUntil(async () => {
-      const inputbox = await $$(InterviewProcess.editText);
+    const numberofworkersInputbox = await InterviewProcess.inputBox;
 
-      if (inputbox.length < 1) return false
-
-      return inputbox[0]
-    })
-
-    if (await numberOfWorkersInputBox.getText() == "") {
-      await numberOfWorkersInputBox.setValue(Math.floor(Math.random() * 10));
+    if ((await numberofworkersInputbox.getText()) == "") {
+      const numberofworkers = Math.floor(Math.random() * 10);
+      await numberofworkersInputbox.setValue(numberofworkers);
     }
+
+    // const numberOfWorkersInputBox = await driver.waitUntil(async () => {
+    //   const inputbox = await $$(InterviewProcess.editText);
+
+    //   if (inputbox.length < 1) return false;
+
+    //   return inputbox[0];
+    // });
+
+    // if ((await numberOfWorkersInputBox.getText()) == "") {
+    //   await numberOfWorkersInputBox.setValue(Math.floor(Math.random() * 10));
+    // }
 
     // If it was Individual Interview
     if (interviewType == "individual") {
@@ -270,16 +282,16 @@ class InterviewProcessHelper {
         let randomIndex = Math.floor(Math.random() * checkboxList.length);
 
         return checkboxList[randomIndex];
-      })
+      });
 
-      if (await randomAdvantage.getAttribute('checked') === 'true') {
+      if ((await randomAdvantage.getAttribute("checked")) === "true") {
         await randomAdvantage.click();
         await randomAdvantage.click();
       } else {
         await randomAdvantage.click();
       }
 
-      await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+      await Util.scrollTextIntoViewByClass(undefined, "NEXT");
 
       const randomTimeOfConvenience = await driver.waitUntil(async () => {
         const checkboxList = await $$(InterviewProcess.checkBoxes);
@@ -290,9 +302,9 @@ class InterviewProcessHelper {
         let randomIndex = Math.floor(Math.random() * checkboxList.length);
 
         return checkboxList[randomIndex];
-      })
+      });
 
-      if (await randomTimeOfConvenience.getAttribute('checked') === 'true') {
+      if ((await randomTimeOfConvenience.getAttribute("checked")) === "true") {
         await randomTimeOfConvenience.click();
         await randomTimeOfConvenience.click();
       } else {
@@ -301,8 +313,8 @@ class InterviewProcessHelper {
     }
 
     // if NEXT button was not displayed in DOM scroll to it
-    while (!await InterviewProcess.nextBtn.isDisplayed()) {
-      await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+    while (!(await InterviewProcess.nextBtn.isDisplayed())) {
+      await Util.scrollTextIntoViewByClass(undefined, "NEXT");
     }
     await InterviewProcess.nextBtn.click();
   }
@@ -315,20 +327,18 @@ class InterviewProcessHelper {
         return false;
       }
       return editBoxList;
-    })
+    });
 
     for await (const inputbox of incomeInputList) {
-      if (await inputbox.getText() == "") {
+      if ((await inputbox.getText()) == "") {
         await inputbox.setValue(Math.floor(Math.random() * 7 + 1) * 100000);
       }
     }
-
 
     await InterviewProcess.nextBtn.click();
   }
 
   async otherIncomePage() {
-
     await expect(await $('//*[@text="အခြား ဝင်ငွေ အရေအတွက်"]')).toExist();
     const inputBoxes = await $$(InterviewProcess.editText);
     for (const item of inputBoxes) {
@@ -444,13 +454,13 @@ class InterviewProcessHelper {
     }
     // const spinnerList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/spinner"]')
     await $(InterviewProcess.spinner).waitForExist({
-      timeout: 3000
+      timeout: 3000,
     });
     const spinnerList = await $$(InterviewProcess.spinner);
     for (let i = 0; i < spinnerList.length; i++) {
       await spinnerList[i].click();
       await $(InterviewProcess.tvItem).waitForExist({
-        timeout: 3000
+        timeout: 3000,
       });
       const items = await $$(InterviewProcess.tvItem);
       const randomIndex = Math.floor(Math.random() * (items.length - 1));
@@ -468,7 +478,7 @@ class InterviewProcessHelper {
   async fillNrc() {
     await InterviewProcess.etNrc.click();
     await InterviewProcess.spinnerState.waitForExist({
-      timeout: 3000
+      timeout: 3000,
     });
     await InterviewProcess.spinnerState.click();
     await $(`//*[@text="၉"]`).click();
@@ -566,10 +576,7 @@ class InterviewProcessHelper {
         );
       }
 
-      const {
-        x,
-        y
-      } = await $(`//*[@text="${fieldName}"]`).getLocation();
+      const { x, y } = await $(`//*[@text="${fieldName}"]`).getLocation();
       await Util.tap(x + 100, y + 100);
       if (!(await InterviewProcess.chooseFromGalleryBtn.isExisting())) {
         await driver.back();
@@ -586,10 +593,7 @@ class InterviewProcessHelper {
         signFieldName
       );
 
-      const {
-        x,
-        y
-      } = await $(`//*[@text="${signFieldName}"]`).getLocation();
+      const { x, y } = await $(`//*[@text="${signFieldName}"]`).getLocation();
       // await Util.tap(x + 50, y + 50);
       await await InterviewProcess.signField.click();
       await Util.drawSignature();
@@ -597,32 +601,45 @@ class InterviewProcessHelper {
   }
 
   async uploadPhotoFromGallery() {
-    await InterviewProcess.chooseFromGalleryBtn.waitForExist({ timeoutMsg: 'gallery button not found' });
+    await InterviewProcess.chooseFromGalleryBtn.waitForExist({
+      timeoutMsg: "gallery button not found",
+    });
     await InterviewProcess.chooseFromGalleryBtn.click();
 
-    const firstPhotoIcon = await driver.waitUntil(async () => {
-      const photoIcons = await $$('//*[@resource-id="com.google.android.documentsui:id/icon_thumb"]');
-      if (photoIcons.length === 0) {
-        return false;
+    const firstPhotoIcon = await driver.waitUntil(
+      async () => {
+        const photoIcons = await $$(
+          '//*[@resource-id="com.google.android.documentsui:id/icon_thumb"]'
+        );
+        if (photoIcons.length === 0) {
+          return false;
+        }
+
+        return photoIcons[0];
+      },
+      {
+        timeoutMsg: "Photo icons not displayed",
       }
+    );
 
-      return photoIcons[0];
-    }, {
-      timeoutMsg: 'Photo icons not displayed'
-    })
-
-    console.log('first photo icon => ', firstPhotoIcon);
+    console.log("first photo icon => ", firstPhotoIcon);
 
     await firstPhotoIcon.click();
 
-    await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]').waitForExist({ timeoutMsg: 'crop icon not found' })
-    await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]').click();
+    await $(
+      '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]'
+    ).waitForExist({ timeoutMsg: "crop icon not found" });
+    await $(
+      '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]'
+    ).click();
   }
 
   async attachmentGuarantorPage() {
-
-    while (!await InterviewProcess.signField.isDisplayed()) {
-      await Util.scrollIntoView(undefined, "com.hanamicrofinance.FieldApp.uat:id/ivSign");
+    while (!(await InterviewProcess.signField.isDisplayed())) {
+      await Util.scrollIntoView(
+        undefined,
+        "com.hanamicrofinance.FieldApp.uat:id/ivSign"
+      );
     }
     await Main.asyncClick(InterviewProcess.signField);
     await Util.drawSignature();
@@ -643,8 +660,11 @@ class InterviewProcessHelper {
 
     await this.uploadRequiredPhotos(requiredFields);
 
-    while (!await InterviewProcess.signField.isDisplayed()) {
-      await Util.scrollIntoView(undefined, "com.hanamicrofinance.FieldApp.uat:id/ivSign");
+    while (!(await InterviewProcess.signField.isDisplayed())) {
+      await Util.scrollIntoView(
+        undefined,
+        "com.hanamicrofinance.FieldApp.uat:id/ivSign"
+      );
     }
     await Main.asyncClick(InterviewProcess.signField);
     await Util.drawSignature();
@@ -657,7 +677,7 @@ class InterviewProcessHelper {
 
   async attachmentLoanPage() {
     while (!(await InterviewProcess.nextBtn.isDisplayed())) {
-      await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+      await Util.scrollTextIntoViewByClass(undefined, "NEXT");
     }
     await InterviewProcess.nextBtn.click();
   }
@@ -672,8 +692,11 @@ class InterviewProcessHelper {
 
     await this.uploadRequiredPhotos(requiredFields);
 
-    while (!await InterviewProcess.signField.isDisplayed()) {
-      await Util.scrollIntoView(undefined, "com.hanamicrofinance.FieldApp.uat:id/ivSign");
+    while (!(await InterviewProcess.signField.isDisplayed())) {
+      await Util.scrollIntoView(
+        undefined,
+        "com.hanamicrofinance.FieldApp.uat:id/ivSign"
+      );
     }
     await Main.asyncClick(InterviewProcess.signField);
     await Util.drawSignature();
@@ -685,40 +708,44 @@ class InterviewProcessHelper {
   }
 
   async cashFlowPage() {
-    await InterviewProcess.nextBtn.waitForExist({ timeoutMsg: 'next button not displayed on cash flow screen' })
+    await InterviewProcess.nextBtn.waitForExist({
+      timeoutMsg: "next button not displayed on cash flow screen",
+    });
     await InterviewProcess.nextBtn.click();
   }
 
   async evaluationPage() {
-
-    while (!await InterviewProcess.nextBtn.isDisplayed()) {
-      await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+    while (!(await InterviewProcess.nextBtn.isDisplayed())) {
+      await Util.scrollTextIntoViewByClass(undefined, "NEXT");
     }
     // await expect(await $(InterviewProcess.editText)).toExist({ timeoutMsg: 'Edit box not found' });
-    await $(InterviewProcess.editText).waitUntil(async () => {
-      const editTextList = await $$(InterviewProcess.editText);
-      return editTextList.length === 3
-    }, {
-      timeoutMsg: 'edit text not found'
-    })
+    await $(InterviewProcess.editText).waitUntil(
+      async () => {
+        const editTextList = await $$(InterviewProcess.editText);
+        return editTextList.length === 3;
+      },
+      {
+        timeoutMsg: "edit text not found",
+      }
+    );
 
     const textBoxes = await $$(InterviewProcess.editText);
     for (let i = 0; i < textBoxes.length; i++) {
       switch (i) {
         case 0:
-          if (await textBoxes[i].getText() == "") {
+          if ((await textBoxes[i].getText()) == "") {
             await textBoxes[i].setValue("ကောင်း");
           }
           break;
 
         case 1:
-          if (await textBoxes[i].getText() == "") {
+          if ((await textBoxes[i].getText()) == "") {
             await textBoxes[i].setValue("800000");
           }
           break;
 
         case 2:
-          if (await textBoxes[i].getText() == "") {
+          if ((await textBoxes[i].getText()) == "") {
             await textBoxes[i].setValue("the reason");
           }
           break;
@@ -739,8 +766,8 @@ class InterviewProcessHelper {
     //   throw error
     // }
 
-    await InterviewProcess.nextBtn.waitForExist()
-    await InterviewProcess.nextBtn.click()
+    await InterviewProcess.nextBtn.waitForExist();
+    await InterviewProcess.nextBtn.click();
   }
 
   async loanSummary() {
@@ -750,12 +777,12 @@ class InterviewProcessHelper {
 
   async assetSummary() {
     // await Util.scrollToEndByClass();
-    await Util.scrollTextIntoViewByClass(undefined, 'DONE')
+    await Util.scrollTextIntoViewByClass(undefined, "DONE");
     await InterviewProcess.doneBtn.click();
   }
 
   async coApplicant() {
-    const desiredLabel = 'အတူလျှောက်ထားသူ၏အမည် *';
+    const desiredLabel = "အတူလျှောက်ထားသူ၏အမည် *";
 
     while (!(await $(`//*[@text="${desiredLabel}"]`).isDisplayed())) {
       await Util.scrollTextIntoViewByClass(undefined, desiredLabel);
@@ -769,10 +796,10 @@ class InterviewProcessHelper {
       }
 
       return editText[0];
-    })
+    });
 
-    if (await coapplicantName.getText() == "") {
-      await coapplicantName.setValue('Mr. CoApplicant');
+    if ((await coapplicantName.getText()) == "") {
+      await coapplicantName.setValue("Mr. CoApplicant");
     }
     await this.fillNrc();
 
@@ -789,9 +816,9 @@ class InterviewProcessHelper {
       }
 
       return editText[0];
-    })
+    });
 
-    await coapplicantPhone.setValue('09790900023');
+    await coapplicantPhone.setValue("09790900023");
 
     // const edTextList1 = await $$(InterviewProcess.editText);
     // for (let i = 0; i < edTextList1.length; i++) {
@@ -820,21 +847,23 @@ class InterviewProcessHelper {
         return false;
       }
 
-      return edTextList[edTextList.length - 1]
-    })
-    await addressBox.setValue('အမှတ် ၁ နှင်းဆီလမ်း ကမာရွတ်မြို့နယ် ရန်ကုန်မြို့')
+      return edTextList[edTextList.length - 1];
+    });
+    await addressBox.setValue(
+      "အမှတ် ၁ နှင်းဆီလမ်း ကမာရွတ်မြို့နယ် ရန်ကုန်မြို့"
+    );
 
     // const edTextList2 = await $$(InterviewProcess.editText);
     // await edTextList2[edTextList2.length - 1].setValue(
     //   "အမှတ် ၁ နှင်းဆီလမ်း ကမာရွတ်မြို့နယ် ရန်ကုန်မြို့"
     // );
-    await InterviewProcess.nextBtn.waitForExist()
+    await InterviewProcess.nextBtn.waitForExist();
     await InterviewProcess.nextBtn.click();
   }
 
   async familyReference() {
     await $(InterviewProcess.editText).waitForExist({
-      timeout: 3000
+      timeout: 3000,
     });
     await $(InterviewProcess.editText).setValue("ကောင်း");
     await InterviewProcess.nextBtn.click();
@@ -856,7 +885,6 @@ class InterviewProcessHelper {
     await Util.scrollToEndByClass();
     await InterviewProcess.nextBtn.click();
   }
-
 }
 
 module.exports = new InterviewProcessHelper();

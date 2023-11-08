@@ -84,7 +84,7 @@ class InterviewProcess {
     return $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etText"]`);
   }
   get editText() {
-    return (`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etText"]`);
+    return `//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etText"]`;
   }
   async setLength(index, length) {
     return $(
