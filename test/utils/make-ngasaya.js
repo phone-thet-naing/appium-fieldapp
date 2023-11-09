@@ -1,248 +1,254 @@
 /**
- * This is a ngasaya helper function
+ * This is a helper used to process the Ngasaya Contract procedure
  */
-const Main = require("../screenobjects/main");
+const main = require("../screenobjects/main")
 
-const Scroll = require("../utils/custom-scroll");
-const NgasayaScreen = require("../screenobjects/ngasaya-contract.screen");
-const Util = require("../utils/utility-functions");
-const HomeScreen = require("../screenobjects/home.screen");
+const scroll = require("../utils/custom-scroll")
+const ngasayaScreen = require("../screenobjects/ngasaya-contract.screen")
+const util = require("../utils/utility-functions")
+const homeScreen = require("../screenobjects/home.screen")
 
 class NgasayaContract {
-  async makeNgaSaYaContract(ngasayaData) {
-    if (!(await $(NgasayaScreen.loanAmountEditText).isDisplayed())) {
-      await Util.scrollIntoView(
-        undefined,
-        "com.hanamicrofinance.FieldApp.uat:id/edtLoanAmount"
-      );
-    }
-    const loanAmountEdtTextList = await driver.$$(
-      NgasayaScreen.loanAmountEditText
-    );
+	/**
+	 *
+	 * @param {*} ngasayaData to use in the Ngasaya process
+	 */
+	async makeNgaSaYaContract(ngasayaData) {
+		/**
+		 * `clearNoteIcon` removes the note icon to avoid potential click event conflicts
+		 * ခလုတ်တစ်ခုနှိပ်ချင်ရင် အဲ့ခလုတ်ပေါ် Note icon ရောက်နေရင် သောက်တလွဲဖြစ်လွန်းလို့
+		 */
+		await util.clearNoteIcon()
 
-    // Enter loan amount for each client
-    for (const loanAmountEdtText of loanAmountEdtTextList) {
-      if ((await loanAmountEdtText.getText()) === "Enter Amount") {
-        await loanAmountEdtText.setValue(
-          Math.floor(Math.random() * 2 + 8) * 100000
-        );
-      }
-    }
+		if (!(await $(ngasayaScreen.loanAmountEditText).isDisplayed())) {
+			await util.scrollIntoView(
+				undefined,
+				"com.hanamicrofinance.FieldApp.uat:id/edtLoanAmount"
+			)
+		}
+		const loanAmountEdtTextList = await driver.$$(
+			ngasayaScreen.loanAmountEditText
+		)
 
-    const loanNameOption = ngasayaData["loan_name"];
-    // Choosing Loan Name Option
-    while (!(await NgasayaScreen.spinnerLoanProduct.isExisting())) {
-      await Util.scrollIntoView(
-        undefined,
-        "com.hanamicrofinance.FieldApp.uat:id/spinnerLoanProduct"
-      );
-    }
+		// Enter loan amount for each client
+		for (const loanAmountEdtText of loanAmountEdtTextList) {
+			if ((await loanAmountEdtText.getText()) === "Enter Amount") {
+				await loanAmountEdtText.setValue(Math.floor(Math.random() * 2 + 8) * 100000)
+			}
+		}
 
-    await Main.asyncClick(NgasayaScreen.spinnerLoanProduct);
+		const loanNameOption = ngasayaData["loan_name"]
+		// Choosing Loan Name Option
+		while (!(await ngasayaScreen.spinnerLoanProduct.isExisting())) {
+			await util.scrollIntoView(
+				undefined,
+				"com.hanamicrofinance.FieldApp.uat:id/spinnerLoanProduct"
+			)
+		}
 
-    const loanNameSelector = await $(`//*[@text="${loanNameOption}"]`);
+		await main.asyncClick(ngasayaScreen.spinnerLoanProduct)
 
-    while (!(await loanNameSelector.isExisting())) {
-      await Util.scrollTextIntoViewByClass(
-        "android.widget.ListView",
-        loanNameOption
-      );
-    }
-    await Main.asyncClick(await loanNameSelector);
+		const loanNameSelector = await $(`//*[@text="${loanNameOption}"]`)
 
-    // If "အင်တာဗျူးအသစ်လုပ်ရမည်" was prompted
-    if (await NgasayaScreen.confirmBtn.isExisting()) {
-      await NgasayaScreen.confirmBtn.click();
-    }
+		while (!(await loanNameSelector.isExisting())) {
+			await util.scrollTextIntoViewByClass(
+				"android.widget.ListView",
+				loanNameOption
+			)
+		}
+		await main.asyncClick(await loanNameSelector)
 
-    // Repayment Frequency
-    const repaymentFrequencyOption = ngasayaData["repayment_frequency"];
-    const repaymentFrequencySelector = await $(
-      `//*[@text="${repaymentFrequencyOption}"]`
-    );
-    while (!(await NgasayaScreen.spinnerLoanTermFrequency.isDisplayed())) {
-      await Util.scrollIntoView(
-        undefined,
-        "com.hanamicrofinance.FieldApp.uat:id/spinner"
-      );
-    }
-    await Main.asyncClick(NgasayaScreen.spinnerLoanTermFrequency);
+		// If "အင်တာဗျူးအသစ်လုပ်ရမည်" was prompted
+		if (await ngasayaScreen.confirmBtn.isExisting()) {
+			await ngasayaScreen.confirmBtn.click()
+		}
 
-    while (!(await repaymentFrequencySelector.isExisting())) {
-      await Util.scrollTextIntoViewByClass(
-        "android.widget.ListView",
-        repaymentFrequencyOption
-      );
-    }
-    await Main.asyncClick(repaymentFrequencySelector);
+		// Repayment Frequency
+		const repaymentFrequencyOption = ngasayaData["repayment_frequency"]
+		const repaymentFrequencySelector = await $(
+			`//*[@text="${repaymentFrequencyOption}"]`
+		)
+		while (!(await ngasayaScreen.spinnerLoanTermFrequency.isDisplayed())) {
+			await util.scrollIntoView(
+				undefined,
+				"com.hanamicrofinance.FieldApp.uat:id/spinner"
+			)
+		}
+		await main.asyncClick(ngasayaScreen.spinnerLoanTermFrequency)
 
-    console.log(
-      "date picker is displayed => ",
-      await NgasayaScreen.firstRepaymentDatePicker.isDisplayed()
-    );
-    while (!(await NgasayaScreen.firstRepaymentDatePicker.isDisplayed())) {
-      await Util.scrollIntoView(
-        "android.widget.ScrollView",
-        "com.hanamicrofinance.FieldApp.uat:id/ivFirstRepaymentDate"
-      );
-    }
+		while (!(await repaymentFrequencySelector.isExisting())) {
+			await util.scrollTextIntoViewByClass(
+				"android.widget.ListView",
+				repaymentFrequencyOption
+			)
+		}
+		await main.asyncClick(repaymentFrequencySelector)
 
-    // Disbursement Date
-    await NgasayaScreen.disbursementDatePicker.click();
-    await this.chooseValidDate();
-    await NgasayaScreen.btnOk.click();
+		console.log(
+			"date picker is displayed => ",
+			await ngasayaScreen.firstRepaymentDatePicker.isDisplayed()
+		)
+		while (!(await ngasayaScreen.firstRepaymentDatePicker.isDisplayed())) {
+			await util.scrollIntoView(
+				"android.widget.ScrollView",
+				"com.hanamicrofinance.FieldApp.uat:id/ivFirstRepaymentDate"
+			)
+		}
 
-    // First Repayment Date
-    await NgasayaScreen.firstRepaymentDatePicker.click();
-    await this.chooseValidDate();
-    await $(`//*[@text="OK"]`).click();
+		// Disbursement Date
+		await ngasayaScreen.disbursementDatePicker.click()
+		await this.chooseValidDate()
+		await ngasayaScreen.btnOk.click()
 
-    if (!(await $(NgasayaScreen.ivSign).isDisplayed())) {
-      await Util.scrollIntoView(
-        "android.widget.ScrollView",
-        "com.hanamicrofinance.FieldApp.uat:id/ivSign"
-      );
-    }
+		// First Repayment Date
+		await ngasayaScreen.firstRepaymentDatePicker.click()
+		await this.chooseValidDate()
+		await $(`//*[@text="OK"]`).click()
 
-    let signFieldList = null;
+		if (!(await $(ngasayaScreen.ivSign).isDisplayed())) {
+			await util.scrollIntoView(
+				"android.widget.ScrollView",
+				"com.hanamicrofinance.FieldApp.uat:id/ivSign"
+			)
+		}
 
-    // Signature
-    if (await $(NgasayaScreen.ivSign).isExisting()) {
-      signFieldList = await driver.waitUntil(async () => {
-        const tvSignList = await $$(NgasayaScreen.ivSign);
+		let signFieldList = null
 
-        if (tvSignList.length < 2) {
-          return false;
-        }
+		// Signature
+		if (await $(ngasayaScreen.ivSign).isExisting()) {
+			signFieldList = await driver.waitUntil(async () => {
+				const tvSignList = await $$(ngasayaScreen.ivSign)
 
-        return tvSignList;
-      });
-    } else {
-      signFieldList = await driver.waitUntil(async () => {
-        const tvSignList = await $$(NgasayaScreen.tvSignMultiple);
+				if (tvSignList.length < 2) {
+					return false
+				}
 
-        if (tvSignList.length < 2) {
-          return false;
-        }
+				return tvSignList
+			})
+		} else {
+			signFieldList = await driver.waitUntil(async () => {
+				const tvSignList = await $$(ngasayaScreen.tvSignMultiple)
 
-        return tvSignList;
-      });
-    }
+				if (tvSignList.length < 2) {
+					return false
+				}
 
-    for (const currentSignField of signFieldList) {
-      await currentSignField.click();
-      await driver.pause(1500);
-      await Util.drawSignature();
-    }
+				return tvSignList
+			})
+		}
 
-    await NgasayaScreen.saveNgasayaBtn.click(); // save ngasaya
+		for (const currentSignField of signFieldList) {
+			await currentSignField.click()
+			await driver.pause(1500)
+			await util.drawSignature()
+		}
 
-    await NgasayaScreen.confirmBtn.waitForExist({
-      timeout: 3000,
-    });
-    await NgasayaScreen.confirmBtn.click();
+		await ngasayaScreen.saveNgasayaBtn.click() // save ngasaya
 
-    await expect(await HomeScreen.appointmentIcon).toExist();
-  }
+		await ngasayaScreen.confirmBtn.waitForExist({
+			timeout: 3000,
+		})
+		await ngasayaScreen.confirmBtn.click()
 
-  async makeIdlContract(ngasayaData) {
-    // choose loan name and repayment frequency
-    const ivDropDownList = await $$(NgasayaScreen.ivDropDown);
-    for (let i = 0; i < ivDropDownList.length; i++) {
-      await ivDropDownList[i].click();
-      const loanNameOption = ngasayaData["loan_name"];
-      switch (i) {
-        case 0:
-          await Util.scrollTextIntoViewByClass(
-            "android.widget.ListView",
-            loanNameOption
-          );
-          await $(`//*[@text="${loanNameOption}"]`).click();
-          // If "အင်တာဗျူးအသစ်လုပ်ရမည်" was prompted
-          if (await NgasayaScreen.confirmBtn.isExisting()) {
-            await NgasayaScreen.confirmBtn.click();
-          }
-          break;
+		await expect(await homeScreen.appointmentIcon).toExist()
+	}
 
-        case 1:
-          const repaymentOption = ngasayaData["repayment_frequency"];
-          await Util.scrollTextIntoViewByClass(
-            "android.widget.ListView",
-            repaymentOption
-          );
-          await $(`//*[@text="${repaymentOption}"]`).click();
-          break;
+	async makeIdlContract(ngasayaData) {
+		// choose loan name and repayment frequency
+		const ivDropDownList = await $$(ngasayaScreen.ivDropDown)
+		for (let i = 0; i < ivDropDownList.length; i++) {
+			await ivDropDownList[i].click()
+			const loanNameOption = ngasayaData["loan_name"]
+			switch (i) {
+				case 0:
+					await util.scrollTextIntoViewByClass(
+						"android.widget.ListView",
+						loanNameOption
+					)
+					await $(`//*[@text="${loanNameOption}"]`).click()
+					// If "အင်တာဗျူးအသစ်လုပ်ရမည်" was prompted
+					if (await ngasayaScreen.confirmBtn.isExisting()) {
+						await ngasayaScreen.confirmBtn.click()
+					}
+					break
 
-        default:
-          break;
-      }
-    }
+				case 1:
+					const repaymentOption = ngasayaData["repayment_frequency"]
+					await util.scrollTextIntoViewByClass(
+						"android.widget.ListView",
+						repaymentOption
+					)
+					await $(`//*[@text="${repaymentOption}"]`).click()
+					break
 
-    // Enter loan amount for each client
-    const loanAmountEdtTextList = await driver.$$(
-      NgasayaScreen.loanAmountEditText
-    );
-    for (const loanAmountEdtText of loanAmountEdtTextList) {
-      if ((await loanAmountEdtText.getText()) == "Enter Amount") {
-        await loanAmountEdtText.setValue(
-          Math.floor(Math.random() * 2 + 8) * 100000
-        );
-      }
-    }
+				default:
+					break
+			}
+		}
 
-    while (!(await NgasayaScreen.firstRepaymentDatePicker.isDisplayed())) {
-      await Util.scrollIntoView(
-        "android.widget.ScrollView",
-        "com.hanamicrofinance.FieldApp.uat:id/ivFirstRepaymentDate"
-      );
-    }
+		// Enter loan amount for each client
+		const loanAmountEdtTextList = await driver.$$(
+			ngasayaScreen.loanAmountEditText
+		)
+		for (const loanAmountEdtText of loanAmountEdtTextList) {
+			if ((await loanAmountEdtText.getText()) == "Enter Amount") {
+				await loanAmountEdtText.setValue(Math.floor(Math.random() * 2 + 8) * 100000)
+			}
+		}
 
-    // Disbursement Date
-    await NgasayaScreen.disbursementDatePicker.click();
-    await this.chooseValidDate();
-    // await $(`~${ngasayaData["disbursement_date"]}`).click();
-    await NgasayaScreen.btnOk.click();
+		while (!(await ngasayaScreen.firstRepaymentDatePicker.isDisplayed())) {
+			await util.scrollIntoView(
+				"android.widget.ScrollView",
+				"com.hanamicrofinance.FieldApp.uat:id/ivFirstRepaymentDate"
+			)
+		}
 
-    // First Repayment Date
-    await NgasayaScreen.firstRepaymentDatePicker.click();
-    // await $(`~${ngasayaData["first_repayment_date"]}`).click();
-    await this.chooseValidDate();
-    await $(`//*[@text="OK"]`).click();
+		// Disbursement Date
+		await ngasayaScreen.disbursementDatePicker.click()
+		await this.chooseValidDate()
+		// await $(`~${ngasayaData["disbursement_date"]}`).click();
+		await ngasayaScreen.btnOk.click()
 
-    // Click 'အင်တာဗျူးမည်'
-    await NgasayaScreen.btnSubmit.click();
-  }
+		// First Repayment Date
+		await ngasayaScreen.firstRepaymentDatePicker.click()
+		// await $(`~${ngasayaData["first_repayment_date"]}`).click();
+		await this.chooseValidDate()
+		await $(`//*[@text="OK"]`).click()
 
-  async chooseValidDate() {
-    let headerDate = (await Main.asyncGetText(NgasayaScreen.headerDate)).split(
-      " "
-    );
-    let nextDay =
-      parseInt(headerDate[headerDate.length - 2]) === NaN
-        ? parseInt(headerDate[headerDate.length - 1]) + 1
-        : parseInt(headerDate[headerDate.length - 2]) + 1;
-    let headerDayofWeek = null;
-    let isValid = false;
+		// Click 'အင်တာဗျူးမည်'
+		await ngasayaScreen.btnSubmit.click()
+	}
 
-    while (!isValid) {
-      if (!(await $(`//*[@text="${nextDay}"]`).isExisting())) {
-        await $('//*[@resource-id="android:id/next"]').click();
-        nextDay = 1;
-      }
-      await $(`//*[@text="${nextDay}"]`).click();
-      headerDayofWeek = (
-        await Main.asyncGetText(NgasayaScreen.headerDate)
-      ).split(" ")[0];
-      console.log("day of week => ", headerDayofWeek === "Sat,");
-      console.log("isValid => ", isValid);
+	async chooseValidDate() {
+		let headerDate = (await main.asyncGetText(ngasayaScreen.headerDate)).split(
+			" "
+		)
+		let nextDay =
+			parseInt(headerDate[headerDate.length - 2]) === NaN
+				? parseInt(headerDate[headerDate.length - 1]) + 1
+				: parseInt(headerDate[headerDate.length - 2]) + 1
+		let headerDayofWeek = null
+		let isValid = false
 
-      if (headerDayofWeek !== "Sat," && headerDayofWeek !== "Sun,") {
-        isValid = true;
-      } else {
-        nextDay++;
-      }
-    }
-  }
+		while (!isValid) {
+			if (!(await $(`//*[@text="${nextDay}"]`).isExisting())) {
+				await $('//*[@resource-id="android:id/next"]').click()
+				nextDay = 1
+			}
+			await $(`//*[@text="${nextDay}"]`).click()
+			headerDayofWeek = (await main.asyncGetText(ngasayaScreen.headerDate)).split(
+				" "
+			)[0]
+			console.log("day of week => ", headerDayofWeek === "Sat,")
+			console.log("isValid => ", isValid)
+
+			if (headerDayofWeek !== "Sat," && headerDayofWeek !== "Sun,") {
+				isValid = true
+			} else {
+				nextDay++
+			}
+		}
+	}
 }
 
-module.exports = new NgasayaContract();
+module.exports = new NgasayaContract()

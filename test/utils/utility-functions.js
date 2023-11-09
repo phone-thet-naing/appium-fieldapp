@@ -1,240 +1,253 @@
 /**
  * This helper function is to draw signature
  */
-
-const Scroll = require("./custom-scroll");
-const HomeScreen = require("../screenobjects/home.screen");
+const configModule = require("../../wdio.conf")
+const { remote } = require("webdriverio")
+const Scroll = require("./custom-scroll")
+const HomeScreen = require("../screenobjects/home.screen")
+const main = require("../screenobjects/main")
 
 class Utility {
+	async clearNoteIcon({ toX, toY }) {
+		/**
+		 * `clearNoteIcon` moves the note icon that appears on every screen of the field app to the desired position.
+		 * The desired position is the top left corner of the device screen (for now)
+		 */
 
-  formatName(name) {
-    return name.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
-  }
+		const { x: xStart, y: yStart } = await main.noteIcon.getLocation()
+		await this.customScroll(xStart, yStart, 0, 0, 1000)
+	}
 
-  async goToHomeScreen() {
-    // while (!(await HomeScreen.appointmentIcon.isExisting())) {
-    //   await driver.back();
-    // }
-    // while (!(await HomeScreen.clientMenu.isExisting())) {
-    //   await driver.back();
-    // }
+	formatName(name) {
+		return name
+			.split(" ")
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+			.join(" ")
+	}
 
-    while (!(await HomeScreen.appointmentIcon.isExisting())) {
-      await driver.back();
-    }
+	async goToHomeScreen() {
+		// while (!(await HomeScreen.appointmentIcon.isExisting())) {
+		//   await driver.back();
+		// }
+		// while (!(await HomeScreen.clientMenu.isExisting())) {
+		//   await driver.back();
+		// }
 
-    // await driver.waitUntil(async () => {
-    //   if (await HomeScreen.clientMenu.isExisting() !== true) {
-    //     await driver.back()
-    //     return false
-    //   }
-    //   return (await HomeScreen.clientMenu.isExisting() === true);
-    // }, {
-    //   timeoutMsg: 'Client menu not found'
-    // })
-  }
+		while (!(await HomeScreen.appointmentIcon.isExisting())) {
+			await driver.back()
+		}
 
-  get signatureDoneBtn() {
-    return $(
-      `//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnDone"]`
-    );
-  }
+		// await driver.waitUntil(async () => {
+		//   if (await HomeScreen.clientMenu.isExisting() !== true) {
+		//     await driver.back()
+		//     return false
+		//   }
+		//   return (await HomeScreen.clientMenu.isExisting() === true);
+		// }, {
+		//   timeoutMsg: 'Client menu not found'
+		// })
+	}
 
-  async tap(x, y) {
-    await driver.touchAction({
-      action: "tap",
-      x: x,
-      y: y,
-    });
-  }
+	get signatureDoneBtn() {
+		return $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnDone"]`)
+	}
 
-  async customScroll(xStart, yStart, xEnd, yEnd, duration) {
-    await driver.touchPerform([{
-      action: "press",
-      options: {
-        x: xStart,
-        y: yStart
-      }
-    },
-    {
-      action: "wait",
-      options: {
-        ms: duration
-      }
-    },
-    {
-      action: "moveTo",
-      options: {
-        x: xEnd,
-        y: yEnd
-      }
-    },
-    {
-      action: "release"
-    },
-    ]);
-  }
+	async tap(x, y) {
+		await driver.touchAction({
+			action: "tap",
+			x: x,
+			y: y,
+		})
+	}
 
-  async drawSignature() {
-    await this.signatureDoneBtn.waitForExist({
-      timeout: 3000,
-      timeoutMsg: "Confirm button in digital sign not found",
-    });
-    // Draw a square
-    await this.customScroll(300, 900, 800, 900, 500);
-    // await this.customScroll(800, 900, 800, 1400, 500)
-    // await this.customScroll(800, 1400, 300, 1400, 500)
-    // await this.customScroll(300, 1400, 300, 900, 500)
-    await this.signatureDoneBtn.click();
-  }
+	async customScroll(xStart, yStart, xEnd, yEnd, duration) {
+		await driver.touchPerform([
+			{
+				action: "press",
+				options: {
+					x: xStart,
+					y: yStart,
+				},
+			},
+			{
+				action: "wait",
+				options: {
+					ms: duration,
+				},
+			},
+			{
+				action: "moveTo",
+				options: {
+					x: xEnd,
+					y: yEnd,
+				},
+			},
+			{
+				action: "release",
+			},
+		])
+	}
 
-  async drawSignatureV2() {
-    await this.signatureDoneBtn.waitForExist({
-      timeout: 3000,
-      timeoutMsg: "Button not found",
-    });
+	async drawSignature() {
+		await this.signatureDoneBtn.waitForExist({
+			timeout: 3000,
+			timeoutMsg: "Confirm button in digital sign not found",
+		})
+		// Draw a square
+		await this.customScroll(300, 900, 800, 900, 500)
+		// await this.customScroll(800, 900, 800, 1400, 500)
+		// await this.customScroll(800, 1400, 300, 1400, 500)
+		// await this.customScroll(300, 1400, 300, 900, 500)
+		await this.signatureDoneBtn.click()
+	}
 
-    // TO DO
-  }
+	async drawSignatureV2() {
+		await this.signatureDoneBtn.waitForExist({
+			timeout: 3000,
+			timeoutMsg: "Button not found",
+		})
 
-  getRandomPos(min, max) {
-    return Math.floor(Math.random() * (max - min)) * 100;
-  }
+		// TO DO
+	}
 
-  async scrollOptionIntoView(option, itemListId) {
-    await $(`//*[@resource-id="${itemListId}"]`).waitForExist({
-      timeout: 3000,
-    });
-    const itemList = await $$(`//*[@resource-id="${itemListId}"]`);
-    console.log("Option size ---> ", itemList.length);
+	getRandomPos(min, max) {
+		return Math.floor(Math.random() * (max - min)) * 100
+	}
 
-    const itemListSize = itemList.length;
-    const firstItemLocation = await itemList[0].getLocation();
-    const lastItemLocation = await itemList[itemListSize - 1].getLocation();
-    const [xStart, yStart, xEnd, yEnd] = [
-      lastItemLocation["x"],
-      lastItemLocation["y"],
-      firstItemLocation["x"],
-      firstItemLocation["y"],
-    ];
-    while (!(await $(`//*[@text="${option}"]`).isExisting())) {
-      await this.customScroll(xStart, yStart, xEnd, yEnd, 3000);
-    }
-  }
+	async scrollOptionIntoView(option, itemListId) {
+		await $(`//*[@resource-id="${itemListId}"]`).waitForExist({
+			timeout: 3000,
+		})
+		const itemList = await $$(`//*[@resource-id="${itemListId}"]`)
+		console.log("Option size ---> ", itemList.length)
 
-  // Perform a forward scroll action to move through the scrollable layout element until a visible item that matches the UiObject is found.
-  async scrollIntoView(className = "android.widget.ScrollView", resourceId) {
-    console.log('resourceId => ', resourceId);
-    const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollIntoView(new UiSelector().resourceIdMatches(\".*${resourceId}*."\).instance(0))`;
-    await $(query);
-  }
+		const itemListSize = itemList.length
+		const firstItemLocation = await itemList[0].getLocation()
+		const lastItemLocation = await itemList[itemListSize - 1].getLocation()
+		const [xStart, yStart, xEnd, yEnd] = [
+			lastItemLocation["x"],
+			lastItemLocation["y"],
+			firstItemLocation["x"],
+			firstItemLocation["y"],
+		]
+		while (!(await $(`//*[@text="${option}"]`).isExisting())) {
+			await this.customScroll(xStart, yStart, xEnd, yEnd, 3000)
+		}
+	}
 
-  async scrollToTextWithFirstScrollable(text) {
-    const query = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${text}")`;
-    await $(query);
-  }
+	// Perform a forward scroll action to move through the scrollable layout element until a visible item that matches the UiObject is found.
+	async scrollIntoView(className = "android.widget.ScrollView", resourceId) {
+		console.log("resourceId => ", resourceId)
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollIntoView(new UiSelector().resourceIdMatches(\".*${resourceId}*."\).instance(0))`
+		await $(query)
+	}
 
-  async scrollToText(text) {
-    const findByText = `android=new UiScrollable(new UiSelector().classNameMatches(\".*android.widget.ScrollView.*\").scrollable(true)).scrollTextIntoView("${text}")`;
-    await $(findByText);
-  }
+	async scrollToTextWithFirstScrollable(text) {
+		const query = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${text}")`
+		await $(query)
+	}
 
-  async scrollToBeginning(className = "android.widget.ScrollView") {
-    const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToBeginning(1,5)`;
-    await $(query);
-  }
+	async scrollToText(text) {
+		const findByText = `android=new UiScrollable(new UiSelector().classNameMatches(\".*android.widget.ScrollView.*\").scrollable(true)).scrollTextIntoView("${text}")`
+		await $(findByText)
+	}
 
-  async scrollToEndByClass(className = "android.widget.ScrollView") {
-    const findByClass = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToEnd(1,5)`;
-    await $(findByClass);
-  }
+	async scrollToBeginning(className = "android.widget.ScrollView") {
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToBeginning(1,5)`
+		await $(query)
+	}
 
-  async scrollTextIntoViewByClass(
-    className = "android.widget.ScrollView",
-    text
-  ) {
-    const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollTextIntoView("${text}")`;
-    await $(query);
-  }
+	async scrollToEndByClass(className = "android.widget.ScrollView") {
+		const findByClass = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToEnd(1,5)`
+		await $(findByClass)
+	}
 
-  async scrollTextIntoViewByResourcdId(id, text) {
-    const query = `android=new UiScrollable(new UiSelector().resourceIdMatches(\".*${id}.*\").scrollable(true)).scrollTextIntoView("${text}")`;
-    await $(query);
-  }
+	async scrollTextIntoViewByClass(
+		className = "android.widget.ScrollView",
+		text
+	) {
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollTextIntoView("${text}")`
+		await $(query)
+	}
 
-  async scrollResourceIdIntoView(
-    className = "android.widget.ScrollView",
-    resourceId
-  ) {
-    const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).scrollTo(new UiSelector().resourceId("${resourceId}"))`;
+	async scrollTextIntoViewByResourcdId(id, text) {
+		const query = `android=new UiScrollable(new UiSelector().resourceIdMatches(\".*${id}.*\").scrollable(true)).scrollTextIntoView("${text}")`
+		await $(query)
+	}
 
-    await $(query);
-  }
+	async scrollResourceIdIntoView(
+		className = "android.widget.ScrollView",
+		resourceId
+	) {
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).scrollTo(new UiSelector().resourceId("${resourceId}"))`
 
-  async scrollElementWithResourceId(client, resourceId) {
-    if (!(await $(`//*[@resource-id="${resourceId}"]`))) {
-      try {
-        await client.execute("mobile: scroll", {
-          element: resourceId,
-          toVisible: true,
-        });
-      } catch (error) {
-        console.error("Error scrolling to the element:", error);
-      }
-    }
-  }
+		await $(query)
+	}
 
-  async flingToEnd(className, maxSwipe) {
-    const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).flingToEnd(${maxSwipe})`
-    await $(query)
-  }
+	async scrollElementWithResourceId(client, resourceId) {
+		if (!(await $(`//*[@resource-id="${resourceId}"]`))) {
+			try {
+				await client.execute("mobile: scroll", {
+					element: resourceId,
+					toVisible: true,
+				})
+			} catch (error) {
+				console.error("Error scrolling to the element:", error)
+			}
+		}
+	}
 
-  getRandomIndex(max, min) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+	async flingToEnd(className, maxSwipe) {
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).flingToEnd(${maxSwipe})`
+		await $(query)
+	}
 
-  async performDownload() {
-    while (!(await HomeScreen.appointmentIcon.isExisting())) {
-      await driver.back();
-    }
+	getRandomIndex(max, min) {
+		return Math.floor(Math.random() * (max - min) + min)
+	}
 
-    await HomeScreen.downloadBtn.click();
-  }
+	async performDownload() {
+		while (!(await HomeScreen.appointmentIcon.isExisting())) {
+			await driver.back()
+		}
 
-  async download() {
-    while (!(await HomeScreen.appointmentIcon.isExisting())) {
-      await driver.back();
-    }
-    await HomeScreen.downloadBtn.click();
-    await $(HomeScreen.downloadConfirmBtn).waitForExist({
-      timeout: 3000
-    });
-    await $(HomeScreen.downloadConfirmBtn).click();
-    if (await $('//*[@text="No Internet Connection"]').isExisting()) {
-      console.log("No Active Internet Connection! \nTest Terminated");
-      return;
-    }
-    await $(HomeScreen.downloadWarning).waitForExist({
-      timeout: 10000
-    });
+		await HomeScreen.downloadBtn.click()
+	}
 
-    await $('//*[@text="Download Success"]').waitForExist({
-      timeout: 900000
-    }); // wait for 15 minutes
-    if (await HomeScreen.nativeDownloadSuccessBtn.isExisting()) {
-      await HomeScreen.nativeDownloadSuccessBtn.click();
-    } else if (await $(HomeScreen.successContinueBtn.isExisting())) {
-      await $(HomeScreen.successContinueBtn).click();
-    }
-    // await $(HomeScreen.downloadWarning).waitForExist({ timeout: 10000 })
-    await $('//*[@text="HOME"]').waitForExist({
-      timeout: 900000
-    });
-    await $('//*[@text="HOME"]').click();
-    await $('//*[@text="Clients"]').waitForExist({
-      timeout: 60000
-    });
-  }
+	async download() {
+		while (!(await HomeScreen.appointmentIcon.isExisting())) {
+			await driver.back()
+		}
+		await HomeScreen.downloadBtn.click()
+		await $(HomeScreen.downloadConfirmBtn).waitForExist({
+			timeout: 3000,
+		})
+		await $(HomeScreen.downloadConfirmBtn).click()
+		if (await $('//*[@text="No Internet Connection"]').isExisting()) {
+			console.log("No Active Internet Connection! \nTest Terminated")
+			return
+		}
+		await $(HomeScreen.downloadWarning).waitForExist({
+			timeout: 10000,
+		})
+
+		await $('//*[@text="Download Success"]').waitForExist({
+			timeout: 900000,
+		}) // wait for 15 minutes
+		if (await HomeScreen.nativeDownloadSuccessBtn.isExisting()) {
+			await HomeScreen.nativeDownloadSuccessBtn.click()
+		} else if (await $(HomeScreen.successContinueBtn.isExisting())) {
+			await $(HomeScreen.successContinueBtn).click()
+		}
+		// await $(HomeScreen.downloadWarning).waitForExist({ timeout: 10000 })
+		await $('//*[@text="HOME"]').waitForExist({
+			timeout: 900000,
+		})
+		await $('//*[@text="HOME"]').click()
+		await $('//*[@text="Clients"]').waitForExist({
+			timeout: 60000,
+		})
+	}
 }
 
-module.exports = new Utility();
+module.exports = new Utility()

@@ -3,6 +3,10 @@ const Util = require('../utils/utility-functions');
 
 class Main {
 
+    get noteIcon() {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/fab"]')
+    }
+
     async asyncGetText(selector) {
         await selector.waitForExist({ timeout: defaultTimeout });
         return await selector.getText();

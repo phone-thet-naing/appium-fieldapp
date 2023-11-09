@@ -30,11 +30,11 @@ const ngasaya_data = require("../../data/input_data.json")[
 
 describe("Make Group Interview Appointment", () => {
 	it.only("Make Group Appointment with New Group", async () => {
-		await Util.goToHomeScreen();
+		// await Util.goToHomeScreen();
 
-		await MakeAppointmentHelper.makeGroupAppointmentWithNewGroup({
-			totalMembers: 5,
-		});
+		// await MakeAppointmentHelper.makeGroupAppointmentWithNewGroup({
+		// 	totalMembers: 5,
+		// });
 		await NgasayaContractHelper.makeNgaSaYaContract(ngasaya_data);
 	});
 
