@@ -66,6 +66,10 @@ describe("Group Interview Process", () => {
 			await InterviewProcessHelper.loanSummary()
 			await InterviewProcessHelper.assetSummary()
 		}
-		// await InterviewProcess.btnSubmit.click();
+		await InterviewProcess.btnSubmit.click()
+
+		await Util.goToHomeScreen()
+
+		await HomeScreen.uploadBtn.click()
 	})
 })

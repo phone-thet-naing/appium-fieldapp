@@ -14,6 +14,7 @@ class Utility {
 		 * The desired position is the top left corner of the device screen (for now)
 		 */
 
+		console.log(await expect(await main.noteIcon).toExist())
 		const { x: xStart, y: yStart } = await main.noteIcon.getLocation()
 		await this.customScroll(xStart, yStart, 0, 0, 1000)
 	}
@@ -26,26 +27,9 @@ class Utility {
 	}
 
 	async goToHomeScreen() {
-		// while (!(await HomeScreen.appointmentIcon.isExisting())) {
-		//   await driver.back();
-		// }
-		// while (!(await HomeScreen.clientMenu.isExisting())) {
-		//   await driver.back();
-		// }
-
 		while (!(await HomeScreen.appointmentIcon.isExisting())) {
 			await driver.back()
 		}
-
-		// await driver.waitUntil(async () => {
-		//   if (await HomeScreen.clientMenu.isExisting() !== true) {
-		//     await driver.back()
-		//     return false
-		//   }
-		//   return (await HomeScreen.clientMenu.isExisting() === true);
-		// }, {
-		//   timeoutMsg: 'Client menu not found'
-		// })
 	}
 
 	get signatureDoneBtn() {
@@ -212,6 +196,12 @@ class Utility {
 		}
 
 		await HomeScreen.downloadBtn.click()
+	}
+
+	async upload() {
+		await expect(await HomeScreen.uploadBtn).toExist()
+
+		await HomeScreen.uploadBtn.click()
 	}
 
 	async download() {
