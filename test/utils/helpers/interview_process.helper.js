@@ -758,6 +758,15 @@ class InterviewProcessHelper {
 	}
 
 	async evaluationPage() {
+
+		const foAssessment = await $(InterviewProcess.inputBox);
+
+		if (await foAssessment.isDisplayed()) {
+			if (await foAssessment.getText() == '') {
+				await foAssessment.setValue('Good')
+			} 
+		}
+
 		while (!(await InterviewProcess.nextBtn.isDisplayed())) {
 			await Util.scrollTextIntoViewByClass(undefined, "NEXT")
 		}

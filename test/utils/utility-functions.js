@@ -1,243 +1,291 @@
 /**
  * This helper function is to draw signature
  */
-const configModule = require("../../wdio.conf")
-const { remote } = require("webdriverio")
-const Scroll = require("./custom-scroll")
-const HomeScreen = require("../screenobjects/home.screen")
-const main = require("../screenobjects/main")
+const configModule = require('../../wdio.conf');
+const { remote } = require('webdriverio');
+const Scroll = require('./custom-scroll');
+const HomeScreen = require('../screenobjects/home.screen');
+const main = require('../screenobjects/main');
 
 class Utility {
-	async clearNoteIcon({ toX, toY }) {
+	async clearNoteIcon(toX, toY) {
 		/**
 		 * `clearNoteIcon` moves the note icon that appears on every screen of the field app to the desired position.
 		 * The desired position is the top left corner of the device screen (for now)
 		 */
-
-		console.log(await expect(await main.noteIcon).toExist())
-		const { x: xStart, y: yStart } = await main.noteIcon.getLocation()
-		await this.customScroll(xStart, yStart, 0, 0, 1000)
+		const { x, y } = await main.noteIcon.getLocation();
+		const [xStart, yStart] = [x + 10, y + 10];
+		const DURATION = 2000;
+		await this.customScroll(xStart, yStart, toX, toY, DURATION);
 	}
 
 	formatName(name) {
 		return name
-			.split(" ")
+			.split(' ')
 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-			.join(" ")
+			.join(' ');
 	}
 
 	async goToHomeScreen() {
 		while (!(await HomeScreen.appointmentIcon.isExisting())) {
-			await driver.back()
+			await driver.back();
 		}
 	}
 
 	get signatureDoneBtn() {
-		return $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnDone"]`)
+		return $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnDone"]`);
 	}
 
 	async tap(x, y) {
 		await driver.touchAction({
-			action: "tap",
+			action: 'tap',
 			x: x,
 			y: y,
-		})
+		});
 	}
 
 	async customScroll(xStart, yStart, xEnd, yEnd, duration) {
 		await driver.touchPerform([
 			{
-				action: "press",
+				action: 'press',
 				options: {
 					x: xStart,
 					y: yStart,
 				},
 			},
 			{
-				action: "wait",
+				action: 'wait',
 				options: {
 					ms: duration,
 				},
 			},
 			{
-				action: "moveTo",
+				action: 'moveTo',
 				options: {
 					x: xEnd,
 					y: yEnd,
 				},
 			},
 			{
-				action: "release",
+				action: 'release',
 			},
-		])
+		]);
 	}
 
 	async drawSignature() {
 		await this.signatureDoneBtn.waitForExist({
 			timeout: 3000,
-			timeoutMsg: "Confirm button in digital sign not found",
-		})
+			timeoutMsg: 'Confirm button in digital sign not found',
+		});
 		// Draw a square
-		await this.customScroll(300, 900, 800, 900, 500)
+		await this.customScroll(300, 900, 800, 900, 500);
 		// await this.customScroll(800, 900, 800, 1400, 500)
 		// await this.customScroll(800, 1400, 300, 1400, 500)
 		// await this.customScroll(300, 1400, 300, 900, 500)
-		await this.signatureDoneBtn.click()
+		await this.signatureDoneBtn.click();
 	}
 
 	async drawSignatureV2() {
 		await this.signatureDoneBtn.waitForExist({
 			timeout: 3000,
-			timeoutMsg: "Button not found",
-		})
+			timeoutMsg: 'Button not found',
+		});
 
 		// TO DO
 	}
 
 	getRandomPos(min, max) {
-		return Math.floor(Math.random() * (max - min)) * 100
+		return Math.floor(Math.random() * (max - min)) * 100;
 	}
 
 	async scrollOptionIntoView(option, itemListId) {
 		await $(`//*[@resource-id="${itemListId}"]`).waitForExist({
 			timeout: 3000,
-		})
-		const itemList = await $$(`//*[@resource-id="${itemListId}"]`)
-		console.log("Option size ---> ", itemList.length)
+		});
+		const itemList = await $$(`//*[@resource-id="${itemListId}"]`);
+		console.log('Option size ---> ', itemList.length);
 
-		const itemListSize = itemList.length
-		const firstItemLocation = await itemList[0].getLocation()
-		const lastItemLocation = await itemList[itemListSize - 1].getLocation()
+		const itemListSize = itemList.length;
+		const firstItemLocation = await itemList[0].getLocation();
+		const lastItemLocation = await itemList[itemListSize - 1].getLocation();
 		const [xStart, yStart, xEnd, yEnd] = [
-			lastItemLocation["x"],
-			lastItemLocation["y"],
-			firstItemLocation["x"],
-			firstItemLocation["y"],
-		]
+			lastItemLocation['x'],
+			lastItemLocation['y'],
+			firstItemLocation['x'],
+			firstItemLocation['y'],
+		];
 		while (!(await $(`//*[@text="${option}"]`).isExisting())) {
-			await this.customScroll(xStart, yStart, xEnd, yEnd, 3000)
+			await this.customScroll(xStart, yStart, xEnd, yEnd, 3000);
 		}
 	}
 
 	// Perform a forward scroll action to move through the scrollable layout element until a visible item that matches the UiObject is found.
-	async scrollIntoView(className = "android.widget.ScrollView", resourceId) {
-		console.log("resourceId => ", resourceId)
-		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollIntoView(new UiSelector().resourceIdMatches(\".*${resourceId}*."\).instance(0))`
-		await $(query)
+	async scrollIntoView(className = 'android.widget.ScrollView', resourceId) {
+		console.log('resourceId => ', resourceId);
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollIntoView(new UiSelector().resourceIdMatches(\".*${resourceId}*."\).instance(0))`;
+		await $(query);
 	}
 
 	async scrollToTextWithFirstScrollable(text) {
-		const query = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${text}")`
-		await $(query)
+		const query = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${text}")`;
+		await $(query);
 	}
 
 	async scrollToText(text) {
-		const findByText = `android=new UiScrollable(new UiSelector().classNameMatches(\".*android.widget.ScrollView.*\").scrollable(true)).scrollTextIntoView("${text}")`
-		await $(findByText)
+		const findByText = `android=new UiScrollable(new UiSelector().classNameMatches(\".*android.widget.ScrollView.*\").scrollable(true)).scrollTextIntoView("${text}")`;
+		await $(findByText);
 	}
 
-	async scrollToBeginning(className = "android.widget.ScrollView") {
-		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToBeginning(1,5)`
-		await $(query)
+	async scrollToBeginning(className = 'android.widget.ScrollView') {
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToBeginning(1,5)`;
+		await $(query);
 	}
 
-	async scrollToEndByClass(className = "android.widget.ScrollView") {
-		const findByClass = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToEnd(1,5)`
-		await $(findByClass)
+	async scrollToEndByClass(className = 'android.widget.ScrollView') {
+		const findByClass = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollToEnd(1,5)`;
+		await $(findByClass);
 	}
 
 	async scrollTextIntoViewByClass(
-		className = "android.widget.ScrollView",
+		className = 'android.widget.ScrollView',
 		text
 	) {
-		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollTextIntoView("${text}")`
-		await $(query)
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollTextIntoView("${text}")`;
+		await $(query);
 	}
 
 	async scrollTextIntoViewByResourcdId(id, text) {
-		const query = `android=new UiScrollable(new UiSelector().resourceIdMatches(\".*${id}.*\").scrollable(true)).scrollTextIntoView("${text}")`
-		await $(query)
+		const query = `android=new UiScrollable(new UiSelector().resourceIdMatches(\".*${id}.*\").scrollable(true)).scrollTextIntoView("${text}")`;
+		await $(query);
 	}
 
 	async scrollResourceIdIntoView(
-		className = "android.widget.ScrollView",
+		className = 'android.widget.ScrollView',
 		resourceId
 	) {
-		const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).scrollTo(new UiSelector().resourceId("${resourceId}"))`
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).scrollTo(new UiSelector().resourceId("${resourceId}"))`;
 
-		await $(query)
+		await $(query);
 	}
 
 	async scrollElementWithResourceId(client, resourceId) {
 		if (!(await $(`//*[@resource-id="${resourceId}"]`))) {
 			try {
-				await client.execute("mobile: scroll", {
+				await client.execute('mobile: scroll', {
 					element: resourceId,
 					toVisible: true,
-				})
+				});
 			} catch (error) {
-				console.error("Error scrolling to the element:", error)
+				console.error('Error scrolling to the element:', error);
 			}
 		}
 	}
 
 	async flingToEnd(className, maxSwipe) {
-		const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).flingToEnd(${maxSwipe})`
-		await $(query)
+		const query = `android=new UiScrollable(new UiSelector().classNameMatches(".*${className}.*").scrollable(true)).flingToEnd(${maxSwipe})`;
+		await $(query);
 	}
 
 	getRandomIndex(max, min) {
-		return Math.floor(Math.random() * (max - min) + min)
+		return Math.floor(Math.random() * (max - min) + min);
 	}
 
 	async performDownload() {
 		while (!(await HomeScreen.appointmentIcon.isExisting())) {
-			await driver.back()
+			await driver.back();
 		}
 
-		await HomeScreen.downloadBtn.click()
+		await HomeScreen.downloadBtn.click();
 	}
 
 	async upload() {
-		await expect(await HomeScreen.uploadBtn).toExist()
+		await expect(await HomeScreen.uploadBtn).toExist();
 
-		await HomeScreen.uploadBtn.click()
+		await HomeScreen.uploadBtn.click();
 	}
 
 	async download() {
 		while (!(await HomeScreen.appointmentIcon.isExisting())) {
-			await driver.back()
+			await driver.back();
 		}
-		await HomeScreen.downloadBtn.click()
+		await HomeScreen.downloadBtn.click();
 		await $(HomeScreen.downloadConfirmBtn).waitForExist({
 			timeout: 3000,
-		})
-		await $(HomeScreen.downloadConfirmBtn).click()
+		});
+		await $(HomeScreen.downloadConfirmBtn).click();
 		if (await $('//*[@text="No Internet Connection"]').isExisting()) {
-			console.log("No Active Internet Connection! \nTest Terminated")
-			return
+			console.log('No Active Internet Connection! \nTest Terminated');
+			return;
 		}
 		await $(HomeScreen.downloadWarning).waitForExist({
 			timeout: 10000,
-		})
+		});
 
 		await $('//*[@text="Download Success"]').waitForExist({
 			timeout: 900000,
-		}) // wait for 15 minutes
+		}); // wait for 15 minutes
 		if (await HomeScreen.nativeDownloadSuccessBtn.isExisting()) {
-			await HomeScreen.nativeDownloadSuccessBtn.click()
+			await HomeScreen.nativeDownloadSuccessBtn.click();
 		} else if (await $(HomeScreen.successContinueBtn.isExisting())) {
-			await $(HomeScreen.successContinueBtn).click()
+			await $(HomeScreen.successContinueBtn).click();
 		}
 		// await $(HomeScreen.downloadWarning).waitForExist({ timeout: 10000 })
 		await $('//*[@text="HOME"]').waitForExist({
 			timeout: 900000,
-		})
-		await $('//*[@text="HOME"]').click()
+		});
+		await $('//*[@text="HOME"]').click();
 		await $('//*[@text="Clients"]').waitForExist({
 			timeout: 60000,
-		})
+		});
+	}
+
+	async cleanInstall() {
+		const allowBtn = await $(
+			'//*[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]'
+		);
+		await allowBtn.waitForExist();
+		await allowBtn.click();
+
+		const toSettingBtn = await $(
+			'//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnGoToSetting"]'
+		);
+		if (await toSettingBtn.isDisplayed()) {
+			await allowBtn.click();
+		}
+
+		// const permissionTab = await $(
+		// 	`android=new UiSelector().resourceIdMatches(/*android:id/title*/).textContains(/*Permissions*/)`
+		// );
+		const permissionTab = await $('//*[@text="Permissions"]');
+		await permissionTab.waitForExist();
+		await permissionTab.click();
+
+		const locationPermission = await $('//*[@text="Location"]');
+		await locationPermission.waitForExist();
+		await locationPermission.click();
+
+		const alwaysAllowOption = await $(
+			'//*[@resource-id="com.android.permissioncontroller:id/allow_always_radio_button"]'
+		);
+		await alwaysAllowOption.waitForExist();
+		await alwaysAllowOption.click();
+
+		const openBtn = await $(
+			'//*[@resource-id="com.android.settings:id/button1"]'
+		);
+		while (await openBtn.isDisplayed()) {
+			await driver.back();
+		}
+
+		await openBtn.click();
+
+		const successBtn = await $(
+			'//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnSuccess"]'
+		);
+		if (await successBtn.isDisplayed()) {
+			await successBtn.click();
+		}
 	}
 }
 
-module.exports = new Utility()
+module.exports = new Utility();

@@ -17,11 +17,7 @@ class NgasayaContract {
 	 *	`makeNgaSaYaContract` performs loan contract process
 	 */
 	async makeNgaSaYaContract() {
-		// console.log("ngasaya data =>", ngasayaData)
-		/**
-		 * `clearNoteIcon` removes the note icon to avoid potential click event conflicts
-		 */
-		await util.clearNoteIcon({ toX: 0, toY: 0 });
+		await util.clearNoteIcon(0, 0);
 
 		/**
 		 * Scroll to top if the screen is somewhere in the middle.
@@ -179,6 +175,9 @@ class NgasayaContract {
 	}
 
 	async makeIdlContract(ngasayaData) {
+
+		
+
 		// choose loan name and repayment frequency
 		const ivDropDownList = await $$(ngasayaScreen.ivDropDown);
 		for (let i = 0; i < ivDropDownList.length; i++) {

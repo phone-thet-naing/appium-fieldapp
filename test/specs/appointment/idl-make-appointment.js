@@ -3,15 +3,15 @@ const appointmentClientList = require('../../data/input_data.json')['client_list
 const HomeScreen = require('../../screenobjects/home.screen')
 
 describe('Make Interview Appointment', () => {
-    it.only('Make Individual Interview Appointment', async () => {
+    it('Make Individual Interview Appointment', async () => {
 
         for (const desired_client of appointmentClientList) {
-            await MakeAppointmentHelper.makeIndividualAppointment(desired_client)
+            await MakeAppointmentHelper.makeIndividualAppointment()
             // await expect(HomeScreen.appointmentIcon).toExist()
         }
     })
 
-    it('Make appointment with new client', async () => {
+    it.only('Make appointment with new client', async () => {
         await MakeAppointmentHelper.make_individual_appointment_with_new_client();
     })
 })
