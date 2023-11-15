@@ -28,6 +28,8 @@ describe('sample', () => {
 	it('general testing', async () => {
 		// await util.upload()
 
-		await util.cleanInstall()
+		// await util.drawSignature()
+
+		await util.fillNrc()
 	});
 });

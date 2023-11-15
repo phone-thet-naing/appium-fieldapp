@@ -182,7 +182,7 @@ class NgasayaContract {
 		const ivDropDownList = await $$(ngasayaScreen.ivDropDown);
 		for (let i = 0; i < ivDropDownList.length; i++) {
 			await ivDropDownList[i].click();
-			const loanNameOption = ngasayaData['loan_name'];
+			const loanNameOption = ngasayaData['loanName'];
 			switch (i) {
 				case 0:
 					await util.scrollTextIntoViewByClass(
@@ -197,7 +197,7 @@ class NgasayaContract {
 					break;
 
 				case 1:
-					const repaymentOption = ngasayaData['repayment_frequency'];
+					const repaymentOption = ngasayaData['loanTerm'];
 					await util.scrollTextIntoViewByClass(
 						'android.widget.ListView',
 						repaymentOption

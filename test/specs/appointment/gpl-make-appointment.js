@@ -2,24 +2,13 @@ const makeAppointmentHelper = require('../../utils/helpers/make-appointment.help
 const ngasayaContractHelper = require('../../utils/make-ngasaya');
 const util = require('../../utils/utility-functions');
 
-const groupList = require('../../data/input_data.json')[
-	'group_list_gpl_interview'
-];
-
-// Appointment Data
-const appointment_data = require('../../data/input_data.json')[
-	'appointment_data_gpl_interview'
-];
-const ngasaya_data = require('../../data/input_data.json')[
-	'ngasaya_data_gpl_interview'
-];
+const ngasaya_data = require('../../data/input_data.json')['ngasaya_data_gpl_interview'];
 
 describe('Make Group Interview Appointment', () => {
 	it.only('Make Group Appointment with New Group', async () => {
 		await util.goToHomeScreen();
 
-		// Enter number of clients here
-		const numberOfClients = 3;
+		const numberOfClients = 2; // Enter number of clients here
 
 		await makeAppointmentHelper.makeGroupAppointmentWithNewGroup({
 			totalMembers: numberOfClients,

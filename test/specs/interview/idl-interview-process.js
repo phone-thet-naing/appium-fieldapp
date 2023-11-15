@@ -1,10 +1,6 @@
 const InterviewProcess = require('../../screenobjects/interview-process.screen');
 const NgasayaContract = require('../../utils/make-ngasaya');
 const InterviewProcessHelper = require('../../utils/helpers/interview_process.helper');
-const util = require('../../utils/utility-functions');
-const clientList = require('../../data/input_data.json')[
-	'client_list_idl_interview'
-];
 
 // interview test data
 const interviewData = {
@@ -50,7 +46,10 @@ describe('Individual Interview Process', () => {
 		// If ငစရစာချုပ် has not been made
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
 			// await util.clearNoteIcon(0, 0); // move the note icon to elsewhere
-			await NgasayaContract.makeIdlContract(ngasayaData);
+
+			const { idlNgasayaData } = require('../../data/data') 
+
+			await NgasayaContract.makeIdlContract(idlNgasayaData);
 		}
 
 		// Interview Process Starts

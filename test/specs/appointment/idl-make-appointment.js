@@ -1,17 +1,19 @@
-const MakeAppointmentHelper = require('../../utils/helpers/make-appointment.helper')
-const appointmentClientList = require('../../data/input_data.json')['client_list_idl_interview']
-const HomeScreen = require('../../screenobjects/home.screen')
+const MakeAppointmentHelper = require('../../utils/helpers/make-appointment.helper');
+const appointmentClientList = require('../../data/input_data.json')[
+	'client_list_idl_interview'
+];
+const homeScreen = require('../../screenobjects/home.screen');
 
 describe('Make Interview Appointment', () => {
-    it('Make Individual Interview Appointment', async () => {
+	it.only('Make Individual Interview Appointment', async () => {
+		// await homeScreen.appointmentIcon.click();
+		// for (const desired_client of appointmentClientList) {
+		await MakeAppointmentHelper.makeIndividualAppointment();
+		// await expect(homeScreen.appointmentIcon).toExist()
+		// }
+	});
 
-        for (const desired_client of appointmentClientList) {
-            await MakeAppointmentHelper.makeIndividualAppointment()
-            // await expect(HomeScreen.appointmentIcon).toExist()
-        }
-    })
-
-    it.only('Make appointment with new client', async () => {
-        await MakeAppointmentHelper.make_individual_appointment_with_new_client();
-    })
-})
+	it('Make appointment with new client', async () => {
+		await MakeAppointmentHelper.make_individual_appointment_with_new_client();
+	});
+});

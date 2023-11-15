@@ -1,11 +1,12 @@
 /**
- * This helper function is to draw signature
+ * Utility functions like drawing signatures, filling up NRC number and such are written here.
  */
 const configModule = require('../../wdio.conf');
 const { remote } = require('webdriverio');
 const Scroll = require('./custom-scroll');
 const HomeScreen = require('../screenobjects/home.screen');
 const main = require('../screenobjects/main');
+const interviewProcess = require('../screenobjects/interview-process.screen')
 
 class Utility {
 	async clearNoteIcon(toX, toY) {
@@ -72,7 +73,7 @@ class Utility {
 		]);
 	}
 
-	async drawSignature() {
+	async drawSignatureOld() {
 		await this.signatureDoneBtn.waitForExist({
 			timeout: 3000,
 			timeoutMsg: 'Confirm button in digital sign not found',
@@ -85,14 +86,95 @@ class Utility {
 		await this.signatureDoneBtn.click();
 	}
 
-	async drawSignatureV2() {
+
+	// This function draws random scratches (Can be improved further)
+	async drawSignature() {
 		await this.signatureDoneBtn.waitForExist({
 			timeout: 3000,
-			timeoutMsg: 'Button not found',
+			timeoutMsg: 'Confirm button in digital sign not found',
 		});
 
-		// TO DO
+		const [MAX, MIN] = [6, 5];
+		const numberOfStrokes = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
+
+		for (let i = 0; i < numberOfStrokes; i++) {
+			let coordinates = [0, 1, 0, 1]; // 0 is x, 1 is y
+
+			coordinates = coordinates.map((item) => {
+				let [MAX, MIN] = [];
+
+				if (item === 0) {
+					[MAX, MIN] = [800, 300];
+				} else {
+					[MAX, MIN] = [1400, 900];
+				}
+
+				return Math.floor(Math.random() * (MAX - MIN)) + MIN;
+			});
+
+			console.log(coordinates);
+			await this.customScroll(...coordinates, 500);
+		}
+
+		
+		await this.signatureDoneBtn.click();
+
 	}
+
+
+	async fillNrc() {
+		await interviewProcess.etNrc.click()
+		await interviewProcess.spinnerState.waitForExist()
+
+		const MAX_STATE = 9
+		await interviewProcess.spinnerState.click()
+		const randomState = await driver.waitUntil(async () => {
+			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
+
+			if (dropdownItemList.length < MAX_STATE) return false 
+
+			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+			return dropdownItemList[index]
+		})
+		await randomState.click()
+
+
+		const MAX_TOWNSHIP_CODE = 3
+		await interviewProcess.spinnerTownshipCode.click()
+		const randomTownshipCode = await driver.waitUntil(async () => {
+			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
+
+			if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false 
+
+			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+			return dropdownItemList[index]
+		})
+		await randomTownshipCode.click()
+		// await $(`//*[@text="မရမ"]`).click()
+
+
+		await interviewProcess.spinnerNrcType.click()
+		const MAX_TYPE = 2
+		const randomNrcType = await driver.waitUntil(async () => {
+			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
+
+			if (dropdownItemList.length < MAX_TYPE) return false 
+
+			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+			return dropdownItemList[index]
+		})
+		await randomNrcType.click()
+		// await $(`//*[@text="နိုင်"]`).click()
+
+		const [MAX, MIN] = [999999, 100000]
+		const randomNrcNo = Math.floor(Math.random() - (MAX - MIN + 1)) + MIN
+		await interviewProcess.etNrcNo.setValue(randomNrcNo)
+		await $(`//*[@text="OK"]`).click()
+	}
+
 
 	getRandomPos(min, max) {
 		return Math.floor(Math.random() * (max - min)) * 100;

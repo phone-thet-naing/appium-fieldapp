@@ -5,99 +5,11 @@ const { main } = require('appium');
 const Main = require('../../screenobjects/main');
 const { isMemberName } = require('typescript');
 // const AppointmentScreen = require('../../screen_objects/appointment.screen-debug')
-var adjective = [
-	'Excited',
-	'Anxious',
-	'Overweight',
-	'Demonic',
-	'Jumpy',
-	'Misunderstood',
-	'Squashed',
-	'Gargantuan',
-	'Broad',
-	'Crooked',
-	'Curved',
-	'Deep',
-	'Even',
-	'Excited',
-	'Anxious',
-	'Overweight',
-	'Demonic',
-	'Jumpy',
-	'Misunderstood',
-	'Squashed',
-	'Gargantuan',
-	'Broad',
-	'Crooked',
-	'Curved',
-	'Deep',
-	'Even',
-	'Flat',
-	'Hilly',
-	'Jagged',
-	'Round',
-	'Shallow',
-	'Square',
-	'Steep',
-	'Straight',
-	'Thick',
-	'Thin',
-	'Cooing',
-	'Deafening',
-	'Faint',
-	'Harsh',
-	'High-pitched',
-	'Hissing',
-	'Hushed',
-	'Husky',
-	'Loud',
-	'Melodic',
-	'Moaning',
-	'Mute',
-	'Noisy',
-	'Purring',
-	'Quiet',
-	'Raspy',
-	'Screeching',
-	'Shrill',
-	'Silent',
-	'Soft',
-	'Squeaky',
-	'Squealing',
-	'Thundering',
-	'Voiceless',
-	'Whispering',
-];
-var object = [
-	'Taco',
-	'Operating System',
-	'Sphere',
-	'Watermelon',
-	'Cheeseburger',
-	'Apple Pie',
-	'Spider',
-	'Dragon',
-	'Remote Control',
-	'Soda',
-	'Barbie Doll',
-	'Watch',
-	'Purple Pen',
-	'Dollar Bill',
-	'Stuffed Animal',
-	'Hair Clip',
-	'Sunglasses',
-	'T-shirt',
-	'Purse',
-	'Towel',
-	'Hat',
-	'Camera',
-	'Hand Sanitizer Bottle',
-	'Photo',
-	'Dog Bone',
-	'Hair Brush',
-	'Birthday Card',
-];
-var list;
+
+const { adjective, object } = require('../../data/data');
+
+
+
 
 class MakeAppointmentHelper {
 	generator() {
@@ -379,7 +291,6 @@ class MakeAppointmentHelper {
 		await Main.asyncClick(AppointmentScreen.actionSpinner);
 		await Main.asyncClick($(`//*[@text="${'Add Existing Member'}"]`));
 
-		// argument -> number of members
 		await this.addMember(totalMembers);
 
 		await this.chooseLeader();
@@ -389,7 +300,7 @@ class MakeAppointmentHelper {
 
 	// This code will make an appointment with an existing client
 	async makeIndividualAppointment() {
-		await HomeScreen.appointmentIcon.click();
+		
 		// Fill Appointment Data
 		await this.fillAppointmentData('Individual Loan');
 
@@ -398,17 +309,6 @@ class MakeAppointmentHelper {
 
 		await this.addMember(1);
 
-		// const client = desired_client
-		// // const clientId = client.slice(4, 9)
-		// // await AppointmentScreen.searchBar.setValue(clientId)
-		// let searchKeywords = client.split(' ').slice(1).join(' ')
-		// await AppointmentScreen.searchBar.setValue(searchKeywords)
-		// await $(`android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${client}")`)
-		// await $(`//*[@text="${client}"]`).waitForExist({ timeout: 60000 })
-		// await $(`//*[@text="${client}"]`).click()
-		// await driver.pause(1000)
-
-		// await AppointmentScreen.addBtn.click();
 		await AppointmentScreen.createAppointmentBtn.click();
 	}
 

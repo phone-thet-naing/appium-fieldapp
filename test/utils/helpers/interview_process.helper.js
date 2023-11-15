@@ -538,6 +538,116 @@ class InterviewProcessHelper {
 		await $(`//*[@text="OK"]`).click()
 	}
 
+	async fillNrcNew() {
+		await InterviewProcess.etNrc.click()
+		await InterviewProcess.spinnerState.waitForExist()
+
+		const MAX_STATE = 9
+		await InterviewProcess.spinnerState.click()
+		const randomState = await driver.waitUntil(async () => {
+			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+
+			if (dropdownItemList.length < MAX_STATE) return false 
+
+			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+			return dropdownItemList[index]
+		})
+		await randomState.click()
+
+
+		const MAX_TOWNSHIP_CODE = 3
+		await InterviewProcess.spinnerTownshipCode.click()
+		const randomTownshipCode = await driver.waitUntil(async () => {
+			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+
+			if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false 
+
+			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+			return dropdownItemList[index]
+		})
+		await randomTownshipCode.click()
+		// await $(`//*[@text="မရမ"]`).click()
+
+
+		await InterviewProcess.spinnerNrcType.click()
+		const MAX_TYPE = 2
+		const randomNrcType = await driver.waitUntil(async () => {
+			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+
+			if (dropdownItemList.length < MAX_TYPE) return false 
+
+			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+			return dropdownItemList[index]
+		})
+		await randomNrcType.click()
+		// await $(`//*[@text="နိုင်"]`).click()
+
+		const [MAX, MIN] = [999999, 100000]
+		const randomNrcNo = Math.floor(Math.random() - (MAX - MIN + 1)) + MIN
+		await InterviewProcess.etNrcNo.setValue(randomNrcNo)
+		await $(`//*[@text="OK"]`).click()
+
+	}
+
+
+
+	async individualGuarantorScreen() {
+		// TO DO
+
+		const { guarantorTabRequiredFieldLabels: requiredFields } = require('../../data/data')
+
+		const labelSize = requiredFields.length
+
+
+		for (let i = 0; i < labelSize; i++) {
+			const desiredLabel = requiredFields[i].label
+			const value = requiredFields[i].value
+
+			await Util.scrollTextIntoViewByClass(undefined, desiredLabel)
+			
+		}
+
+		/**
+		 * Do not delete the following code, might need in the future
+		 */
+
+		// const inputBoxes = await driver.waitUntil(async () => {
+
+		// 	const editBoxList = await $$(InterviewProcess.editText)
+
+		// 	if (editBoxList.length < 4) {
+		// 		return false
+		// 	}
+
+		// 	return editBoxList
+
+		// })
+
+		// const totalInputBox = inputBoxes.length
+		// for (let i = 0; i < totalInputBox; i++) {
+
+		// 	switch (i) {
+
+		// 		case 0: // guarantor myanmar name
+		// 			const mmName = 'ဦးအောင်မျိုးလင်း'
+		// 			await inputBoxes[i].setValue(mmName)
+		// 			break
+
+		// 		case 1: 
+		// 			const engName = 'Aung Myo Linn'
+		// 			await inputBoxes[i].setValue(engName)
+		// 			break
+
+		// 	}
+
+		// }
+
+	}
+
+
 	async guarantorPage(isGroupInterview = false) {
 		const itemList = await $$(InterviewProcess.editText)
 		for (let i = 0; i < itemList.length; i++) {
@@ -669,12 +779,18 @@ class InterviewProcessHelper {
 
 		await firstPhotoIcon.click()
 
-		await $(
-			'//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]'
-		).waitForExist({ timeoutMsg: "crop icon not found" })
-		await $(
-			'//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]'
-		).click()
+		const cropIcon = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]')
+
+		await expect(cropIcon).toExist()
+		console.log('crop icon is displayed => ', await cropIcon.isDisplayed())
+		await cropIcon.click()
+
+		// await $(
+		// 	'//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]'
+		// ).waitForExist({ timeoutMsg: "crop icon not found" })
+		// await $(
+		// 	'//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]'
+		// ).click()
 	}
 
 	async attachmentGuarantorPage() {
@@ -759,13 +875,13 @@ class InterviewProcessHelper {
 
 	async evaluationPage() {
 
-		const foAssessment = await $(InterviewProcess.inputBox);
+		// const foAssessment = await $(InterviewProcess.inputBox);	
 
-		if (await foAssessment.isDisplayed()) {
-			if (await foAssessment.getText() == '') {
-				await foAssessment.setValue('Good')
-			} 
-		}
+		// if (await foAssessment.isDisplayed()) {
+		// 	if (await foAssessment.getText() == '') {
+		// 		await foAssessment.setValue('Good')
+		// 	} 
+		// }
 
 		while (!(await InterviewProcess.nextBtn.isDisplayed())) {
 			await Util.scrollTextIntoViewByClass(undefined, "NEXT")

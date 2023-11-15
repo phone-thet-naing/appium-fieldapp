@@ -203,8 +203,13 @@ class InterviewProcess {
       '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnChooseFromGallery"]'
     );
   }
+  
   get groupLeaderName() {
     return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvLeaderName"]';
+  }
+
+  get tvDropDownTitleMultiple () {
+    return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvDropDownTitle"]'
   }
 }
 
