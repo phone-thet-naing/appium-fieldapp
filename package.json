@@ -4,10 +4,10 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "wdio wdio.conf.js",
 		"wdio": "wdio run ./wdio.conf.js",
 		"run:test": "run test",
-		"tpec": "wdio wdio.conf.js -- --spec"
+		"tpec": "wdio wdio.conf.js -- --spec",
+		"test": "wdio wdio.conf.js"
 	},
 	"keywords": [],
 	"author": "",

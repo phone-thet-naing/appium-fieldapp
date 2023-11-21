@@ -9,6 +9,10 @@ const main = require('../screenobjects/main');
 const interviewProcess = require('../screenobjects/interview-process.screen')
 
 class Utility {
+
+	
+
+
 	async clearNoteIcon(toX, toY) {
 		/**
 		 * `clearNoteIcon` moves the note icon that appears on every screen of the field app to the desired position.
@@ -170,7 +174,7 @@ class Utility {
 		// await $(`//*[@text="နိုင်"]`).click()
 
 		const [MAX, MIN] = [999999, 100000]
-		const randomNrcNo = Math.floor(Math.random() - (MAX - MIN + 1)) + MIN
+		const randomNrcNo = this.getRandom
 		await interviewProcess.etNrcNo.setValue(randomNrcNo)
 		await $(`//*[@text="OK"]`).click()
 	}
