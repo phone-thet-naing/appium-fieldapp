@@ -47,7 +47,7 @@ describe('Individual Interview Process', () => {
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
 			// await util.clearNoteIcon(0, 0); // move the note icon to elsewhere
 
-			const { idlNgasayaData } = require('../../data/data') 
+			const { idlNgasayaData } = require('../../data/data')
 
 			await NgasayaContract.makeIdlContract(idlNgasayaData);
 		}
@@ -61,7 +61,7 @@ describe('Individual Interview Process', () => {
 		await InterviewProcessHelper.earningFamilyMemberPage();
 		await InterviewProcessHelper.householdVerificationPage();
 		await InterviewProcessHelper.currentLoanAndCreditHistoryPage();
-		await InterviewProcessHelper.coApplicant();
+		await InterviewProcessHelper.individualCoApplicant();
 		await InterviewProcessHelper.businessProfilePage('individual');
 		await InterviewProcessHelper.otherIncomeIndividual();
 		await InterviewProcessHelper.businessInocmePage();
@@ -74,14 +74,14 @@ describe('Individual Interview Process', () => {
 		await InterviewProcessHelper.familyReference();
 		await InterviewProcessHelper.businessReference();
 		await InterviewProcessHelper.clientAppPage();
-		await InterviewProcessHelper.guarantorPage();
+		await InterviewProcessHelper.individualGuarantorScreen();
 		await InterviewProcessHelper.esddCheckList();
 		await InterviewProcessHelper.attachmentClientPage();
 		await InterviewProcessHelper.attachmentLoanPage();
 		await InterviewProcessHelper.attachmentCoApplicant();
 		await InterviewProcessHelper.attachmentGuarantorPage('individual');
 		await InterviewProcessHelper.cashFlowPage();
-		await InterviewProcessHelper.evaluationPage();
+		await InterviewProcessHelper.evaluationPageIndividual();
 		await InterviewProcessHelper.loanSummary();
 		await InterviewProcessHelper.assetSummary();
 		await InterviewProcess.btnSubmit.click();

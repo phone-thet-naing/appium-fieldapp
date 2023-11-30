@@ -280,21 +280,15 @@ class MakeAppointmentHelper {
 
 	async makeGroupAppointmentWithNewGroup({ totalMembers }) {
 		await HomeScreen.appointmentIcon.click();
-
 		await this.fillAppointmentData('Group Loan');
-
 		await AppointmentScreen.createNewGroup.waitForExist({
 			timeoutMsg: 'Create button not found',
 		});
 		await AppointmentScreen.createNewGroup.click();
-
 		await Main.asyncClick(AppointmentScreen.actionSpinner);
 		await Main.asyncClick($(`//*[@text="${'Add Existing Member'}"]`));
-
 		await this.addMember(totalMembers);
-
 		await this.chooseLeader();
-
 		await AppointmentScreen.createNewNgasayaBtn.click();
 	}
 

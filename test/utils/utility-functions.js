@@ -7,18 +7,19 @@ const Scroll = require('./custom-scroll');
 const HomeScreen = require('../screenobjects/home.screen');
 const main = require('../screenobjects/main');
 const interviewProcess = require('../screenobjects/interview-process.screen')
+const { landLineNumber, phoneNumber } = require('../data/data')
 
 class Utility {
-
-	
-
 
 	async clearNoteIcon(toX, toY) {
 		/**
 		 * `clearNoteIcon` moves the note icon that appears on every screen of the field app to the desired position.
 		 * The desired position is the top left corner of the device screen (for now)
 		 */
-		const { x, y } = await main.noteIcon.getLocation();
+		const noteIcon = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/fab"]')
+		console.log('noteIcon -> ', noteIcon)
+		console.log('location -> ', await noteIcon.getLocation())
+		const { x, y } = await noteIcon.getLocation();
 		const [xStart, yStart] = [x + 10, y + 10];
 		const DURATION = 2000;
 		await this.customScroll(xStart, yStart, toX, toY, DURATION);
@@ -84,9 +85,6 @@ class Utility {
 		});
 		// Draw a square
 		await this.customScroll(300, 900, 800, 900, 500);
-		// await this.customScroll(800, 900, 800, 1400, 500)
-		// await this.customScroll(800, 1400, 300, 1400, 500)
-		// await this.customScroll(300, 1400, 300, 900, 500)
 		await this.signatureDoneBtn.click();
 	}
 
@@ -120,9 +118,13 @@ class Utility {
 			await this.customScroll(...coordinates, 500);
 		}
 
-		
+
 		await this.signatureDoneBtn.click();
 
+	}
+
+	getRandomPos(min, max) {
+		return Math.floor(Math.random() * (max - min)) * 100;
 	}
 
 
@@ -135,7 +137,7 @@ class Utility {
 		const randomState = await driver.waitUntil(async () => {
 			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
 
-			if (dropdownItemList.length < MAX_STATE) return false 
+			if (dropdownItemList.length < MAX_STATE) return false
 
 			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
 
@@ -149,7 +151,7 @@ class Utility {
 		const randomTownshipCode = await driver.waitUntil(async () => {
 			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
 
-			if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false 
+			if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false
 
 			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
 
@@ -158,13 +160,12 @@ class Utility {
 		await randomTownshipCode.click()
 		// await $(`//*[@text="မရမ"]`).click()
 
-
 		await interviewProcess.spinnerNrcType.click()
 		const MAX_TYPE = 2
 		const randomNrcType = await driver.waitUntil(async () => {
 			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
 
-			if (dropdownItemList.length < MAX_TYPE) return false 
+			if (dropdownItemList.length < MAX_TYPE) return false
 
 			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
 
@@ -174,14 +175,9 @@ class Utility {
 		// await $(`//*[@text="နိုင်"]`).click()
 
 		const [MAX, MIN] = [999999, 100000]
-		const randomNrcNo = this.getRandom
+		const randomNrcNo = this.getRandomIndex(MAX, MIN)
 		await interviewProcess.etNrcNo.setValue(randomNrcNo)
 		await $(`//*[@text="OK"]`).click()
-	}
-
-
-	getRandomPos(min, max) {
-		return Math.floor(Math.random() * (max - min)) * 100;
 	}
 
 	async scrollOptionIntoView(option, itemListId) {
@@ -273,7 +269,7 @@ class Utility {
 	}
 
 	getRandomIndex(max, min) {
-		return Math.floor(Math.random() * (max - min) + min);
+		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
 	async performDownload() {
@@ -371,6 +367,38 @@ class Utility {
 		if (await successBtn.isDisplayed()) {
 			await successBtn.click();
 		}
+	}
+
+	async choosePhoneNumber() {
+		const mobileRadioBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rbMb"]')
+		const landLindRadioBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rblln"]')
+
+		const randomNumber = Math.floor(Math.random() * (10)) + 1
+
+		if (randomNumber % 2 === 0) {
+			await mobileRadioBtn.click()
+			await interviewProcess.phoneNoInputBox.setValue(phoneNumber[Math.floor(Math.random() * phoneNumber.length)])
+		} else {
+			await landLindRadioBtn.click()
+			await interviewProcess.phoneNoPrefixSpinner.click()
+			const randomLandlinePrefix = await driver.waitUntil(async () => {
+				const spinnerItemList = await $$(interviewProcess.tvSpinnerItem)
+
+				if (spinnerItemList.length < 5) return false
+
+				return spinnerItemList[Math.floor(Math.random() * spinnerItemList.length)]
+			})
+			await randomLandlinePrefix.click()
+
+			await interviewProcess.phoneNoInputBox.setValue(landLineNumber[Math.floor(Math.random() * landLineNumber.length)])
+		}
+	}
+
+	async generateRandomMoneyAmount(MAX, MIN) {
+		let amount = parseInt(Math.floor(Math.random() * (MAX - MIN + 1)) + MIN)
+		amount = parseInt(Math.floor(amount / 10) * 10)
+
+		return amount
 	}
 }
 

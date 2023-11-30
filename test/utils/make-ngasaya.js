@@ -176,20 +176,26 @@ class NgasayaContract {
 
 	async makeIdlContract(ngasayaData) {
 
-		
+		await util.clearNoteIcon(0, 0)
+
+		// for loan name, we will choose one of the following 3 options
+		// Staff Loan, Individual Loan (1-12M), Individual Loan (Over 12M)
+		const loanNameOptions = ['Staff Loan', 'Individual Loan (1-12M)', 'Individual Loan (Over 12M)']
 
 		// choose loan name and repayment frequency
 		const ivDropDownList = await $$(ngasayaScreen.ivDropDown);
 		for (let i = 0; i < ivDropDownList.length; i++) {
 			await ivDropDownList[i].click();
-			const loanNameOption = ngasayaData['loanName'];
+			// const loanNameOption = ngasayaData['loanName'];
+			const chosenLoanName = loanNameOptions[Math.floor(Math.random() * loanNameOptions.length)]
 			switch (i) {
 				case 0:
+					console.log(chosenLoanName)
 					await util.scrollTextIntoViewByClass(
 						'android.widget.ListView',
-						loanNameOption
+						chosenLoanName
 					);
-					await $(`//*[@text="${loanNameOption}"]`).click();
+					await $(`//*[@text="${chosenLoanName}"]`).click();
 					// If "အင်တာဗျူးအသစ်လုပ်ရမည်" was prompted
 					if (await ngasayaScreen.confirmBtn.isExisting()) {
 						await ngasayaScreen.confirmBtn.click();
@@ -197,12 +203,23 @@ class NgasayaContract {
 					break;
 
 				case 1:
-					const repaymentOption = ngasayaData['loanTerm'];
+					const MIN_ITEM_COUNT = 5
+					const repaymentOption = await driver.waitUntil(async () => {
+						const spinnerItemList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]')
+
+						if (spinnerItemList.length < MIN_ITEM_COUNT) return false
+
+						return spinnerItemList[Math.floor(Math.random() * spinnerItemList.length)]
+
+					})
+					// const repaymentOption = ngasayaData['loanTerm'];
+					const text = await repaymentOption.getText()
 					await util.scrollTextIntoViewByClass(
 						'android.widget.ListView',
-						repaymentOption
+						text
 					);
-					await $(`//*[@text="${repaymentOption}"]`).click();
+					// await $(`//*[@text="${repaymentOption}"]`).click();
+					await repaymentOption.click()
 					break;
 
 				default:
@@ -210,15 +227,38 @@ class NgasayaContract {
 			}
 		}
 
+		// Getting the minimum and maximum loan amout according to the chosen loan name
+		const loanAmountMinMax = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvMaxMinLoanAmount"]').getText()
+		const minimumLoanAmount = loanAmountMinMax.split(' ')[1].split(',').join('')
+		const maximumLoanAmount = loanAmountMinMax.split(' ')[5].split(',').join('')
+
+		// const randomResult = Math.random() * (maximumLoanAmount - minimumLoanAmount + 1)
+		// const floorResult = parseInt(Math.floor(randomResult)) + parseInt(minimumLoanAmount)
+
+		// console.table({
+		// 	randomResult: randomResult,
+		// 	floorResult: floorResult
+		// })
+
 		// Enter loan amount for each client
 		const loanAmountEdtTextList = await driver.$$(
 			ngasayaScreen.loanAmountEditText
 		);
 		for (const loanAmountEdtText of loanAmountEdtTextList) {
-			if ((await loanAmountEdtText.getText()) == 'Enter Amount') {
-				await loanAmountEdtText.setValue(
-					Math.floor(Math.random() * 2 + 8) * 100000
-				);
+			if (
+				(await loanAmountEdtText.getText()) == 'Enter Amount' ||
+				parseInt((await loanAmountEdtText.getText())) < minimumLoanAmount ||
+				parseInt((await loanAmountEdtText.getText())) > maximumLoanAmount
+			) {
+				const randomResult = Math.random() * (maximumLoanAmount - minimumLoanAmount + 1)
+				const floorResult = parseInt(Math.floor(randomResult)) + parseInt(minimumLoanAmount)
+				const chosenLoanAmount = floorResult
+
+				console.table({
+					randomResult: randomResult,
+					floorResult: floorResult
+				})
+				await loanAmountEdtText.setValue(chosenLoanAmount);
 			}
 		}
 
@@ -232,12 +272,10 @@ class NgasayaContract {
 		// Disbursement Date
 		await ngasayaScreen.disbursementDatePicker.click();
 		await this.chooseValidDate();
-		// await $(`~${ngasayaData["disbursement_date"]}`).click();
 		await ngasayaScreen.btnOk.click();
 
 		// First Repayment Date
 		await ngasayaScreen.firstRepaymentDatePicker.click();
-		// await $(`~${ngasayaData["first_repayment_date"]}`).click();
 		await this.chooseValidDate();
 		await $(`//*[@text="OK"]`).click();
 

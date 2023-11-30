@@ -80,6 +80,10 @@ class InterviewProcess {
     ).click();
   }
 
+  get interviewTab() {
+    return $('//*[@resource-id="com.hanamicrofinance.FieldApp:id/tvInterviews"]');
+  }
+
   get inputBox() {
     return $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etText"]`);
   }
@@ -210,6 +214,14 @@ class InterviewProcess {
 
   get tvDropDownTitleMultiple () {
     return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvDropDownTitle"]'
+  }
+
+  get phoneNoPrefixSpinner() {
+    return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/spnPhNoPrefix"]')
+  }
+
+  get tvSpinnerItem() {
+    return ('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]')
   }
 }
 

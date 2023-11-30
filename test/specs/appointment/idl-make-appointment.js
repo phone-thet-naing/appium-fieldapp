@@ -1,4 +1,4 @@
-const MakeAppointmentHelper = require('../../utils/helpers/make-appointment.helper');
+const MakeAppointmentHelper = require('../../utils/helpers/make-appointment.helper.js');
 const appointmentClientList = require('../../data/input_data.json')[
 	'client_list_idl_interview'
 ];

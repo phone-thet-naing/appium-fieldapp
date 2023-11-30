@@ -69,8 +69,8 @@ exports.config = {
 			platformName: 'Android', // or "iOS"
 			// "appium:deviceName": "KZONY5EULZMBVOKV", // or "iPhone Simulator",
 			'appium:deviceName': 'emulator-5554', // Pixel 5
-			// 'appium:platformVersion': '12.0', // or "16.2" (for running iOS v16)
-			'appium:platformVersion': '13.0', // or "16.2" (for running iOS v16)
+			'appium:platformVersion': '12.0', // or "16.2" (for running iOS v16)
+			// 'appium:platformVersion': '13.0', // or "16.2" (for running iOS v16)
 			'appium:automationName': 'UiAutomator2', // or "XCUITest"
 			'appium:app': path.join(
 				process.cwd(),

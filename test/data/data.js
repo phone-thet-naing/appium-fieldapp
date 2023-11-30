@@ -108,6 +108,29 @@ const guarantorTabRequiredFieldLabels = [
 	}
 ] 
 
+const mmMaleNames = [
+	'နိုင်နိုင်', 'အာကာ', 'စည်သူ', 'နေမင်း', 'နိုင်လူ', 'ပိုင်ပိုင်', 'ကောင်းကောင်း'
+]
+
+const mmFemaleNames = [
+	'မျိုး', 'မယ်', 'မေ', 'မိုး', 'ခိုင်', 'နှင်း', 'ဝေ'
+]
+
+const phoneNumber = [
+	'969998180', '969998181', '969998170', '751972062', '751972063', '43122994', '43122995'
+]
+
+const landLineNumber = [
+	'251782', '432367', '236457', '658478', '263897'
+]
+
 module.exports = {
-	adjective, object, guarantorTabRequiredFieldLabels, idlNgasayaData
+	adjective, 
+	object, 
+	guarantorTabRequiredFieldLabels, 
+	idlNgasayaData, 
+	mmMaleNames, 
+	mmFemaleNames, 
+	phoneNumber,
+	landLineNumber
 };

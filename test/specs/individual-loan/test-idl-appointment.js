@@ -1,4 +1,4 @@
-const HomeScreen = require("../../screen_objects/home.screen")
+const HomeScreen = require("../../screenobjects/home.screen")
 const Utils = require('../../utils/custom-scroll')
 
 const testData = {
