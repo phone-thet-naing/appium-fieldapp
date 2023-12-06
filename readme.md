@@ -23,7 +23,12 @@ Before running the tests, ensure you have the following installed:
 2. **Install the Necessary Node Modules:**
    npm install
 
-# Configuring Android Emulator
+# Appium Setup
+1. **Install Appium.**
+2. **Install UIAutomator.**
+Visit [https://appium.io/docs/en/2.2/] for reference
+
+# Configuring Android Emulator (Optional)
 1. **Open Android Studio:**
    Open Android Studio and launch the AVD Manager to create an Android Virtual Device (AVD).
 
