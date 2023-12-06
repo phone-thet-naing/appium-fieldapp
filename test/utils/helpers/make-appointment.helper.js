@@ -8,9 +8,6 @@ const { isMemberName } = require('typescript');
 
 const { adjective, object } = require('../../data/data');
 
-
-
-
 class MakeAppointmentHelper {
 	generator() {
 		return (
@@ -156,7 +153,7 @@ class MakeAppointmentHelper {
 		await AppointmentScreen.continueBtn.click();
 	}
 
-	// Use to add member(s) from Existing Clients
+	// This function adds member(s) from Existing Clients
 	async addMember(totalClients) {
 		await expect(await $(`//*[@text="ADD MEMBERS"]`)).toExist();
 
@@ -164,7 +161,7 @@ class MakeAppointmentHelper {
 			parseInt((await AppointmentScreen.addBtn.getText()).split(' ')[1]) <
 			totalClients
 		) {
-			// If it is the first time, swing first.
+			// Swing the first time.
 			if (
 				parseInt((await AppointmentScreen.addBtn.getText()).split(' ')[1]) === 0
 			) {

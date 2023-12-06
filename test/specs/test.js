@@ -17,7 +17,8 @@ const ngasayaContractHelper = require('../utils/make-ngasaya');
 
 const groupList = require('../data/input_data.json');
 
-const { mmFemaleNames, mmMaleNames } = require('../data/data.js')
+const { mmFemaleNames, mmMaleNames } = require('../data/data.js');
+const interviewProcessScreen = require('../screenobjects/interview-process.screen');
 
 const listLabels = [
 	'Guarantor Building *',
@@ -27,20 +28,12 @@ const listLabels = [
 ];
 
 describe('sample', () => {
-	it.only('Evaluation Page for Individual Loan Test', async () => {
+	it('Evaluation Page for Individual Loan Test', async () => {
 		await InterviewProcessHelper.individualCoApplicant()
 	})
 
-	it('general testing', async function () {
-		await InterviewProcessHelper.attachmentClientPage();
-		await InterviewProcessHelper.attachmentLoanPage();
-		await InterviewProcessHelper.attachmentCoApplicant();
-		await InterviewProcessHelper.attachmentGuarantorPage('individual');
-		await InterviewProcessHelper.cashFlowPage();
-		await InterviewProcessHelper.evaluationPage();
-		await InterviewProcessHelper.loanSummary();
-		await InterviewProcessHelper.assetSummary();
-		await InterviewProcess.btnSubmit.click();
+	it.only('general testing', async function () {
+		await util.choosePhoneNumber()
 	});
 
 	it('interview client enhancement', async function () {

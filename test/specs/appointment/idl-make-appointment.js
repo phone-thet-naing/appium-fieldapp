@@ -6,6 +6,7 @@ const homeScreen = require('../../screenobjects/home.screen');
 
 describe('Make Interview Appointment', () => {
 	it.only('Make Individual Interview Appointment', async () => {
+		// Click on appointment icon to go to the appointment screen
 		// await homeScreen.appointmentIcon.click();
 		// for (const desired_client of appointmentClientList) {
 		await MakeAppointmentHelper.makeIndividualAppointment();

@@ -57,7 +57,7 @@ describe("Group Interview Process", () => {
 			await InterviewProcessHelper.liabilitiesPage()
 			await InterviewProcessHelper.loanInformationPage()
 			await InterviewProcessHelper.clientAppPage()
-			await InterviewProcessHelper.guarantorPage(true)
+			await InterviewProcessHelper.groupGuarantorScreen(true)
 			await InterviewProcessHelper.attachmentGuarantorPage()
 			await InterviewProcessHelper.attachmentClientPage()
 			await InterviewProcessHelper.attachmentLoanPage()

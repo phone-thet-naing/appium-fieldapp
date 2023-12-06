@@ -6,10 +6,15 @@ const { remote } = require('webdriverio');
 const Scroll = require('./custom-scroll');
 const HomeScreen = require('../screenobjects/home.screen');
 const main = require('../screenobjects/main');
-const interviewProcess = require('../screenobjects/interview-process.screen')
-const { landLineNumber, phoneNumber } = require('../data/data')
+const InterviewProcess = require('../screenobjects/interview-process.screen')
+const { landLineNumber, phoneNumber } = require('../data/data');
+const interviewProcessScreen = require('../screenobjects/interview-process.screen');
 
 class Utility {
+
+	async testFunc() {
+		console.log(await InterviewProcess.phoneNoPrefixSpinner.getAttribute('resource-id'))
+	}
 
 	async clearNoteIcon(toX, toY) {
 		/**
@@ -129,13 +134,13 @@ class Utility {
 
 
 	async fillNrc() {
-		await interviewProcess.etNrc.click()
-		await interviewProcess.spinnerState.waitForExist()
+		await InterviewProcess.etNrc.click()
+		await InterviewProcess.spinnerState.waitForExist()
 
 		const MAX_STATE = 9
-		await interviewProcess.spinnerState.click()
+		await InterviewProcess.spinnerState.click()
 		const randomState = await driver.waitUntil(async () => {
-			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
+			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
 
 			if (dropdownItemList.length < MAX_STATE) return false
 
@@ -147,9 +152,9 @@ class Utility {
 
 
 		const MAX_TOWNSHIP_CODE = 3
-		await interviewProcess.spinnerTownshipCode.click()
+		await InterviewProcess.spinnerTownshipCode.click()
 		const randomTownshipCode = await driver.waitUntil(async () => {
-			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
+			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
 
 			if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false
 
@@ -160,10 +165,10 @@ class Utility {
 		await randomTownshipCode.click()
 		// await $(`//*[@text="မရမ"]`).click()
 
-		await interviewProcess.spinnerNrcType.click()
+		await InterviewProcess.spinnerNrcType.click()
 		const MAX_TYPE = 2
 		const randomNrcType = await driver.waitUntil(async () => {
-			const dropdownItemList = await $$(interviewProcess.tvDropDownTitleMultiple)
+			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
 
 			if (dropdownItemList.length < MAX_TYPE) return false
 
@@ -176,7 +181,7 @@ class Utility {
 
 		const [MAX, MIN] = [999999, 100000]
 		const randomNrcNo = this.getRandomIndex(MAX, MIN)
-		await interviewProcess.etNrcNo.setValue(randomNrcNo)
+		await InterviewProcess.etNrcNo.setValue(randomNrcNo)
 		await $(`//*[@text="OK"]`).click()
 	}
 
@@ -372,17 +377,21 @@ class Utility {
 	async choosePhoneNumber() {
 		const mobileRadioBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rbMb"]')
 		const landLindRadioBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rblln"]')
+		const phoneNumberInput = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etPhoneNo"]')
+		const phoneNumberPrefix = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/spnPhNoPrefix"]')
 
 		const randomNumber = Math.floor(Math.random() * (10)) + 1
 
 		if (randomNumber % 2 === 0) {
 			await mobileRadioBtn.click()
-			await interviewProcess.phoneNoInputBox.setValue(phoneNumber[Math.floor(Math.random() * phoneNumber.length)])
+			const selectedPhoneNo = phoneNumber[Math.floor(Math.random() * phoneNumber.length)]
+			await phoneNumberInput.setValue(selectedPhoneNo)
+			// await InterviewProcess.phoneNoInputBox.setValue(selectedPhoneNo)
 		} else {
 			await landLindRadioBtn.click()
-			await interviewProcess.phoneNoPrefixSpinner.click()
+			await phoneNumberPrefix.click()
 			const randomLandlinePrefix = await driver.waitUntil(async () => {
-				const spinnerItemList = await $$(interviewProcess.tvSpinnerItem)
+				const spinnerItemList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]')
 
 				if (spinnerItemList.length < 5) return false
 
@@ -390,7 +399,9 @@ class Utility {
 			})
 			await randomLandlinePrefix.click()
 
-			await interviewProcess.phoneNoInputBox.setValue(landLineNumber[Math.floor(Math.random() * landLineNumber.length)])
+			const selectedPhoneNo = landLineNumber[Math.floor(Math.random() * landLineNumber.length)]
+			await phoneNumberInput.setValue(selectedPhoneNo)
+			// await interviewProcessScreen.phoneNoInputBox.setValue(selectedPhoneNo)
 		}
 	}
 

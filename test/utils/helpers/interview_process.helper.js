@@ -131,12 +131,12 @@ class InterviewProcessHelper {
 		}
 
 		// Phone Number
-		if (await InterviewProcess.phoneNoInputBox.getText() == "") {
+		// if (await InterviewProcess.phoneNoInputBox.getText() == "") {
 			// const phoneNoSize = phoneNumber.length
 			// const selectedPhoneNo = phoneNumber[Math.floor(Math.random() * (phoneNoSize))]
 			// await InterviewProcess.phoneNoInputBox.setValue(selectedPhoneNo)
 			await Util.choosePhoneNumber()
-		}
+		// }
 
 		// fill nrc
 		if ((await InterviewProcess.etNrc.getText()) === "") {
@@ -168,18 +168,19 @@ class InterviewProcessHelper {
 		}
 		await InterviewProcess.nextBtn.click()
 
-		// If the phone number was invalid, this will change the phone number into a valid one
-		const nextTabTitle = await $('//*[@text="PERSONAL DETAIL"]')
+		// The following code is supposed to be executed when the phone number is invalid, but it also gets 
+		// executed even when the phone number is valid, which is something we don't want. Therefore, this will be
+		// commented out util a better solution is found. 4/Dec/23
 
-		if (!(await nextTabTitle.isDisplayed())) {
-			await Util.scrollToBeginning()
-			// const phoneNoSize = phoneNumber.length
-			// const selectedPhoneNo = phoneNumber[Math.floor(Math.random() * (phoneNoSize - 0 + 1)) + 0]
-			// await InterviewProcess.phoneNoInputBox.setValue(selectedPhoneNo)
-			await Util.choosePhoneNumber()
-			await Util.scrollToEndByClass(undefined)
-			await InterviewProcess.nextBtn.click()
-		}
+		// If the phone number was invalid, this will change the phone number into a valid one
+		// const nextTabTitle = await $('//*[@text="PERSONAL DETAIL"]')
+
+		// if (!(await nextTabTitle.isDisplayed())) {
+		// 	await Util.scrollToBeginning()
+		// 	await Util.choosePhoneNumber()
+		// 	await Util.scrollToEndByClass(undefined)
+		// 	await InterviewProcess.nextBtn.click()
+		// }
 	}
 
 	async personalDetailPage() {
@@ -502,12 +503,6 @@ class InterviewProcessHelper {
 	}
 
 	async currentAssetsPage() {
-		// let inputBoxList = await $$(InterviewProcess.editText);
-		// for (const inputBox of inputBoxList) {
-		//   if ((await inputBox.getText()) == "") {
-		//     await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000);
-		//   }
-		// }
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
 		}
@@ -678,53 +673,27 @@ class InterviewProcessHelper {
 		// Go to bottom of screen and go to next tab
 		await Util.scrollToEndByClass()
 		await this.goToNextTab()
+	}
 
-		// const labelSize = requiredFields.length
+	async groupGuarantorScreen() {
+		// Go to top of the screen and make necessary assertion (assertion fails > test fails)
+		await Util.scrollToBeginning()
+		const desiredLabel = await $('//*[@text="အာမခံသူ၏ အမည် *"]')
+		await expect(desiredLabel).toExist()
 
+		// fill guarantor name
+		const guarantorNameInput = await InterviewProcess.inputBox
+		await guarantorNameInput.setValue("Mr. Guarantor")
 
-		// for (let i = 0; i < labelSize; i++) {
-		// 	const desiredLabel = requiredFields[i].label
-		// 	const value = requiredFields[i].value
+		// fill guaranto nrc
+		if (await InterviewProcess.etNrc.getText() === '') {
+			await this.fillNrc()
+		}
 
-		// 	await Util.scrollTextIntoViewByClass(undefined, desiredLabel)
+		// choose phone number
+		await Util.choosePhoneNumber()
 
-		// }
-
-		/**
-		 * Do not delete the following code, might need in the future
-		 */
-
-		// const inputBoxes = await driver.waitUntil(async () => {
-
-		// 	const editBoxList = await $$(InterviewProcess.editText)
-
-		// 	if (editBoxList.length < 4) {
-		// 		return false
-		// 	}
-
-		// 	return editBoxList
-
-		// })
-
-		// const totalInputBox = inputBoxes.length
-		// for (let i = 0; i < totalInputBox; i++) {
-
-		// 	switch (i) {
-
-		// 		case 0: // guarantor myanmar name
-		// 			const mmName = 'ဦးအောင်မျိုးလင်း'
-		// 			await inputBoxes[i].setValue(mmName)
-		// 			break
-
-		// 		case 1: 
-		// 			const engName = 'Aung Myo Linn'
-		// 			await inputBoxes[i].setValue(engName)
-		// 			break
-
-		// 	}
-
-		// }
-
+		await this.goToNextTab()
 	}
 
 	async guarantorPage(isGroupInterview = false) {
@@ -767,33 +736,6 @@ class InterviewProcessHelper {
 		}
 		await InterviewProcess.nextBtn.click()
 	}
-
-	// async uploadPhoto() {
-	//     console.log('uploadPhoto init')
-	//     await $('//*[@text="Select source"]').waitForExist({ timeout: 5000 })
-	//     await $(InterviewProcess.galleryIcon).waitForExist({ timeout: 5000 })
-	//     if (await $(InterviewProcess.galleryIcon).isExisting()) {
-	//         console.log('Gallery icons found')
-	//     } else {
-	//         console.log('Gallery icons not found')
-	//     }
-	//     const icons = await $$(InterviewProcess.galleryIcon)
-	//     console.log('Gallery icons found --> ', icons.length) // must be 3
-	//     // const icons = await $$(InterviewProcess.androidIcon)
-	//     await icons[2].click()
-	//     await $('//*[@text="appium"]').waitForExist({ timeout: 3000 })
-	//     await $('//*[@text="appium"]').click()
-	//     await $('//*[@text="Select item"]').waitForExist({ timeout: 3000 })
-	//     await $(InterviewProcess.photoIcons).waitForExist({ timeout: 3000 })
-	//     const photos = await $$(InterviewProcess.photoIcons)
-	//     console.log('photos size --> ', photos.length)
-	//     const photoCount = photos.length
-	//     await photos[Math.floor(Math.random() * (photoCount))].click()
-	//     await $('//*[@text="CROP"]').waitForExist({ timeout: 3000 })
-	//     await $(InterviewProcess.cropBtn).waitForExist({ timeout: 3000 })
-	//     await $(InterviewProcess.cropBtn).click()
-	//     console.log('uploadPhoto terminate')
-	// }
 
 	async uploadPhoto() {
 		await InterviewProcess.take_photo_btn.click()
@@ -1033,17 +975,6 @@ class InterviewProcessHelper {
 			}
 		}
 
-		// try {
-		//   if (await $(InterviewProcess.editText).getText() != "") {
-		//     while (!await InterviewProcess.nextBtn.isDisplayed()) {
-		//       await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
-		//     }
-		//     await InterviewProcess.nextBtn.click();
-		//   }
-		// } catch (error) {
-		//   throw error
-		// }
-
 		await InterviewProcess.nextBtn.waitForExist()
 		await InterviewProcess.nextBtn.click()
 	}
@@ -1121,8 +1052,6 @@ class InterviewProcessHelper {
 		}
 
 		// Scroll to phone number section
-		// await Util.scrollResourceIdIntoView(undefined, "com.hanamicrofinance.FieldApp.uat:id/rbMb")
-		// await Util.scrollTextIntoViewByClass(undefined, 'Mobile Number')
 		await Util.scrollToEndByClass(undefined)
 
 		// Fill Phone Number
@@ -1135,60 +1064,8 @@ class InterviewProcessHelper {
 			await addressMM.setValue("ဦးဝိစာရနဲ့ ချင်းတွင်းလမ်းထောင့်")
 		}
 
-		// const coapplicantPhoneLabel = "NEXT"
-		// while (!(await $(`//*[@text="${coapplicantPhoneLabel}"]`).isExisting())) {
-		// 	await Util.scrollTextIntoViewByClass(undefined, coapplicantPhoneLabel)
-		// }
-
-		// const coapplicantPhone = await driver.waitUntil(async () => {
-		// 	const editText = await $$(InterviewProcess.editText)
-
-		// 	if (editText.length < 2) {
-		// 		return false
-		// 	}
-
-		// 	return editText[0]
-		// })
-
-		// await coapplicantPhone.setValue("09790900023")
-
-		// const edTextList1 = await $$(InterviewProcess.editText);
-		// for (let i = 0; i < edTextList1.length; i++) {
-		//   switch (i) {
-		//     case 0:
-		//       if (await edTextList1[i].getText() == "") {
-		//         await edTextList1[i].setValue("Mr. Dummy Name");
-		//       }
-		//       break;
-
-		//     case 1:
-		//       if (await edTextList1[i].getText() == "") {
-		//         await edTextList1[i].setValue("09751999000");
-		//       }
-		//       break;
-
-		//     default:
-		//       break;
-		//   }
-		// }
-		// await Util.scrollToEndByClass()
 		await Util.scrollTextIntoViewByClass(undefined, "NEXT")
 
-		// const addressBox = await driver.waitUntil(async () => {
-		// 	const edTextList = await $$(InterviewProcess.editText)
-		// 	if (edTextList.length == 0) {
-		// 		return false
-		// 	}
-
-		// 	return edTextList[edTextList.length - 1]
-		// })
-		// await addressBox.setValue("အမှတ် ၁ နှင်းဆီလမ်း ကမာရွတ်မြို့နယ် ရန်ကုန်မြို့")
-
-		// const edTextList2 = await $$(InterviewProcess.editText);
-		// await edTextList2[edTextList2.length - 1].setValue(
-		//   "အမှတ် ၁ နှင်းဆီလမ်း ကမာရွတ်မြို့နယ် ရန်ကုန်မြို့"
-		// );
-		// await InterviewProcess.nextBtn.waitForExist()
 		await InterviewProcess.nextBtn.click()
 	}
 

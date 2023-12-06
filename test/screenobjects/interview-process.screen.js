@@ -29,9 +29,7 @@ class InterviewProcess {
     return $(`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rblln"]`);
   }
   get phoneNoInputBox() {
-    return $(
-      `//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etPhoneNo"]`
-    );
+    return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etPhoneNo"]');
   }
   get houseNoInputBox() {
     return $(
@@ -207,12 +205,12 @@ class InterviewProcess {
       '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnChooseFromGallery"]'
     );
   }
-  
+
   get groupLeaderName() {
     return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvLeaderName"]';
   }
 
-  get tvDropDownTitleMultiple () {
+  get tvDropDownTitleMultiple() {
     return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvDropDownTitle"]'
   }
 
