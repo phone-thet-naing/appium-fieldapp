@@ -8,10 +8,10 @@
 		"run:test": "run test",
 		"tpec": "wdio wdio.conf.js -- --spec",
 		"test": "wdio wdio.conf.js",
-		"test:idl-appointment": "npm run test -- --spec test/specs/appointment/idl-make-appointment.js",
-		"test:idl-interview": "npm run test -- --spec test/specs/interview/idl-interview-process.js",
+		"idl_appointment": "npm run test -- --spec test/specs/appointment/idl-make-appointment.js",
+		"idl_interview": "npm run test -- --spec test/specs/interview/idl-interview-process.js",
 		"test:gpl-appointment": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js",
-		"test:gpl-interview": "npm run test -- --spec test/specs/interview/gpl-interview-process.js"
+		"gpl_interview": "npm run test -- --spec test/specs/interview/gpl-interview-process.js"
 	},
 	"keywords": [],
 	"author": "",
