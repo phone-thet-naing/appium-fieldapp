@@ -887,7 +887,7 @@ class InterviewProcessHelper {
 		await InterviewProcess.nextBtn.click()
 	}
 
-	async evaluationPageIndividual() {
+	async evaluationPageIndividual(input) {
 		// Go to top of the tab and assert the desired label
 		await Util.scrollToBeginning(undefined)
 		const desiredLabel = await $('//*[@text="အသင်းသား၏ လုပ်ငန်းတိုးတက်မှုအခြေအနေ (FO သုံးသပ်ချက်) *"]')
@@ -921,7 +921,7 @@ class InterviewProcessHelper {
 			// let amount = parseInt(Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount)
 			// amount = parseInt(Math.floor(amount / 10) * 10)
 			const amount = await Util.generateRandomMoneyAmount(1000000, 500000)
-			await approvedLoanAmount.setValue(amount)
+			await approvedLoanAmount.setValue(input.fo_approved_amount);
 		}
 
 		// Fill `Reason for Loan Approval`

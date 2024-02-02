@@ -1,8 +1,0 @@
-*Make appointment
-npm run test -- --spec .\test\specs\appointment\gpl-make-appointment.js
-npm run test -- --spec .\test\specs\appointment\idl-make-appointment.js
-
-*Make interview
-npm run test -- --spec .\test\specs\interview\gpl-interview-process.js
-npm run test -- --spec .\test\specs\interview\idl-interview-process.js
-

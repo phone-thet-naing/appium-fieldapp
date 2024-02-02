@@ -1,6 +1,10 @@
 const HomeScreen = require("./home.screen")
 
 class AppointmentScreen {
+    get makeAppointmentLabel () {
+        return $('//*[@text="MAKE APPOINTMENT"]')
+    }
+
     get districtDropdown() {
         return $("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.ScrollView/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.Spinner/android.widget.LinearLayout")
     }
@@ -18,6 +22,10 @@ class AppointmentScreen {
     }
 
     get dateOkBtn() {
+        return $('//*[@text="OK"]')
+    }
+    
+    get okBtn () {
         return $('//*[@text="OK"]')
     }
 
@@ -74,16 +82,32 @@ class AppointmentScreen {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnAddOneMoreClient"]');
     }
 
+    get createNewClientBtn () {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnAddOneMoreClient"]')
+    } 
+
     get new_member_name_input() {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/edtEnterName"]');
+    }
+    
+    get nameInput() {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/edtEnterName"]')
     }
 
     get new_member_phone_input() {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/edtEnterPhone"]');
     }
+    
+    get phoneInput () {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/edtEnterPhone"]')  
+    }
 
     get new_member_dob_picker() {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etDateOfBirth"]');
+    }
+
+    get datePicker() {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etDateOfBirth"]')
     }
 
     get new_member_nrc_picker() {
@@ -105,6 +129,14 @@ class AppointmentScreen {
 
     get radioSelectBtn() {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/layoutSelectIcon"]')
+    }
+
+    get addNewMemberLabel () {
+        return $('//*[@text="Add New Member"]')
+    }
+
+    get clientNameMp () {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvClientName"]')
     }
 }
 

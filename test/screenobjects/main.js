@@ -1,5 +1,6 @@
 const defaultTimeout = 10000
 const Util = require('../utils/utility-functions');
+const HomeScreen = require('../screenobjects/home.screen')
 
 class Main {
 
@@ -49,6 +50,37 @@ class Main {
             default:
                 break;
         }
+    }
+
+    get downloadingStatus () {
+        return $('//*[@text="Downloading"]')
+    }
+
+    get downloadCompleteStatus () {        
+        return $('//*[@text="COMPLETED DOWNLOAD"]')
+    }
+
+    async gotoHomeScreen () {
+        
+    }
+
+    async uploadData () {
+        const uploadIcon = await driver.waitUntil(async () => {
+			const icons = await $$('//*[@class="android.view.View"]')
+
+			if (icons.length < 40) 
+				return false 
+
+			return icons[5]
+		})
+
+		try {
+			await uploadIcon.click()
+			await HomeScreen.uploadConfirm.click()
+		} catch (error) {
+			console.log(error)
+			throw new Error("Error occured ", error)
+		}
     }
 }
 

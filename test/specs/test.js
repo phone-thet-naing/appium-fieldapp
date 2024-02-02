@@ -12,7 +12,7 @@ const HomeScreen = require('../screenobjects/home.screen');
 const InterviewProcessHelper = require('../utils/helpers/interview_process.helper');
 const NgasayaContract = require('../utils/make-ngasaya');
 const AppointmentHelper = require('../utils/helpers/make-appointment.helper');
-const main = require('../screenobjects/main');
+const Main = require('../screenobjects/main');
 const ngasayaContractHelper = require('../utils/make-ngasaya');
 
 const groupList = require('../data/input_data.json');
@@ -23,17 +23,84 @@ const interviewProcessScreen = require('../screenobjects/interview-process.scree
 const listLabels = [
 	'Guarantor Building *',
 	'Guarantor Business Photo -1 *',
-	'Guarantor Business Photo -2 *',
+	'Guarantor Business Photo -2 *',	
 	'Guarantor Business Photo -2 *',
 ];
 
 describe('sample', () => {
-	it('Evaluation Page for Individual Loan Test', async () => {
-		await InterviewProcessHelper.individualCoApplicant()
+	it.only('New Member Adding', async () => {
+		const newMember = {
+			name: "U Mg Mg",
+			phone: "751972062",
+			dob: "birthday",
+			nrcNo: "983527"
+		}
+		await AppointmentHelper.addNewMember([newMember])
 	})
 
-	it.only('general testing', async function () {
-		await util.choosePhoneNumber()
+	it("Client name searching test", async () => {
+
+		// const homeIcon = 
+		const {homeIcon, appointmentIcon, uploadIcon, downloadIcon, settingIcon, profileIcon} = await driver.waitUntil(async () => {
+            const icons = await $$('//*[@class="android.widget.TextView"]')
+        
+            if (icons.length < 5) 
+                return false 
+        
+            return {
+                homeIcon: icons[3],
+				appointmentIcon: icons[5],
+                uploadIcon: icons[7],
+				downloadIcon: icons[9],
+                settingIcon: icons[11],
+				profileIcon: icons[13]
+            }
+        })
+
+		try {
+			await homeIcon.click()
+		} catch (error) {
+			console.error('Error occurred: ', error.message)
+		}
+
+		// try {
+		// 	const home = await HomeScreen.getHomeIcon()
+		// 	await home.click()
+		// } catch (error) {
+		// 	console.error('Error occurred: ', error.message)	
+		// }
+	})
+
+	it('general testing', async function () {
+		const evaluation_data = require("../data/input_data.json").evaluation;
+		// await InterviewProcessHelper.personalDetailPage();
+		// await InterviewProcessHelper.householdDetailPage();
+		// await InterviewProcessHelper.earningFamilyMemberPage();
+		// await InterviewProcessHelper.householdVerificationPage();
+		// await InterviewProcessHelper.currentLoanAndCreditHistoryPage();
+		// await InterviewProcessHelper.individualCoApplicant();
+		// await InterviewProcessHelper.businessProfilePage('individual');
+		// await InterviewProcessHelper.otherIncomeIndividual();
+		// await InterviewProcessHelper.businessInocmePage();
+		// await InterviewProcessHelper.businessExpensePage();
+		// await InterviewProcessHelper.personalExpensePage();
+		// await InterviewProcessHelper.currentAssetsPage();
+		// await InterviewProcessHelper.longTermAssetsPage();
+		// await InterviewProcessHelper.liabilitiesPage();
+		// await InterviewProcessHelper.loanInformationPage();
+		// await InterviewProcessHelper.familyReference();
+		// await InterviewProcessHelper.businessReference();
+		// await InterviewProcessHelper.clientAppPage();
+		// await InterviewProcessHelper.individualGuarantorScreen();
+		// await InterviewProcessHelper.esddCheckList();
+		// await InterviewProcessHelper.attachmentClientPage();
+		// await InterviewProcessHelper.attachmentLoanPage();
+		await InterviewProcessHelper.attachmentCoApplicant();
+		await InterviewProcessHelper.attachmentGuarantorPage('individual');
+		await InterviewProcessHelper.cashFlowPage();
+		await InterviewProcessHelper.evaluationPageIndividual(evaluation_data);
+		await InterviewProcessHelper.loanSummary();
+		await InterviewProcessHelper.assetSummary();
 	});
 
 	it('interview client enhancement', async function () {

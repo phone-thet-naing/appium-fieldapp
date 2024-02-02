@@ -17,6 +17,10 @@ class MakeAppointmentHelper {
 		);
 	}
 
+	/**
+	 * 
+	 * @param {["Individual Loan", "Group Loan"]} loanType 
+	 */
 	async fillAppointmentData(loanType) {
 		await expect(await $('//*[@text="MAKE APPOINTMENT"]')).toBeDisplayed();
 
@@ -154,13 +158,42 @@ class MakeAppointmentHelper {
 	}
 
 	// This function adds member(s) from Existing Clients
-	async addMember(totalClients) {
+	async addMember(totalClients, clientNames = []) {
 		await expect(await $(`//*[@text="ADD MEMBERS"]`)).toExist();
 
 		while (
 			parseInt((await AppointmentScreen.addBtn.getText()).split(' ')[1]) <
 			totalClients
 		) {
+			// If name was provided
+			if (clientNames.length > 0) {
+				const searchBoxInput = await AppointmentScreen.searchBar;
+
+				for (let i = 0; i < clientNames.length; i++) {
+					await searchBoxInput.setValue(clientNames[i]);
+
+					const selectedMember = await driver.waitUntil(async () => {
+						const radioList = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/layoutSelectIcon"]');
+		
+						return radioList.length < 1
+							? false
+							: radioList[0];
+					});
+
+					const clientNameDisplayed = await (await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvExistingClientName"]')).getText()
+					const lastName = clientNameDisplayed.replace(/Daw|U/g, "").trim()
+
+					if (clientNames[i] == lastName) {
+						await selectedMember.click();
+					} else {
+						throw new Error("Client name does not exist")
+					}
+				}				
+
+				await AppointmentScreen.addBtn.click();
+
+				return;
+			}
 			// Swing the first time.
 			if (
 				parseInt((await AppointmentScreen.addBtn.getText()).split(' ')[1]) === 0
@@ -240,10 +273,7 @@ class MakeAppointmentHelper {
 
 	// This code will choose a random group from existing groups
 	async chooseRandomGroup() {
-		await Util.flingToEnd(
-			'androidx.recyclerview.widget.RecyclerView',
-			Math.floor(Math.random() * 4 + 1)
-		);
+		await Util.flingToEnd('androidx.recyclerview.widget.RecyclerView', Math.floor(Math.random() * 4 + 1));
 
 		// This will generate a random index for displayed checkbox btns
 		const randomGroup = await driver.waitUntil(async () => {
@@ -290,7 +320,7 @@ class MakeAppointmentHelper {
 	}
 
 	// This code will make an appointment with an existing client
-	async makeIndividualAppointment() {
+	async makeIndividualAppointment(input) {
 		
 		// Fill Appointment Data
 		await this.fillAppointmentData('Individual Loan');
@@ -298,12 +328,12 @@ class MakeAppointmentHelper {
 		await expect(await AppointmentScreen.addExistingMemberIcon).toExist();
 		await AppointmentScreen.addExistingMemberIcon.click();
 
-		await this.addMember(1);
+		await this.addMember(1, input.client_names);
 
 		await AppointmentScreen.createAppointmentBtn.click();
 	}
 
-	async make_individual_appointment_with_new_client() {
+	async makeAppointmentWithNewClient() {
 		await HomeScreen.appointmentIcon.click();
 		await this.fillAppointmentData('Individual Loan');
 		await AppointmentScreen.add_new_client.click();
@@ -313,6 +343,44 @@ class MakeAppointmentHelper {
 		await AppointmentScreen.new_member_nrc_picker.setValue('000123');
 		await AppointmentScreen.new_member_continue_btn.click();
 		await AppointmentScreen.createAppointmentBtn.click();
+	}
+
+	/**
+	 * 
+	 * @param {{name: string, phone: string, dob: string, nrcNo: string}[]} members 
+	 */
+	async addNewMember(members) {
+		for (let i = 0; i < members.length; i++) {
+			await AppointmentScreen.createNewClientBtn.click()
+
+			await expect(await AppointmentScreen.addNewMemberLabel).toExist()
+
+			const { namePrefix, phonePrefix } = await driver.waitUntil(async () => {
+				const spinnerItems = await $$(AppointmentScreen.spinnerItem)
+
+				return spinnerItems.length == 2 ? { namePrefix: spinnerItems[0], phonePrefix: spinnerItems[1]} : false;
+			})
+
+			const namePrefixValue = members[i].name.split(" ")[0]
+			const lastNameValue = members[i].name.split(" ").slice(1).join(" ")
+			if ((await namePrefix.getText()).trim() !== namePrefixValue) {
+				await namePrefix.click()
+				await $(`//*[@text="${namePrefixValue}"]`).click()
+			}		
+
+			await AppointmentScreen.nameInput.setValue(lastNameValue)
+
+			await AppointmentScreen.phoneInput.setValue(members[i].phone)
+
+			await AppointmentScreen.datePicker.click()
+			await AppointmentScreen.dateOkBtn.click()
+
+			await Util.fillNrc(false)
+
+			await AppointmentScreen.okBtn.click()			
+		}
+
+		await AppointmentScreen.createAppointmentBtn.click()
 	}
 }
 

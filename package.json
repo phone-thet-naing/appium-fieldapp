@@ -5,13 +5,15 @@
 	"main": "index.js",
 	"scripts": {
 		"wdio": "wdio run ./wdio.conf.js",
-		"run:test": "run test",
+		"run:test": "npm run test -- --spec test/specs/test.js",
 		"tpec": "wdio wdio.conf.js -- --spec",
 		"test": "wdio wdio.conf.js",
 		"test:idl-appointment": "npm run test -- --spec test/specs/appointment/idl-make-appointment.js",
 		"test:idl-interview": "npm run test -- --spec test/specs/interview/idl-interview-process.js",
 		"test:gpl-appointment": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js",
-		"test:gpl-interview": "npm run test -- --spec test/specs/interview/gpl-interview-process.js"
+		"test:gpl-interview": "npm run test -- --spec test/specs/interview/gpl-interview-process.js",
+		"test:overdue": "npm run test -- --spec test/specs/collection/OverdueCollectionTest.js",
+		"advance": "npm run test -- --spec test/specs/collection/FutureCollectionTest.js"
 	},
 	"keywords": [],
 	"author": "",

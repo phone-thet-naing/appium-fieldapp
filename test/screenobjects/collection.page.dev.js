@@ -79,14 +79,6 @@ class CollectionPage {
     async filterCollectionType(collectionType) {
 
     }
-
-    get repaymentCollectionLabel () {
-        return $('//*[@text="REPAYMENT COLLECTION"]')
-    }
-
-    get vsavingDepositLabel () {
-        return $('//*[@text="V Saving Deposit"]')
-    }
 }
 
 module.exports = new CollectionPage()

@@ -101,4 +101,9 @@ describe("Making Overdue Collection", () => {
 
         await checkInFODayClose(clientListInCollection);
     })
+
+    it ('Upload Collection in Day Close', async () => {
+        await driver.back()
+        await Main.uploadData()
+    })
 });

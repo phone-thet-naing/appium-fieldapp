@@ -53,4 +53,9 @@ describe("V Saving Collection", () => {
         }
         await checkVSavingInFODayClose(clientListInCollection);
     })
+
+    it ('Upload Collection in Day Close', async () => {
+        await driver.back()
+        await Main.uploadData()
+    })
 })

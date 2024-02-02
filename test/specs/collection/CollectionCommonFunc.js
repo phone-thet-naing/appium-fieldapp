@@ -23,7 +23,7 @@ async function checkInFODayClose(clientListInCollection) {
 
     await DayClose.todayAllRepaymentTab.click();
 
-    await expect(await $('//*[@text="REPAYMENT COLLECTION"]')).toBeDisplayed();
+    await expect(await CollectionScreen.repaymentCollectionLabel).toBeDisplayed();
 
     const totalClientCount = parseInt(await DayClose.dayCloseClientCount.getText());
     console.log('Client Count -> ', totalClientCount)
@@ -43,7 +43,7 @@ async function checkInFODayClose(clientListInCollection) {
                 await DayClose.correctCheckBox.click();
                 await DayClose.confirmBtn.click();
                 await Util.drawSignature();
-                await expect(await $('//*[@text="REPAYMENT COLLECTION"]'));
+                await expect(await CollectionScreen.repaymentCollectionLabel);
             }
         }
     }
@@ -52,7 +52,7 @@ async function checkInFODayClose(clientListInCollection) {
 async function checkVSavingInFODayClose(clientListInCollection) {
     await HomeScreen.foDayCloseMenu.click();
     await DayClose.todayAllVSavingDeposit.click();
-    await expect(await $('//*[@text="V Saving Deposit"]')).toBeDisplayed();
+    await expect(await CollectionScreen.vsavingDepositLabel).toBeDisplayed();
 
     // const totalClientCount = parseInt(await DayClose.dayCloseClientCount.getText());
     // console.log('Client Count -> ', totalClientCount)
@@ -72,7 +72,7 @@ async function checkVSavingInFODayClose(clientListInCollection) {
                 await DayClose.correctCheckBox.click();
                 await DayClose.confirmBtn.click();
                 await Util.drawSignature();
-                await expect(await $('//*[@text="REPAYMENT COLLECTION"]'));
+                await expect(await CollectionScreen.repaymentCollectionLabel);
             }
         }
     }

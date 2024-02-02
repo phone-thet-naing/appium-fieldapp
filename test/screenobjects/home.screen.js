@@ -1,5 +1,40 @@
 class HomeScreen {
 
+    async initIcons () {
+        const {homeIcon, appointmentIcon, uploadIcon, downloadIcon, settingIcon, profileIcon} = await driver.waitUntil(async () => {
+            const icons = await $$('//*[@class="android.widget.TextView"]')
+        
+            if (icons.length < 40) 
+                return false 
+        
+            return {
+                homeIcon: icons[3],
+				appointmentIcon: icons[5],
+                uploadIcon: icons[7],
+				downloadIcon: icons[9],
+                settingIcon: icons[11],
+				profileIcon: icons[13]
+            }
+        })
+
+        return {homeIcon, appointmentIcon, uploadIcon, downloadIcon, settingIcon, profileIcon}
+    }
+
+    async getHomeIcon () {
+        const icons = await this.initIcons()
+        return icons.homeIcon
+    }
+
+    async getUploadIcon () {
+        const icons = await this.initIcons()
+        return icons.uploadIcon 
+    }
+
+    async getDownloadIcon () {
+        const icons = await this.initIcons()
+        return icons.downloadIcon
+    }
+
     get clientMenu() {
         return $('//*[@text="Clients"]');
     }
@@ -81,8 +116,8 @@ class HomeScreen {
         return ('//*[@text="Disbursement"]')
     }
 
-    get uploadIcon() {
-        return ('//*[@text="UPLOAD"]')
+    get uploadConfirm() {
+        return $('//*[@text="UPLOAD"]')
     }
 
     get nativeDownloadSuccessBtn() {
@@ -128,7 +163,6 @@ class HomeScreen {
     get allowAllTheTimeButton() {
         return $('//*[@text="Allow all the time"]');
     }
-
 }
 
 module.exports = new HomeScreen()

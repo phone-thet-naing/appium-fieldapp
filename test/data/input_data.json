@@ -26,5 +26,15 @@
 		"repayment_frequency": 12,
 		"disbursement_date": "08 August 2023",
 		"first_repayment_date": "30 August 2023"
+	},
+	"interview_client": {
+		"client_name_eng": "",
+		"client_name_mm": "",
+		"father_name_eng": "",
+		"father_name_mm": "",
+		"dob": ""
+	},
+	"evaluation": {
+		"fo_approved_amount": 800000
 	}
 }

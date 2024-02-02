@@ -16,7 +16,9 @@ class Utility {
 		console.log(await InterviewProcess.phoneNoPrefixSpinner.getAttribute('resource-id'))
 	}
 
+	// This function is no longer used
 	async clearNoteIcon(toX, toY) {
+		return null;
 		/**
 		 * `clearNoteIcon` moves the note icon that appears on every screen of the field app to the desired position.
 		 * The desired position is the top left corner of the device screen (for now)
@@ -133,9 +135,11 @@ class Utility {
 	}
 
 
-	async fillNrc() {
-		await InterviewProcess.etNrc.click()
-		await InterviewProcess.spinnerState.waitForExist()
+	async fillNrc(autopass = true) {
+		if (autopass) {
+			await InterviewProcess.etNrc.click()
+			await InterviewProcess.spinnerState.waitForExist()
+		}
 
 		const MAX_STATE = 9
 		await InterviewProcess.spinnerState.click()
@@ -182,7 +186,7 @@ class Utility {
 		const [MAX, MIN] = [999999, 100000]
 		const randomNrcNo = this.getRandomIndex(MAX, MIN)
 		await InterviewProcess.etNrcNo.setValue(randomNrcNo)
-		await $(`//*[@text="OK"]`).click()
+		if (autopass) await $(`//*[@text="OK"]`).click()
 	}
 
 	async scrollOptionIntoView(option, itemListId) {
