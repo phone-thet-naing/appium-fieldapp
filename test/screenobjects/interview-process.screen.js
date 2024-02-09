@@ -88,6 +88,10 @@ class InterviewProcess {
   get editText() {
     return `//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etText"]`;
   }
+
+  get editTextInputMultiple() {
+    return (`//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etText"]`);
+  }
   async setLength(index, length) {
     return $(
       `/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout[${index}]/android.widget.LinearLayout/android.widget.EditText`
@@ -220,6 +224,10 @@ class InterviewProcess {
 
   get tvSpinnerItem() {
     return ('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]')
+  }
+
+  get interviewsMenu() {
+    return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvInterviews"]');
   }
 }
 

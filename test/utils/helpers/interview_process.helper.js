@@ -85,7 +85,6 @@ class InterviewProcessHelper {
 	}
 
 	async clientInfoPage() {
-		// choose client name prefix
 		const spinnerMenuList = await driver.waitUntil(async () => {
 			const spinnerItems = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]')
 
@@ -131,12 +130,12 @@ class InterviewProcessHelper {
 		}
 
 		// Phone Number
-		// if (await InterviewProcess.phoneNoInputBox.getText() == "") {
+		if (await (await InterviewProcess.phoneNoInputBox).getText() === "") {
 			// const phoneNoSize = phoneNumber.length
 			// const selectedPhoneNo = phoneNumber[Math.floor(Math.random() * (phoneNoSize))]
 			// await InterviewProcess.phoneNoInputBox.setValue(selectedPhoneNo)
 			await Util.choosePhoneNumber()
-		// }
+		}
 
 		// fill nrc
 		if ((await InterviewProcess.etNrc.getText()) === "") {
@@ -183,6 +182,10 @@ class InterviewProcessHelper {
 		// }
 	}
 
+	async interviewClientScreen() {
+		await this.clientInfoPage();
+	}
+
 	async personalDetailPage() {
 		await $('//*[@text="PERSONAL DETAIL"]').waitForExist({
 			timeout: 6000,
@@ -214,11 +217,11 @@ class InterviewProcessHelper {
 	async earningFamilyMemberPage() {
 		// ဝင်ငွေရှာနိုင်သည့် မိသားစုဝင်အရေအတွက်
 		const value = Math.floor(Math.random() * 3 + 1)
-		if ((await InterviewProcess.inputBox.getText()) == "") {
+		if (await (await InterviewProcess.inputBox).getText() === "") {
 			await InterviewProcess.inputBox.setValue(value)
 		}
 		// await InterviewProcess.nextBtn.click();
-		await Main.asyncClick(InterviewProcess.nextBtn)
+		await Main.asyncClick(InterviewProcess.nextBtn);
 	}
 
 	async householdVerificationPage() {
@@ -504,9 +507,9 @@ class InterviewProcessHelper {
 
 	async currentAssetsPage() {
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
-			await Util.scrollToEndByClass()
+			await Util.scrollToEndByClass();
 		}
-		await InterviewProcess.nextBtn.click()
+		await Util.clickNextBtn();
 	}
 
 	async longTermAssetsPage() {
@@ -522,7 +525,7 @@ class InterviewProcessHelper {
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
 		}
-		await InterviewProcess.nextBtn.click()
+		await InterviewProcess.nextBtn.click();
 	}
 
 	async liabilitiesPage() {
@@ -992,9 +995,9 @@ class InterviewProcessHelper {
 
 	async individualCoApplicant() {
 		// Go to top of the screen and make assertion
-		await Util.scrollToBeginning()
-		const desiredLabel = await $('//*[@text="အတူလျှောက်ထားသူ၏အမည် *"]')
-		await expect(desiredLabel).toExist()
+		await Util.scrollToBeginning();
+		const desiredLabel = await $('//*[@text="အတူလျှောက်ထားသူ၏အမည် *"]');
+		await expect(desiredLabel).toExist();
 
 		// Fill coapplicant's name
 		const coApplicantName = await InterviewProcess.inputBox
@@ -1098,6 +1101,72 @@ class InterviewProcessHelper {
 		const selector = await $('//*[@text="NEXT"]')
 		await expect(selector).toExist()
 		await selector.click()
+	}
+
+	async agriBusinessProfile() {
+		const { mainCrop, farmArea, farmCount } = await driver.waitUntil(async () => {
+			const textInputList = await $$(interviewProcessScreen.editTextInputMultiple);
+
+			if (textInputList.length < 0) return false;
+
+			return {
+				mainCrop: textInputList[0],
+				farmArea: textInputList[1],
+				farmCount: textInputList[2],
+			}
+		});
+
+		await mainCrop.setValue('ပန်းသီး');
+		await farmArea.setValue(3);
+		await farmCount.setValue(10);
+
+		await InterviewProcess.nextBtn.click();
+	}
+	
+	async agriPlotInformation() {
+		const { farmValue } = await driver.waitUntil(async () => {
+			const textInputList = await $$(interviewProcessScreen.editTextInputMultiple);
+			
+			if (textInputList.length < 0) return false;
+			
+			return {
+				farmValue: textInputList[textInputList.length - 2]
+			}
+		});
+		
+		await farmValue.setValue(5000000);
+		
+		await InterviewProcess.nextBtn.click();
+	}
+
+	async agriculturePractices() {
+		await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+		await (await InterviewProcess.nextBtn).click();
+	}
+
+	async agriIncome() {
+		const { importAmount, averagePrice, estimation } = await driver.waitUntil(async () => {
+			const textInputList = await $$(interviewProcessScreen.editTextInputMultiple);
+			
+			if (textInputList.length < 0) return false;
+			
+			return {
+				importAmount: textInputList[0],
+				averagePrice: textInputList[1],
+				estimation: textInputList[2],
+			}
+		});
+
+		await importAmount.setValue(2000000);
+		await averagePrice.setValue(3000000);
+		await estimation.setValue(5000000);
+
+		await (await InterviewProcess.nextBtn).click();
+	}
+
+	async agriExpense() {
+		await Util.scrollTextIntoViewByClass(undefined, 'NEXT');
+		await (await InterviewProcess.nextBtn).click();
 	}
 }
 

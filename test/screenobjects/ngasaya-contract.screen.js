@@ -87,6 +87,14 @@ class NgasayaScreen {
 	get ivSign() {
 		return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/ivSign"]'
 	}
+
+	get interviewBtn() {
+		return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnInterview"]');
+	}
+
+	get individualContractScreenLabel() {
+		return $('//*[@text="Individual Loan"]')
+	}
 }
 
 module.exports = new NgasayaScreen()

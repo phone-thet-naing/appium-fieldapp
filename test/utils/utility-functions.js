@@ -137,6 +137,8 @@ class Utility {
 
 	async fillNrc(autopass = true) {
 		if (autopass) {
+			const nrcSpinner = await InterviewProcess.etNrc
+			console.table({nrcSpinner})
 			await InterviewProcess.etNrc.click()
 			await InterviewProcess.spinnerState.waitForExist()
 		}
@@ -414,6 +416,11 @@ class Utility {
 		amount = parseInt(Math.floor(amount / 10) * 10)
 
 		return amount
+	}
+
+	async clickNextBtn() {
+		await this.scrollTextIntoViewByClass(undefined, "NEXT");
+		await (await $('//*[@text="NEXT"]')).click();
 	}
 }
 

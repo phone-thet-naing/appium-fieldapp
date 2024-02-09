@@ -4,16 +4,16 @@ class HomeScreen {
         const {homeIcon, appointmentIcon, uploadIcon, downloadIcon, settingIcon, profileIcon} = await driver.waitUntil(async () => {
             const icons = await $$('//*[@class="android.widget.TextView"]')
         
-            if (icons.length < 40) 
+            if (icons.length < 0) 
                 return false 
         
             return {
                 homeIcon: icons[3],
-				appointmentIcon: icons[5],
-                uploadIcon: icons[7],
-				downloadIcon: icons[9],
-                settingIcon: icons[11],
-				profileIcon: icons[13]
+				appointmentIcon: icons[6],
+                uploadIcon: icons[9],
+				downloadIcon: icons[12],
+                settingIcon: icons[15],
+				profileIcon: icons[18]
             }
         })
 
@@ -25,6 +25,11 @@ class HomeScreen {
         return icons.homeIcon
     }
 
+    async getAppointmentIcon () {
+        const icons = await this.initIcons()
+        return icons.appointmentIcon
+    }
+
     async getUploadIcon () {
         const icons = await this.initIcons()
         return icons.uploadIcon 
@@ -33,6 +38,16 @@ class HomeScreen {
     async getDownloadIcon () {
         const icons = await this.initIcons()
         return icons.downloadIcon
+    }
+
+    async goToHome () {
+        const homeIcon = await this.getHomeIcon()
+        await homeIcon.click()
+    }
+
+    async goToAppointment () {
+        const appointmentIcon = await this.getAppointmentIcon()
+        await appointmentIcon.click()
     }
 
     get clientMenu() {
@@ -163,7 +178,11 @@ class HomeScreen {
     get allowAllTheTimeButton() {
         return $('//*[@text="Allow all the time"]');
     }
+
+    async navigateToInterventionAssessment() {
+        return true;
+    }
 }
 
-module.exports = new HomeScreen()
+module.exports = new HomeScreen();
 // export default new HomeScreen()

@@ -174,8 +174,7 @@ class NgasayaContract {
 		await expect(await homeScreen.appointmentIcon).toExist();
 	}
 
-	async makeIdlContract(ngasayaData) {
-
+	async makeIdlContract(ngasayaData = null) {
 		await util.clearNoteIcon(0, 0)
 
 		// for loan name, we will choose one of the following 3 options
@@ -187,7 +186,8 @@ class NgasayaContract {
 		for (let i = 0; i < ivDropDownList.length; i++) {
 			await ivDropDownList[i].click();
 			// const loanNameOption = ngasayaData['loanName'];
-			const chosenLoanName = loanNameOptions[Math.floor(Math.random() * loanNameOptions.length)]
+			// const chosenLoanName = loanNameOptions[Math.floor(Math.random() * loanNameOptions.length)] // Choosing laon option randomly
+			const chosenLoanName = 'Agri Loan - Interest Only'
 			switch (i) {
 				case 0:
 					console.log(chosenLoanName)
@@ -246,12 +246,12 @@ class NgasayaContract {
 		);
 		for (const loanAmountEdtText of loanAmountEdtTextList) {
 			if (
-				(await loanAmountEdtText.getText()) == 'Enter Amount' ||
+				(await loanAmountEdtText.getText()) === 'Enter Amount' ||
 				parseInt((await loanAmountEdtText.getText())) < minimumLoanAmount ||
 				parseInt((await loanAmountEdtText.getText())) > maximumLoanAmount
 			) {
 				const randomResult = Math.random() * (maximumLoanAmount - minimumLoanAmount + 1)
-				const floorResult = parseInt(Math.floor(randomResult)) + parseInt(minimumLoanAmount)
+				const floorResult = Math.floor(randomResult) + parseInt(minimumLoanAmount)
 				const chosenLoanAmount = floorResult
 
 				console.table({

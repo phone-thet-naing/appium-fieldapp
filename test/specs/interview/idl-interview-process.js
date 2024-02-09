@@ -1,6 +1,7 @@
 const InterviewProcess = require('../../screenobjects/interview-process.screen');
 const NgasayaContract = require('../../utils/make-ngasaya');
 const InterviewProcessHelper = require('../../utils/helpers/interview_process.helper');
+const HomeScreen = require("../../screenobjects/home.screen");
 
 // interview test data
 const interviewData = {
@@ -37,22 +38,19 @@ const loanInformationData = [
 
 describe('Individual Interview Process', () => {
 	it('New Interview', async () => {
-		// for (const client of clientList) {
-		// const clientId = client.split(' ')[1]
-		// let searchKeywords = client.split(' ').slice(1).join(' ')
-		// Navigate to a specific interview
-		// await InterviewProcessHelper.chooseIndividualIterview(client)
+		const interviewProcess = await $('//*[@text="Interview Process"]');
+        await interviewProcess.click();
 
-		// If ငစရစာချုပ် has not been made
+		const interviewsMenu = await InterviewProcess.interviewsMenu;
+		await expect(interviewsMenu).toBeClickable();
+		await interviewsMenu.click();
+
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
-			// await util.clearNoteIcon(0, 0); // move the note icon to elsewhere
-
-			const { idlNgasayaData } = require('../../data/data')
+			const { idlNgasayaData } = require('../../data/data');
 
 			await NgasayaContract.makeIdlContract(idlNgasayaData);
 		}
 
-		// Interview Process Starts
 		const interviewBtn = await $(InterviewProcess.btnInterview);
 		await interviewBtn.click();
 		await InterviewProcessHelper.clientInfoPage(interviewData);
