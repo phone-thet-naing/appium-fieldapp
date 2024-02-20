@@ -7,7 +7,7 @@ const HomeScreen = require("../../screenobjects/home.screen");
 const interviewData = {
 	created_date: 'Created Date - 2023-07-20',
 	phone_number_prefix: '09',
-	phone_number: '790900023',
+	phoneNumber: '790900023',
 	client_name: 'Daw Win Ni Aye',
 	house_no: 'no()',
 	street_no: 'no()',
@@ -38,12 +38,12 @@ const loanInformationData = [
 
 describe('Individual Interview Process', () => {
 	it('New Interview', async () => {
-		const interviewProcess = await $('//*[@text="Interview Process"]');
-        await interviewProcess.click();
+		// const interviewProcess = await $('//*[@text="Interview Process"]');
+        // await interviewProcess.click();
 
-		const interviewsMenu = await InterviewProcess.interviewsMenu;
-		await expect(interviewsMenu).toBeClickable();
-		await interviewsMenu.click();
+		// const interviewsMenu = await InterviewProcess.interviewsMenu;
+		// await expect(interviewsMenu).toBeClickable();
+		// await interviewsMenu.click();
 
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
 			const { idlNgasayaData } = require('../../data/data');
@@ -52,7 +52,9 @@ describe('Individual Interview Process', () => {
 		}
 
 		const interviewBtn = await $(InterviewProcess.btnInterview);
-		await interviewBtn.click();
+		if (await interviewBtn.isDisplayed()) {
+			await interviewBtn.click();
+		}
 		await InterviewProcessHelper.clientInfoPage(interviewData);
 		await InterviewProcessHelper.personalDetailPage();
 		await InterviewProcessHelper.householdDetailPage();

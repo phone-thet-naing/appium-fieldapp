@@ -3,9 +3,20 @@ const Util = require('../utils/utility-functions');
 const HomeScreen = require('../screenobjects/home.screen')
 
 class Main {
+    get okBtn() {
+        return $('//*[@text="OK"]');
+    }
+
+    get dropdownMenu() {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvItem"]');
+    }
 
     get noteIcon() {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/fab"]')
+    }
+
+    get spinnerItems() {
+        return ('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]');
     }
 
     async asyncGetText(selector) {

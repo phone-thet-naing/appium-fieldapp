@@ -6,8 +6,8 @@ const homeScreen = require('../../screenobjects/home.screen');
 
 describe('Make Interview Appointment', () => {
 	const input = {
-		client_names: ["Po Po Chit"]
-	} 
+		client_names: ["Thuzar"]
+	}
 
 	it.only('Make Individual Interview Appointment', async () => {
 		await homeScreen.appointmentIcon.click();

@@ -84,17 +84,17 @@ class InterviewProcessHelper {
 		await $(`//*[@text="${data}"]`).click()
 	}
 
-	async clientInfoPage() {
-		const spinnerMenuList = await driver.waitUntil(async () => {
-			const spinnerItems = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]')
+	async clientInfoPage({ phoneNumber }) {
+		const { clientNamePrefix, clientNamePrefixMM } = await driver.waitUntil(async () => {
+			const spinnerItems = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]');
 
 			if (spinnerItems.length < 3) return false
 
-			return spinnerItems
+			return {
+				clientNamePrefix: spinnerItems[0],
+				clientNamePrefixMM: spinnerItems[1]
+			}
 		})
-
-		const clientNamePrefix = await spinnerMenuList[0]
-		const clientNamePrefixMM = await spinnerMenuList[1]
 
 		const engPrefix = await clientNamePrefix.getText()
 
@@ -130,12 +130,8 @@ class InterviewProcessHelper {
 		}
 
 		// Phone Number
-		if (await (await InterviewProcess.phoneNoInputBox).getText() === "") {
-			// const phoneNoSize = phoneNumber.length
-			// const selectedPhoneNo = phoneNumber[Math.floor(Math.random() * (phoneNoSize))]
-			// await InterviewProcess.phoneNoInputBox.setValue(selectedPhoneNo)
-			await Util.choosePhoneNumber()
-		}
+		// if (await (await InterviewProcess.phoneNoInputBox).getText() === "") {}
+		await Util.choosePhoneNumber(phoneNumber);
 
 		// fill nrc
 		if ((await InterviewProcess.etNrc.getText()) === "") {
@@ -803,7 +799,7 @@ class InterviewProcessHelper {
 
 		await firstPhotoIcon.click()
 
-		const cropIcon = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]')
+		const cropIcon = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]');
 
 		await expect(cropIcon).toExist()
 		console.log('crop icon is displayed => ', await cropIcon.isDisplayed())
@@ -849,13 +845,17 @@ class InterviewProcessHelper {
 			await Util.scrollToEndByClass()
 		}
 		await InterviewProcess.nextBtn.click()
+
+		// const menu = await $('//*[@text="Clients"]');
+		// await menu.click();
 	}
+
 
 	async attachmentLoanPage() {
 		while (!(await InterviewProcess.nextBtn.isDisplayed())) {
-			await Util.scrollTextIntoViewByClass(undefined, "NEXT")
+			await Util.scrollTextIntoViewByClass(undefined, "NEXT");
 		}
-		await InterviewProcess.nextBtn.click()
+		await InterviewProcess.nextBtn.click();
 	}
 
 	async attachmentCoApplicant() {
@@ -866,7 +866,7 @@ class InterviewProcessHelper {
 			"Co-applicant household list *",
 		]
 
-		await this.uploadRequiredPhotos(requiredFields)
+		await this.uploadRequiredPhotos(requiredFields);
 
 		while (!(await InterviewProcess.signField.isDisplayed())) {
 			await Util.scrollIntoView(
@@ -880,7 +880,7 @@ class InterviewProcessHelper {
 		while (!(await InterviewProcess.nextBtn.isDisplayed())) {
 			await Util.scrollToEndByClass()
 		}
-		await InterviewProcess.nextBtn.click()
+		await (await InterviewProcess.nextBtn).click();
 	}
 
 	async cashFlowPage() {
@@ -1122,20 +1122,20 @@ class InterviewProcessHelper {
 
 		await InterviewProcess.nextBtn.click();
 	}
-	
+
 	async agriPlotInformation() {
 		const { farmValue } = await driver.waitUntil(async () => {
 			const textInputList = await $$(interviewProcessScreen.editTextInputMultiple);
-			
+
 			if (textInputList.length < 0) return false;
-			
+
 			return {
 				farmValue: textInputList[textInputList.length - 2]
 			}
 		});
-		
+
 		await farmValue.setValue(5000000);
-		
+
 		await InterviewProcess.nextBtn.click();
 	}
 
@@ -1147,9 +1147,9 @@ class InterviewProcessHelper {
 	async agriIncome() {
 		const { importAmount, averagePrice, estimation } = await driver.waitUntil(async () => {
 			const textInputList = await $$(interviewProcessScreen.editTextInputMultiple);
-			
+
 			if (textInputList.length < 0) return false;
-			
+
 			return {
 				importAmount: textInputList[0],
 				averagePrice: textInputList[1],

@@ -1,3 +1,5 @@
+const Util = require("../utils/utility-functions"); 
+
 class HomeScreen {
 
     async initIcons () {
@@ -180,9 +182,11 @@ class HomeScreen {
     }
 
     async navigateToInterventionAssessment() {
-        return true;
+        const desiredLabel = "Intervention Assessments";
+        const desiredComponent = await $(`//*[@text="${desiredLabel}"]`);
+        await $(`android=new UiScrollable(new UiSelector().classNameMatches(\".*android.view.View.*\").scrollable(true)).scrollTextIntoView("${desiredLabel}")`);
+        await desiredComponent.click();
     }
 }
 
 module.exports = new HomeScreen();
-// export default new HomeScreen()

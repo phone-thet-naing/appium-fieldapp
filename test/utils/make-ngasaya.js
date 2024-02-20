@@ -187,7 +187,7 @@ class NgasayaContract {
 			await ivDropDownList[i].click();
 			// const loanNameOption = ngasayaData['loanName'];
 			// const chosenLoanName = loanNameOptions[Math.floor(Math.random() * loanNameOptions.length)] // Choosing laon option randomly
-			const chosenLoanName = 'Agri Loan - Interest Only'
+			const chosenLoanName = loanNameOptions[0];
 			switch (i) {
 				case 0:
 					console.log(chosenLoanName)

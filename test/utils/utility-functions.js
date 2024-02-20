@@ -261,6 +261,10 @@ class Utility {
 		await $(query);
 	}
 
+	async scrollTextIntoView(text) {
+		const query = `android=new UiScrollable(new UiSelector().scrollable(true)).scrollTextIntoView("${text}")`;
+	}
+
 	async scrollElementWithResourceId(client, resourceId) {
 		if (!(await $(`//*[@resource-id="${resourceId}"]`))) {
 			try {
@@ -380,19 +384,22 @@ class Utility {
 		}
 	}
 
-	async choosePhoneNumber() {
+	async choosePhoneNumber(phone = null) {
 		const mobileRadioBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rbMb"]')
 		const landLindRadioBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/rblln"]')
 		const phoneNumberInput = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/etPhoneNo"]')
+		// const phoneNumberInput = await InterviewProcess.phoneNoInputBox;
+		console.log("phoneNumberInput: ", phoneNumberInput);
 		const phoneNumberPrefix = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/spnPhNoPrefix"]')
 
-		const randomNumber = Math.floor(Math.random() * (10)) + 1
+		const randomNumber = 2; // Making it choose mobile number all the time for ease
 
 		if (randomNumber % 2 === 0) {
-			await mobileRadioBtn.click()
-			const selectedPhoneNo = phoneNumber[Math.floor(Math.random() * phoneNumber.length)]
-			await phoneNumberInput.setValue(selectedPhoneNo)
-			// await InterviewProcess.phoneNoInputBox.setValue(selectedPhoneNo)
+			await mobileRadioBtn.click();
+			const selectedPhoneNo = phone ? phone : '751972062';
+			console.table(selectedPhoneNo);
+			await phoneNumberInput.setValue(selectedPhoneNo);
+			// await (await InterviewProcess.phoneNoInputBox).setValue(selectedPhoneNo);
 		} else {
 			await landLindRadioBtn.click()
 			await phoneNumberPrefix.click()

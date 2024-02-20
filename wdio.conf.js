@@ -74,7 +74,7 @@ exports.config = {
 			'appium:automationName': 'UiAutomator2', // or "XCUITest"
 			'appium:app': path.join(
 				process.cwd(),
-				'./app/android/Hana-MFI-Field-App-2.3.1 - 2030104-uat.apk'
+				'./app/android/hana-fieldapp-rfoa-native.apk'
 			),
 			'appium:appPackage': 'com.hanamicrofinance.FieldApp.uat',
 			'appium:appActivity':
