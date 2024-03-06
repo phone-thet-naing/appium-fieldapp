@@ -68,20 +68,19 @@ exports.config = {
 			// capabilities for local Appium web tests on an Android Emulator
 			platformName: 'Android', // or "iOS"
 			// "appium:deviceName": "KZONY5EULZMBVOKV", // or "iPhone Simulator",
-			'appium:deviceName': 'emulator-5554', // Pixel 5
+			// 'appium:deviceName': 'Samsung', // Pixel 5
 			// 'appium:platformVersion': '12.0', // or "16.2" (for running iOS v16)
-			'appium:platformVersion': '13.0', // or "16.2" (for running iOS v16)
+			'appium:platformVersion': '12.0', // or "16.2" (for running iOS v16)
 			'appium:automationName': 'UiAutomator2', // or "XCUITest"
 			'appium:app': path.join(
 				process.cwd(),
-				'./app/android/hana-fieldapp-rfoa-native.apk'
+				'./app/android/Hana-MFI-Field-App-2.5.4 - 2050401-uat 2.apk'
 			),
 			'appium:appPackage': 'com.hanamicrofinance.FieldApp.uat',
 			'appium:appActivity':
 				'com.kebhanamyanmar.temp.agent.feature.splash.SplashActivity',
 			'appium:noReset': true,
 			'appium:ignoreHiddenApiPolicyError': true,
-			// "udid": "RF8T611TQHT"
 		},
 	],
 	//

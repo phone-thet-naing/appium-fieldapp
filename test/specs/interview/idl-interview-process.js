@@ -38,12 +38,63 @@ const loanInformationData = [
 
 describe('Individual Interview Process', () => {
 	it('New Interview', async () => {
-		// const interviewProcess = await $('//*[@text="Interview Process"]');
-        // await interviewProcess.click();
+		// const { interviewProcessMenu} = await driver.waitUntil(async () => {
+		// 	const componentList = await $$('//*[@class="android.view.View"]')
 
-		// const interviewsMenu = await InterviewProcess.interviewsMenu;
-		// await expect(interviewsMenu).toBeClickable();
-		// await interviewsMenu.click();
+		// 	if (componentList.length < 42) {
+		// 		return false
+		// 	}
+
+		// 	console.log('total components found => ', componentList.length)
+
+		// 	return {
+		// 		interviewProcessMenu: componentList[27]
+		// 	}
+		// })
+
+		// await interviewProcessMenu.click()
+
+		// const interviewsMenu = await InterviewProcess.interviewsMenu
+
+		// await expect(interviewsMenu).toExist()
+		// await interviewsMenu.click()
+
+		// const { individualLoansTab } = await driver.waitUntil(async () => {
+		// 	const components = await $$('//*[@class="android.widget.LinearLayout"]')
+
+		// 	if (components.length < 7) {
+		// 		return false 
+		// 	}
+
+		// 	return {
+		// 		individualLoansTab: components[1]
+		// 	}
+		// })
+
+		// console.log("label ", await individualLoansTab.getText())
+
+		// await expect(individualLoansTab).toExist()
+
+		// await individualLoansTab.click()
+
+		// const { firstInterview } = await driver.waitUntil(async () => {
+		// 	const components = await $$('//*[@class="android.widget.RelativeLayout"]')
+
+		// 	if (components.length < 2) {
+		// 		return false 
+		// 	}
+
+		// 	if (components.length === 1) {
+		// 		throw new Error("No interview found!")
+		// 	}
+
+		// 	return {
+		// 		firstInterview: components[1]
+		// 	}
+		// })
+
+		// await expect(firstInterview).toBeClickable()
+		// await firstInterview.click()
 
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
 			const { idlNgasayaData } = require('../../data/data');
@@ -55,6 +106,7 @@ describe('Individual Interview Process', () => {
 		if (await interviewBtn.isDisplayed()) {
 			await interviewBtn.click();
 		}
+		
 		await InterviewProcessHelper.clientInfoPage(interviewData);
 		await InterviewProcessHelper.personalDetailPage();
 		await InterviewProcessHelper.householdDetailPage();

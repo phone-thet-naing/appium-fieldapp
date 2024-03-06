@@ -1,35 +1,48 @@
-// const Test = require('../screen-objects/ngasaya-contract.screen')
-const util = require('../utils/utility-functions');
-// const fs = require('fs')
-const AppointmentScreen = require('../screenobjects/appointment.screen');
-// const loanType = 'Individual Loan'
-// const HomeScreen = require('../screen-objects/home.screen')
-// const path = require("path");
-// const InterviewProcess = require('../screen-objects/interview-process.screen')
-const InterviewProcess = require('../screenobjects/interview-process.screen');
-const Page = require('../screenobjects/page.screen');
-const HomeScreen = require('../screenobjects/home.screen');
-const InterviewProcessHelper = require('../utils/helpers/interview_process.helper');
-const NgasayaContract = require('../utils/make-ngasaya');
-const AppointmentHelper = require('../utils/helpers/make-appointment.helper');
-const Main = require('../screenobjects/main');
-const ngasayaContractHelper = require('../utils/make-ngasaya');
+const { remote } = require('webdriverio');
+const path = require("path");
 
-const groupList = require('../data/input_data.json');
+const capabilities = {
+	// capabilities for local Appium web tests on an Android Emulator
+	platformName: 'Android',
+	'appium:platformVersion': '14.0', // or "16.2" (for running iOS v16)
+	'appium:automationName': 'UiAutomator2', // or "XCUITest"
+	'appium:app': path.join(
+		process.cwd(),
+		'./app/android/Hana-MFI-Field-App-2.5.4 - 2050401-uat 2.apk'
+	),
+	'appium:appPackage': 'com.hanamicrofinance.FieldApp.uat',
+	'appium:appActivity':
+		'com.kebhanamyanmar.temp.agent.feature.splash.SplashActivity',
+	'appium:noReset': true,
+	'appium:ignoreHiddenApiPolicyError': true,
+}
 
-const { mmFemaleNames, mmMaleNames } = require('../data/data.js');
-const interviewProcessScreen = require('../screenobjects/interview-process.screen');
-const NgasayaUtil = require("../utils/make-ngasaya");
+// const capabilities = {
+// 	platformName: 'Android',
+// 	'appium:automationName': 'UiAutomator2',
+// 	'appium:deviceName': 'Android',
+// 	'appium:appPackage': 'com.android.settings',
+// 	'appium:appActivity': 'com.android.settings.SubSettings',
+// };
 
-const listLabels = [
-	'Guarantor Building *',
-	'Guarantor Business Photo -1 *',
-	'Guarantor Business Photo -2 *',	
-	'Guarantor Business Photo -2 *',
-];
+const wdOpts = {
+	hostname: 'localhost',
+	port: 4723,
+	logLevel: 'info',
+	capabilities
+}
 
-describe('sample', () => {
-	it.only('New Member Adding', async () => {
-		await InterviewProcessHelper.agriIncome();
-	})
-})
+async function runTest() {
+	const driver = await remote(wdOpts);
+
+	try {
+		const menuItem = await driver.$('//*[@text="Collection"]');
+		await menuItem.click();
+	} finally {
+		await driver.pause(1000);
+		await driver.deleteSession();
+	}
+}
+
+runTest().catch(console.error);
+

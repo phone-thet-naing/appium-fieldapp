@@ -21,12 +21,6 @@ function formatName(name) {
 
 describe("Making Overdue Collection", () => {
     it("Repayment amount should not exceed total amount", async () => {
-        // await Util.goToHomeScreen();
-        // await Util.download();
-        while (!(await HomeScreen.appointmentIcon.isExisting())) {
-            await driver.back();
-        }
-
         await goToSpecificCollection("Overdue Collection");
 
         await chooseAClientItem();

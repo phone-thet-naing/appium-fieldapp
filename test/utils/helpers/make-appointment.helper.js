@@ -23,6 +23,7 @@ class MakeAppointmentHelper {
 	 */
 	async fillAppointmentData(loanType) {
 		await expect(await $('//*[@text="MAKE APPOINTMENT"]')).toBeDisplayed();
+		console.log({loanType})
 
 		const loanTypeDropdown = await driver.waitUntil(async () => {
 			const dropdownList = await $$(
@@ -306,7 +307,6 @@ class MakeAppointmentHelper {
 	}
 
 	async makeGroupAppointmentWithNewGroup({ totalMembers }) {
-		await HomeScreen.appointmentIcon.click();
 		await this.fillAppointmentData('Group Loan');
 		await AppointmentScreen.createNewGroup.waitForExist({
 			timeoutMsg: 'Create button not found',

@@ -22,11 +22,12 @@ class NgasayaContract {
 		/**
 		 * Scroll to top if the screen is somewhere in the middle.
 		 */
-		const desiredTitle = 'Refinancing Loan';
-		const selector = await $(`//*[@text="${desiredTitle}"]`);
-		if (!(await selector.isDisplayed())) {
-			await util.scrollToBeginning(undefined);
-		}
+		// const desiredTitle = 'Refinancing Loan';
+		// const selector = await $(`//*[@text="${desiredTitle}"]`);
+		// if (!(await selector.isDisplayed())) {
+		// 	await util.scrollToBeginning(undefined);
+		// }
+		await util.scrollToBeginning();
 
 		if (!(await $(ngasayaScreen.loanAmountEditText).isDisplayed())) {
 			await util.scrollIntoView(

@@ -229,6 +229,10 @@ class InterviewProcess {
   get interviewsMenu() {
     return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvInterviews"]');
   }
+
+  get photoCropIcon() {
+    return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]');
+  }
 }
 
 module.exports = new InterviewProcess();

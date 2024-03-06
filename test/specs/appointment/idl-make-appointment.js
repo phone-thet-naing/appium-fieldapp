@@ -10,7 +10,8 @@ describe('Make Interview Appointment', () => {
 	}
 
 	it.only('Make Individual Interview Appointment', async () => {
-		await homeScreen.appointmentIcon.click();
+		const appointmentIcon = await homeScreen.appointmentIcon;
+		await appointmentIcon.click();
 
 		await MakeAppointmentHelper.makeIndividualAppointment(input);
 	});

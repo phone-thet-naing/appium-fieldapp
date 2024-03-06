@@ -1,4 +1,4 @@
-const Util = require("../utils/utility-functions"); 
+const Util = require("../utils/utility-functions");
 
 class HomeScreen {
 
@@ -186,6 +186,27 @@ class HomeScreen {
         const desiredComponent = await $(`//*[@text="${desiredLabel}"]`);
         await $(`android=new UiScrollable(new UiSelector().classNameMatches(\".*android.view.View.*\").scrollable(true)).scrollTextIntoView("${desiredLabel}")`);
         await desiredComponent.click();
+    }
+
+    async navigateToIndividualInterview() {
+        // const interviewProcessMenu = await $("//*[@text='Interview Process']");
+        const { interviewProcessMenu } = await driver.waitUntil(async () => {
+            const componentList = await $$('//*[@class="android.view.View"]');
+
+            if (componentList.length < 40) {
+                return false;
+            }
+
+            return {
+                interviewProcessMenu: componentList[23]
+            }
+        });
+
+        await interviewProcessMenu.click();
+    }
+
+    async navigateToGroupInterview () {
+        
     }
 }
 

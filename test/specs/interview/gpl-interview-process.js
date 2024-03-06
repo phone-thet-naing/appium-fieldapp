@@ -1,4 +1,5 @@
-const InterviewProcess = require("../../screenobjects/interview-process.screen")
+// const InterviewProcess = require("../../screenobjects/interview-process.screen")
+const InterviewProcess = require("../../screenobjects/interview-process.debug.screen")
 const NgasayaContract = require("../../utils/make-ngasaya")
 const InterviewProcessHelper = require("../../utils/helpers/interview_process.helper")
 const HomeScreen = require("../../screenobjects/home.screen")
@@ -22,6 +23,8 @@ const inputData = require("../../data/input_data.json")
 
 const loanInformationData = ["2. Livestock", "Insurance (Shinning Bright Loan)"]
 
+const phoneNumberList = ["969998179", "969998180", "969998181", "969998182"];
+
 describe("Group Interview Process", () => {
 	it("New Interview", async () => {
 		// Going to Home Screen
@@ -37,11 +40,13 @@ describe("Group Interview Process", () => {
 			await NgasayaContract.makeNgaSaYaContract(ngasaya_data)
 		}
 
+		let i = 0;
+
 		// // Interview Process Starts
 		const interviewBtnList = await $$(InterviewProcess.btnInterview)
 		for await (const interviewBtn of interviewBtnList) {
-			await interviewBtn.click()
-			await InterviewProcessHelper.clientInfoPage()
+			await interviewBtn.click();
+			await InterviewProcessHelper.clientInfoPage({ phoneNumber: phoneNumberList[i] })
 			await InterviewProcessHelper.personalDetailPage()
 			await InterviewProcessHelper.householdDetailPage()
 			await InterviewProcessHelper.earningFamilyMemberPage()
@@ -65,11 +70,12 @@ describe("Group Interview Process", () => {
 			await InterviewProcessHelper.evaluationPage()
 			await InterviewProcessHelper.loanSummary()
 			await InterviewProcessHelper.assetSummary()
+			i++;
 		}
 		await InterviewProcess.btnSubmit.click()
+		i = 0;
+		await Util.goToHomeScreen();
 
-		await Util.goToHomeScreen()
-
-		await HomeScreen.uploadBtn.click()
+		await HomeScreen.uploadBtn.click();
 	})
 })

@@ -184,7 +184,7 @@ class InterviewProcessHelper {
 
 	async personalDetailPage() {
 		await $('//*[@text="PERSONAL DETAIL"]').waitForExist({
-			timeout: 6000,
+			timeout: 15000,
 		})
 		// // ပညာအရည်အချင်း
 		// await InterviewProcess.clickDropDown(1)
@@ -222,7 +222,7 @@ class InterviewProcessHelper {
 
 	async householdVerificationPage() {
 		// အိမ်တန်ဖိုး
-		await expect(await $('//*[@text="အိမ်တည်နေရာ"]')).toExist()
+		await expect(await $('//*[@text="အိမ်တည်နေရာ"]')).toExist();
 
 		const houseValue = Math.floor(Math.random() * 90 + 10) * 100000
 		if ((await InterviewProcess.inputBox.getText()) == "") {
@@ -250,7 +250,7 @@ class InterviewProcessHelper {
 				'//*[@text="အခြား microfinance အဖွဲ့အစည်းများတွင် ပြန်ဆပ်ရန်ကျန်ရှိသော ချေးငွေ အရေအတွက် *"]'
 			)
 		).toExist()
-		if ((await InterviewProcess.inputBox.getText()) == "") {
+		if ((await InterviewProcess.inputBox.getText()) === "") {
 			await InterviewProcess.inputBox.setValue(Math.floor(Math.random() * 3 + 1))
 		}
 		await InterviewProcess.nextBtn.click()
@@ -275,7 +275,7 @@ class InterviewProcessHelper {
 		const inputs = await $$(InterviewProcess.editText)
 
 		// Set input for each text box
-		if (interviewType == "individual") {
+		if (interviewType === "individual") {
 			for (let i = 0; i < inputs.length; i++) {
 				switch (i) {
 					case 0:
@@ -330,7 +330,7 @@ class InterviewProcessHelper {
 		await Util.scrollTextIntoViewByClass(
 			"android.widget.ScrollView",
 			"အလုပ်သမား ဦးရေ *"
-		)
+		);
 
 		// Set အလုပ်သမားဦးရေ with a random number
 		// const numberofworkersInputbox = await InterviewProcess.inputBox;
@@ -347,25 +347,11 @@ class InterviewProcessHelper {
 			}
 		})
 
-		await numberOfWorkersInputbox.click()
-		await driver.keys("1")
-		await driver.back()
-		// // if ((await numberofworkersInputbox.getText()) == "") {
-		// const numberofworkers = Math.floor(Math.random() * 10);
-		// await numberofworkersInputbox.setValue(numberofworkers);
-		// }
-
-		// const numberOfWorkersInputBox = await driver.waitUntil(async () => {
-		//   const inputbox = await $$(InterviewProcess.editText);
-
-		//   if (inputbox.length < 1) return false;
-
-		//   return inputbox[0];
-		// });
-
-		// if ((await numberOfWorkersInputBox.getText()) == "") {
-		//   await numberOfWorkersInputBox.setValue(Math.floor(Math.random() * 10));
-		// }
+		if (await numberOfWorkersInputbox.getText() === "") {
+			await numberOfWorkersInputbox.click();
+			await driver.keys("1")
+			await driver.back()
+		}
 
 		// If it was Individual Interview
 		if (interviewType == "individual") {
@@ -419,7 +405,7 @@ class InterviewProcessHelper {
 		while (!(await InterviewProcess.nextBtn.isDisplayed())) {
 			await Util.scrollTextIntoViewByClass(undefined, "NEXT")
 		}
-		await InterviewProcess.nextBtn.click()
+		await InterviewProcess.nextBtn.click();
 	}
 
 	async otherIncomeIndividual() {
@@ -443,24 +429,24 @@ class InterviewProcessHelper {
 
 	async otherIncomePage() {
 		await expect(await $('//*[@text="အခြား ဝင်ငွေ အရေအတွက်"]')).toExist()
-		const inputBoxes = await $$(InterviewProcess.editText)
-		for (const item of inputBoxes) {
-			if ((await item.getText()) == "") {
-				await item.setValue(Math.floor(Math.random() * 4 + 1) * 100000)
-			}
-		}
+		// const inputBoxes = await $$(InterviewProcess.editText)
+		// for (const item of inputBoxes) {
+		// 	if ((await item.getText()) == "") {
+		// 		await item.setValue(Math.floor(Math.random() * 4 + 1) * 100000)
+		// 	}
+		// }
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
 		}
 		await InterviewProcess.nextBtn.click()
 	}
 	async businessInocmePage() {
-		const inputBoxes = await $$(InterviewProcess.editText)
-		for (const item of inputBoxes) {
-			if ((await item.getText()) == "") {
-				await item.setValue(Math.floor(Math.random() * 4 + 1) * 100000)
-			}
-		}
+		// const inputBoxes = await $$(InterviewProcess.editText)
+		// for (const item of inputBoxes) {
+		// 	if ((await item.getText()) == "") {
+		// 		await item.setValue(Math.floor(Math.random() * 4 + 1) * 100000)
+		// 	}
+		// }
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
 		}
@@ -468,12 +454,12 @@ class InterviewProcessHelper {
 	}
 
 	async businessExpensePage() {
-		const inputBoxes = await $$(InterviewProcess.editText)
-		for (const item of inputBoxes) {
-			if ((await item.getText()) == "") {
-				await item.setValue(Math.floor(Math.random() * 4 + 1) * 100000)
-			}
-		}
+		// const inputBoxes = await $$(InterviewProcess.editText)
+		// for (const item of inputBoxes) {
+		// 	if ((await item.getText()) == "") {
+		// 		await item.setValue(Math.floor(Math.random() * 4 + 1) * 100000)
+		// 	}
+		// }
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
 		}
@@ -481,12 +467,12 @@ class InterviewProcessHelper {
 	}
 
 	async personalExpensePage() {
-		let inputBoxList = await $$(InterviewProcess.editText)
-		for (const inputBox of inputBoxList) {
-			if ((await inputBox.getText()) == "") {
-				await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
-			}
-		}
+		// let inputBoxList = await $$(InterviewProcess.editText)
+		// for (const inputBox of inputBoxList) {
+		// 	if ((await inputBox.getText()) == "") {
+		// 		await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
+		// 	}
+		// }
 		// await Util.scrollToEndByClass();
 
 		// inputBoxList = await $$(InterviewProcess.editText);
@@ -509,12 +495,12 @@ class InterviewProcessHelper {
 	}
 
 	async longTermAssetsPage() {
-		let inputBoxList = await $$(InterviewProcess.editText)
-		for (const inputBox of inputBoxList) {
-			if ((await inputBox.getText()) == "") {
-				await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
-			}
-		}
+		// let inputBoxList = await $$(InterviewProcess.editText)
+		// for (const inputBox of inputBoxList) {
+		// 	if ((await inputBox.getText()) == "") {
+		// 		await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
+		// 	}
+		// }
 		const checkBoxes = await $$(InterviewProcess.checkBoxes)
 		await checkBoxes[Util.getRandomIndex(checkBoxes.length - 1, 0)].click()
 
@@ -525,12 +511,12 @@ class InterviewProcessHelper {
 	}
 
 	async liabilitiesPage() {
-		let inputBoxList = await $$(InterviewProcess.editText)
-		for (const inputBox of inputBoxList) {
-			if ((await inputBox.getText()) == "") {
-				await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
-			}
-		}
+		// let inputBoxList = await $$(InterviewProcess.editText)
+		// for (const inputBox of inputBoxList) {
+		// 	if ((await inputBox.getText()) == "") {
+		// 		await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
+		// 	}
+		// }
 
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
@@ -751,12 +737,16 @@ class InterviewProcessHelper {
 
 			const { x, y } = await $(`//*[@text="${fieldName}"]`).getLocation()
 			await Util.tap(x + 100, y + 100)
-			if (!(await InterviewProcess.chooseFromGalleryBtn.isExisting())) {
-				await driver.back()
-				continue
+			if (!(await (await InterviewProcess.chooseFromGalleryBtn).isExisting())) {
+				await driver.back();
+				continue;
 			}
 			await this.uploadPhotoFromGallery()
 		}
+	}
+
+	async uploadAttachment(componentIndex) {
+
 	}
 
 	async drawRequiredSignature(signFieldName) {
@@ -777,33 +767,28 @@ class InterviewProcessHelper {
 		await InterviewProcess.chooseFromGalleryBtn.waitForExist({
 			timeoutMsg: "gallery button not found",
 		})
-		await InterviewProcess.chooseFromGalleryBtn.click()
+		await (await InterviewProcess.chooseFromGalleryBtn).click();
 
-		const firstPhotoIcon = await driver.waitUntil(
-			async () => {
-				const photoIcons = await $$(
-					'//*[@resource-id="com.google.android.documentsui:id/icon_thumb"]'
-				)
-				if (photoIcons.length === 0) {
-					return false
-				}
+		const { randomPhoto } = await driver.waitUntil(async () => {
+			const photoIcons = await $$('//*[@resource-id="com.google.android.documentsui:id/icon_thumb"]');
 
-				return photoIcons[0]
-			},
-			{
-				timeoutMsg: "Photo icons not displayed",
+			if (photoIcons.length === 0) {
+				throw new Error("No Photo Found!");
 			}
-		)
 
-		console.log("first photo icon => ", firstPhotoIcon)
+			const randomIndex = Math.floor(Math.random() * (photoIcons.length));
 
-		await firstPhotoIcon.click()
+			return {
+				randomPhoto: photoIcons[randomIndex]
+			}
+		})
 
-		const cropIcon = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/menu_crop"]');
+		await randomPhoto.click();
 
-		await expect(cropIcon).toExist()
-		console.log('crop icon is displayed => ', await cropIcon.isDisplayed())
-		await cropIcon.click()
+		const cropIcon = await interviewProcessScreen.photoCropIcon;
+
+		await cropIcon.waitForExist();
+		await cropIcon.click();
 	}
 
 	async attachmentGuarantorPage() {
@@ -924,7 +909,7 @@ class InterviewProcessHelper {
 			// let amount = parseInt(Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount)
 			// amount = parseInt(Math.floor(amount / 10) * 10)
 			const amount = await Util.generateRandomMoneyAmount(1000000, 500000)
-			await approvedLoanAmount.setValue(input.fo_approved_amount);
+			await approvedLoanAmount.setValue(amount);
 		}
 
 		// Fill `Reason for Loan Approval`
