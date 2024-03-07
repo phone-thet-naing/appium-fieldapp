@@ -5,16 +5,20 @@ const HomeScreen = require("../../screenobjects/home.screen");
 
 const ngasaya_data = require('../../data/input_data.json')['ngasaya_data_gpl_interview'];
 
+const ngasayaInfo = {
+	expectedDisbursementDate: "07-Mar-2024"
+}
+
 describe('Make Group Interview Appointment', () => {
 	it.only('Make Group Appointment with New Group', async () => {
 		await (await HomeScreen.appointmentIcon).click();
 
-		const numberOfClients = 2; // Enter number of clients here
+		const numberOfClients = 3; // Enter number of clients here
 
 		await makeAppointmentHelper.makeGroupAppointmentWithNewGroup({
 			totalMembers: numberOfClients,
 		});
-		await ngasayaContractHelper.makeNgaSaYaContract();
+		await ngasayaContractHelper.makeNgaSaYaContract(ngasayaInfo);
 	});
 
 	it('Make Group Interview Appointment', async () => {

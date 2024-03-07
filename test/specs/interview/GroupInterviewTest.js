@@ -20,14 +20,14 @@ const ngasayaInfo = {
 
 
 describe("Group Interview Test", () => {
-    it("Making NgaSaYa in Group Interview", async () => {
+    it.only("Making NgaSaYa in Group Interview", async () => {
         await InterviewScreen.makeNgasayaContractGroupLoan(ngasayaInfo)
     })
 
     it("Complete Interview Flow in Group Interview", async () => {
-        const interviewBtnList = await $$(MasterScreen.interviewBtn())
+        const interviewBtnList = await $$(MasterScreen.interviewBtn)
 
-        for await (let i = 0; i < interviewBtnList.length; i++) {
+        for (let i = 0; i < interviewBtnList.length; i++) {
             await interviewBtnList[i].click()
 
             await InterviewScreen.interviewClientScreen(clientInfos[i])

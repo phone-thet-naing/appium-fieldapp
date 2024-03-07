@@ -1,5 +1,5 @@
-// const InterviewProcess = require("../../screenobjects/interview-process.screen")
-const InterviewProcess = require("../../screenobjects/interview-process.debug.screen")
+const InterviewProcess = require("../../screenobjects/interview-process.screen")
+// const InterviewProcess = require("../../screenobjects/interview-process.debug.screen")
 const NgasayaContract = require("../../utils/make-ngasaya")
 const InterviewProcessHelper = require("../../utils/helpers/interview_process.helper")
 const HomeScreen = require("../../screenobjects/home.screen")

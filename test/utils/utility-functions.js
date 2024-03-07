@@ -214,7 +214,6 @@ class Utility {
 
 	// Perform a forward scroll action to move through the scrollable layout element until a visible item that matches the UiObject is found.
 	async scrollIntoView(className = 'android.widget.ScrollView', resourceId) {
-		console.log('resourceId => ', resourceId);
 		const query = `android=new UiScrollable(new UiSelector().classNameMatches(\".*${className}.*\").scrollable(true)).scrollIntoView(new UiSelector().resourceIdMatches(\".*${resourceId}*."\).instance(0))`;
 		await $(query);
 	}

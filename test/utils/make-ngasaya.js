@@ -16,7 +16,7 @@ class NgasayaContract {
 	/**
 	 *	`makeNgaSaYaContract` performs loan contract process
 	 */
-	async makeNgaSaYaContract() {
+	async makeNgaSaYaContract({ expectedDisbursementDate }) {
 		await util.clearNoteIcon(0, 0);
 
 		/**
@@ -117,9 +117,13 @@ class NgasayaContract {
 			);
 		}
 
-		// Disbursement Date
+		// Choosing Disbursement Date
 		await ngasayaScreen.disbursementDatePicker.click();
-		await this.chooseValidDate();
+		if (expectedDisbursementDate === "") {
+			await this.chooseValidDate();
+		} else {
+
+		}
 		await ngasayaScreen.btnOk.click();
 
 		// First Repayment Date
@@ -304,8 +308,6 @@ class NgasayaContract {
 			headerDayofWeek = (await main.asyncGetText(ngasayaScreen.headerDate)).split(
 				' '
 			)[0];
-			console.log('day of week => ', headerDayofWeek === 'Sat,');
-			console.log('isValid => ', isValid);
 
 			if (headerDayofWeek !== 'Sat,' && headerDayofWeek !== 'Sun,') {
 				isValid = true;
