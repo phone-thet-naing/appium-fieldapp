@@ -347,25 +347,37 @@ class MakeAppointmentHelper {
 
 	/**
 	 * 
-	 * @param {{name: string, phone: string, dob: string, nrcNo: string}[]} members 
+	 * @param {{name: string, phone: string, dob: string, nrcNo: string}[]} members
 	 */
 	async addNewMember(members) {
 		for (let i = 0; i < members.length; i++) {
-			await AppointmentScreen.createNewClientBtn.click()
+			await AppointmentScreen.createNewClientBtn.click();
 
-			await expect(await AppointmentScreen.addNewMemberLabel).toExist()
+			const addNewMemberBtn = await AppointmentScreen.addNewMemberLabel;
+
+			await expect(addNewMemberBtn).toExist();
+			await addNewMemberBtn.click();
 
 			const { namePrefix, phonePrefix } = await driver.waitUntil(async () => {
 				const spinnerItems = await $$(AppointmentScreen.spinnerItem)
 
-				return spinnerItems.length == 2 ? { namePrefix: spinnerItems[0], phonePrefix: spinnerItems[1]} : false;
+				return spinnerItems.length === 2 ? { namePrefix: spinnerItems[0], phonePrefix: spinnerItems[1]} : false;
 			})
 
-			const namePrefixValue = members[i].name.split(" ")[0]
-			const lastNameValue = members[i].name.split(" ").slice(1).join(" ")
+			const validPrefixList = ["Daw", "U"];
+
+			const namePrefixExists = validPrefixList.includes(members[i].name.split(" ")[0]);
+
+			let namePrefixValue
+
+			if (namePrefixExists) {
+				const namePrefixValue = validPrefixList.includes(members[i].name.split(" ")[0]) ? members[i].name.split(" ")[0] : "U";
+				const lastNameValue = members[i].name.split(" ").slice(1).join(" ");
+			}
+
 			if ((await namePrefix.getText()).trim() !== namePrefixValue) {
-				await namePrefix.click()
-				await $(`//*[@text="${namePrefixValue}"]`).click()
+				await namePrefix.click();
+				await $(`//*[@text="${namePrefixValue}"]`).click();
 			}		
 
 			await AppointmentScreen.nameInput.setValue(lastNameValue)

@@ -135,13 +135,9 @@ class Utility {
 	}
 
 
-	async fillNrc(autopass = true) {
-		if (autopass) {
-			const nrcSpinner = await InterviewProcess.etNrc
-			console.table({nrcSpinner})
-			await InterviewProcess.etNrc.click()
-			await InterviewProcess.spinnerState.waitForExist()
-		}
+	async fillNrc() {
+		await InterviewProcess.etNrc.click()
+		await InterviewProcess.spinnerState.waitForExist()
 
 		const MAX_STATE = 9
 		await InterviewProcess.spinnerState.click()
@@ -164,7 +160,7 @@ class Utility {
 
 			if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false
 
-			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+			const index = "9" ?? Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1;
 
 			return dropdownItemList[index]
 		})
@@ -186,9 +182,59 @@ class Utility {
 		// await $(`//*[@text="နိုင်"]`).click()
 
 		const [MAX, MIN] = [999999, 100000]
-		const randomNrcNo = this.getRandomIndex(MAX, MIN)
+		const randomNrcNo = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN
 		await InterviewProcess.etNrcNo.setValue(randomNrcNo)
-		if (autopass) await $(`//*[@text="OK"]`).click()
+		await $(`//*[@text="OK"]`).click()
+
+		// const spinnerStateElement = await InterviewProcess.spinnerState;
+		// const labelElement = await $('//*[@text="Select NRC"]');
+		// await labelElement.waitForExist();
+		// const MAX_STATE = 9
+		// await spinnerStateElement.click();
+		// const randomState = await driver.waitUntil(async () => {
+		// 	const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+
+		// 	if (dropdownItemList.length < MAX_STATE) return false
+
+		// 	const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+		// 	return dropdownItemList[index]
+		// })
+		// await randomState.click()
+
+
+		// const MAX_TOWNSHIP_CODE = 3
+		// await InterviewProcess.spinnerTownshipCode.click()
+		// const randomTownshipCode = await driver.waitUntil(async () => {
+		// 	const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+
+		// 	if (dropdownItemList.length < MAX_TOWNSHIP_CODE) return false
+
+		// 	const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+		// 	return dropdownItemList[index]
+		// })
+		// await randomTownshipCode.click()
+		// // await $(`//*[@text="မရမ"]`).click()
+
+		// await InterviewProcess.spinnerNrcType.click()
+		// const MAX_TYPE = 2
+		// const randomNrcType = await driver.waitUntil(async () => {
+		// 	const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+
+		// 	if (dropdownItemList.length < MAX_TYPE) return false
+
+		// 	const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+
+		// 	return dropdownItemList[index]
+		// })
+		// await randomNrcType.click()
+		// // await $(`//*[@text="နိုင်"]`).click()
+
+		// const [MAX, MIN] = [999999, 100000]
+		// const randomNrcNo = this.getRandomIndex(MAX, MIN)
+		// await InterviewProcess.etNrcNo.setValue(randomNrcNo)
+		// if (autopass) await $(`//*[@text="OK"]`).click()
 	}
 
 	async scrollOptionIntoView(option, itemListId) {
@@ -283,7 +329,7 @@ class Utility {
 	}
 
 	getRandomIndex(max, min) {
-		return Math.floor(Math.random() * (max - min)) + min;
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 	async performDownload() {

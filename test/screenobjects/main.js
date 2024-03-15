@@ -11,7 +11,7 @@ class Main {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvItem"]');
     }
 
-    get noteIcon() {
+    get noteIcon() {''
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/fab"]')
     }
 

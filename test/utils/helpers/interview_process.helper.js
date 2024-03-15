@@ -6,25 +6,14 @@ const interviewProcessScreen = require("../../screenobjects/interview-process.sc
 const { phoneNumber } = require('../../data/data.js')
 
 function generateRandomName() {
-	const words = [
-		"ကျော်",
-		"ခိုင်",
-		"ဝင်း",
-		"နိုင်",
-		"တိုး",
-		"အောင်",
-		"မြင်",
-		"မြင့်",
-		"ဇော်",
-		"စည်",
-	]
+	const words = ["ကျော်","ခိုင်","ဝင်း","နိုင်","တိုး","အောင်","မြင်","မြင့်","ဇော်","စည်","အေး","ချမ်း"];
 
 	const [max, min] = [3, 2]
 	const wordsLength = words.length
 	const nameLength = Math.floor(Math.random() * (max - min + 1)) + min
 	let name = ""
 	for (let i = 0; i < nameLength; i++) {
-		name += words[Math.floor(Math.random() * (wordsLength - 1 + 0 + 1)) + 0]
+		name += words[Math.floor(Math.random() * (wordsLength - 1 + 1))]
 	}
 	return name
 }
@@ -134,8 +123,10 @@ class InterviewProcessHelper {
 		await Util.choosePhoneNumber(phoneNumber);
 
 		// fill nrc
-		if ((await InterviewProcess.etNrc.getText()) === "") {
-			await Util.fillNrc()
+		const nrcInput = await InterviewProcess.etNrc;
+		if (await nrcInput.getText() === "") {
+			await nrcInput.click();
+			await this.fillNrc();
 		}
 		// fill dob
 		if ((await $(InterviewProcess.dobEtBox).getText()) == "") {
@@ -495,14 +486,19 @@ class InterviewProcessHelper {
 	}
 
 	async longTermAssetsPage() {
-		// let inputBoxList = await $$(InterviewProcess.editText)
-		// for (const inputBox of inputBoxList) {
-		// 	if ((await inputBox.getText()) == "") {
-		// 		await inputBox.setValue(Math.floor(Math.random() * 3 + 1) * 100000)
-		// 	}
-		// }
-		const checkBoxes = await $$(InterviewProcess.checkBoxes)
-		await checkBoxes[Util.getRandomIndex(checkBoxes.length - 1, 0)].click()
+
+		const { randomCheckBox } = await driver.waitUntil(async () => {
+			const checkBoxList = await $$(InterviewProcess.checkBoxes);
+
+			if (checkBoxList.length < 7) {
+				return false;
+			}
+
+			return {
+				randomCheckBox: checkBoxList[Util.getRandomIndex(checkBoxList.length-1, 0)]
+			}
+		})
+		await randomCheckBox.click();
 
 		if (!(await InterviewProcess.nextBtn.isExisting())) {
 			await Util.scrollToEndByClass()
@@ -662,7 +658,7 @@ class InterviewProcessHelper {
 
 	async groupGuarantorScreen() {
 		// Go to top of the screen and make necessary assertion (assertion fails > test fails)
-		await Util.scrollToBeginning()
+		await Util.scrollToBeginning(undefined);
 		const desiredLabel = await $('//*[@text="အာမခံသူ၏ အမည် *"]')
 		await expect(desiredLabel).toExist()
 
@@ -1030,7 +1026,7 @@ class InterviewProcessHelper {
 			return editText[0]
 		})
 
-		if ((await coapplicantName.getText()) == "") {
+		if ((await coapplicantName.getText()) === "") {
 			await coapplicantName.setValue("CoApplicant")
 		}
 

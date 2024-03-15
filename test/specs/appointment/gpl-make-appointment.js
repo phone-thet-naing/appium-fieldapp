@@ -11,7 +11,7 @@ const ngasayaInfo = {
 
 describe('Make Group Interview Appointment', () => {
 	it.only('Make Group Appointment with New Group', async () => {
-		await (await HomeScreen.appointmentIcon).click();
+		// await (await HomeScreen.appointmentIcon).click();
 
 		const numberOfClients = 3; // Enter number of clients here
 

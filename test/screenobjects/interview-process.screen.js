@@ -148,9 +148,7 @@ class InterviewProcess {
     return $(`//*[@resource-id='com.hanamicrofinance.FieldApp.uat:id/etNrc']`);
   }
   get spinnerState() {
-    return $(
-      `//*[@resource-id='com.hanamicrofinance.FieldApp.uat:id/spinnerState']`
-    );
+    return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/spinnerState"]');
   }
   get spinnerTownshipCode() {
     return $(
