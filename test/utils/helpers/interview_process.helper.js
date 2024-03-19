@@ -658,8 +658,10 @@ class InterviewProcessHelper {
 
 	async groupGuarantorScreen() {
 		// Go to top of the screen and make necessary assertion (assertion fails > test fails)
-		await Util.scrollToBeginning(undefined);
 		const desiredLabel = await $('//*[@text="အာမခံသူ၏ အမည် *"]')
+		if (!await desiredLabel.isDisplayed()) {
+			await Util.scrollToBeginning(undefined);
+		}
 		await expect(desiredLabel).toExist()
 
 		// fill guarantor name
