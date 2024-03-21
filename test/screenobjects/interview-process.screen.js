@@ -233,4 +233,4 @@ class InterviewProcess {
   }
 }
 
-module.exports = new InterviewProcess();
+module.exports = new InterviewProcess();  

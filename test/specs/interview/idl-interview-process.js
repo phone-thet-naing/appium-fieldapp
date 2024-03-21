@@ -2,6 +2,9 @@ const InterviewProcess = require('../../screenobjects/interview-process.screen')
 const NgasayaContract = require('../../utils/make-ngasaya');
 const InterviewProcessHelper = require('../../utils/helpers/interview_process.helper');
 const HomeScreen = require("../../screenobjects/home.screen");
+const homeScreen = require('../../screenobjects/home.screen');
+const InterviewScreenClass = require("../../screenobjects/interview.screen");
+const InterviewScreen = new InterviewScreenClass("uat");
 
 // interview test data
 const interviewData = {
@@ -38,63 +41,7 @@ const loanInformationData = [
 
 describe('Individual Interview Process', () => {
 	it('New Interview', async () => {
-		// const { interviewProcessMenu} = await driver.waitUntil(async () => {
-		// 	const componentList = await $$('//*[@class="android.view.View"]')
-
-		// 	if (componentList.length < 42) {
-		// 		return false
-		// 	}
-
-		// 	console.log('total components found => ', componentList.length)
-
-		// 	return {
-		// 		interviewProcessMenu: componentList[27]
-		// 	}
-		// })
-
-		// await interviewProcessMenu.click()
-
-		// const interviewsMenu = await InterviewProcess.interviewsMenu
-
-		// await expect(interviewsMenu).toExist()
-		// await interviewsMenu.click()
-
-		// const { individualLoansTab } = await driver.waitUntil(async () => {
-		// 	const components = await $$('//*[@class="android.widget.LinearLayout"]')
-
-		// 	if (components.length < 7) {
-		// 		return false 
-		// 	}
-
-		// 	return {
-		// 		individualLoansTab: components[1]
-		// 	}
-		// })
-
-		// console.log("label ", await individualLoansTab.getText())
-
-		// await expect(individualLoansTab).toExist()
-
-		// await individualLoansTab.click()
-
-		// const { firstInterview } = await driver.waitUntil(async () => {
-		// 	const components = await $$('//*[@class="android.widget.RelativeLayout"]')
-
-		// 	if (components.length < 2) {
-		// 		return false 
-		// 	}
-
-		// 	if (components.length === 1) {
-		// 		throw new Error("No interview found!")
-		// 	}
-
-		// 	return {
-		// 		firstInterview: components[1]
-		// 	}
-		// })
-
-		// await expect(firstInterview).toBeClickable()
-		// await firstInterview.click()
+		await InterviewScreen.navigateToFirstIndividualInterview();
 
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
 			const { idlNgasayaData } = require('../../data/data');

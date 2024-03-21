@@ -6,7 +6,7 @@ const HomeScreen = require("../../screenobjects/home.screen");
 const ngasaya_data = require('../../data/input_data.json')['ngasaya_data_gpl_interview'];
 
 const ngasayaInfo = {
-	expectedDisbursementDate: "07-Mar-2024"
+	expectedDisbursementDate: "20"
 }
 
 describe('Make Group Interview Appointment', () => {

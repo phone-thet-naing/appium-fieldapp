@@ -1,6 +1,6 @@
 const defaultTimeout = 10000
 const Util = require('../utils/utility-functions');
-const HomeScreen = require('../screenobjects/home.screen')
+const HomeScreen = require('../screenobjects/home.screen');
 
 class Main {
     get okBtn() {
@@ -92,6 +92,19 @@ class Main {
 			console.log(error)
 			throw new Error("Error occured ", error)
 		}
+    }
+
+    async elementAppears(selector, timeout) {
+        let isFound = false;
+        let startTime = Date.now();
+
+        while(!isFound && Date.now() - startTime < timeout) {
+            const element = await $(selector);
+            isFound = await element.isDisplayed();
+            await driver.pause(1000);
+        }
+
+        return isFound;
     }
 }
 

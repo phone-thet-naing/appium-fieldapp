@@ -122,14 +122,19 @@ class NgasayaContract {
 		if (expectedDisbursementDate === "") {
 			await this.chooseValidDate();
 		} else {
-
+			// const dateSelector = `~${expectedDisbursementDate}`; // Accessibility selector
+			const dateSelector = `//*[@text="${expectedDisbursementDate}"]`;
+			
+			await $(dateSelector).click();
 		}
-		await ngasayaScreen.btnOk.click();
+		const okBtn = '//*[@text="OK"]';
+		await $(okBtn).click();
+		// await ngasayaScreen.btnOk.click();
 
 		// First Repayment Date
 		await ngasayaScreen.firstRepaymentDatePicker.click();
 		await this.chooseValidDate();
-		await $(`//*[@text="OK"]`).click();
+		await $(okBtn).click();
 
 		if (!(await $(ngasayaScreen.ivSign).isDisplayed())) {
 			await util.scrollIntoView(

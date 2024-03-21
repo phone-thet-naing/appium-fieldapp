@@ -2,6 +2,8 @@ const MasterScreenClass = require('../screenobjects/master.screen')
 const Util = require("../utils/utility-functions")
 const ngasayaScreen = require("./ngasaya-contract.screen");
 const util = require("../utils/utility-functions");
+const HomeScreen = require("../screenobjects/home.screen");
+const InterviewProcess = require("../screenobjects/interview-process.screen");
 
 class InterviewScreen {
     constructor(appType) {
@@ -114,6 +116,57 @@ class InterviewScreen {
         await $(this.MasterScreen.disbursementDate).click()
         await this.chooseValidDate()
 
+    }
+
+    async navigateToFirstIndividualInterview() {
+        const timeout = 8000;
+
+        const interviewProcess = await HomeScreen.interviewProcessMenu;
+		await interviewProcess.waitForExist();
+		await interviewProcess.click();
+
+        const interviewsMenu = await InterviewProcess.interviewsMenu
+
+		await interviewsMenu.waitForExist({ timeout: timeout });
+		await interviewsMenu.click();
+
+        const ngasayaContractMemberLabel = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvTitle"]');
+        await ngasayaContractMemberLabel.waitForExist();
+
+		const { individualLoansTab } = await driver.waitUntil(async () => {
+			const components = await $$('//*[@class="android.widget.LinearLayout"]');
+
+			if (components.length < 7) {
+				return false;
+			}
+
+			return {
+				individualLoansTab: components[1]
+			}
+		})
+        console.table({ label: await individualLoansTab.getValue() });
+        // return;
+		await individualLoansTab.click()
+        await ngasayaContractMemberLabel.waitForDisplayed({ timeout: timeout, reverse: true });
+
+		const { firstInterview } = await driver.waitUntil(async () => {
+			const components = await $$('//*[@class="android.widget.RelativeLayout"]')
+
+			if (components.length < 2) {
+				return false 
+			}
+
+			if (components.length === 1) {
+				throw new Error("No interview found!")
+			}
+
+			return {
+				firstInterview: components[1]
+			}
+		})
+
+		await expect(firstInterview).toBeClickable()
+		await firstInterview.click()
     }
 }
 

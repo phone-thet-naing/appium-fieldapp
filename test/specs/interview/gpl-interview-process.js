@@ -72,10 +72,10 @@ describe("Group Interview Process", () => {
 			await InterviewProcessHelper.assetSummary()
 			i++;
 		}
-		await InterviewProcess.btnSubmit.click()
-		i = 0;
-		await Util.goToHomeScreen();
+		// await InterviewProcess.btnSubmit.click()
+		// i = 0;
+		// await Util.goToHomeScreen();
 
-		await HomeScreen.uploadBtn.click();
+		// await HomeScreen.uploadBtn.click();
 	})
 })

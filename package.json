@@ -9,14 +9,15 @@
 		"run:test": "npm run test -- --spec test/specs/test.js",
 		"tpec": "wdio wdio.conf.js -- --spec",
 		"test": "wdio wdio.conf.js",
-		"idl_appointment": "npm run test -- --spec test/specs/appointment/idl-make-appointment.js",
-		"idl_interview": "npm run test -- --spec test/specs/interview/idl-interview-process.js",
+		"ia": "npm run test -- --spec test/specs/appointment/idl-make-appointment.js",
+		"ii": "npm run test -- --spec test/specs/interview/idl-interview-process.js",
 		"test:gpl-appointment": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js",
 		"test:gpl-interview": "npm run test -- --spec test/specs/interview/gpl-interview-process.js",
 		"test:overdue": "npm run test -- --spec test/specs/collection/OverdueCollectionTest.js",
 		"advance": "npm run test -- --spec test/specs/collection/FutureCollectionTest.js",
 		"gi": "npm run wdio -- --spec test/specs/interview/gpl-interview-process.js",
-		"ga": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js"
+		"ga": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js",
+		"gt": "npm run test -- --spec test/specs/gt.js"
 	},
 	"keywords": [],
 	"author": "",

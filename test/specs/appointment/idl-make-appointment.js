@@ -13,7 +13,7 @@ describe('Make Interview Appointment', () => {
 		const appointmentIcon = await homeScreen.appointmentIcon;
 		await appointmentIcon.click();
 
-		await MakeAppointmentHelper.makeIndividualAppointment(input);
+		await MakeAppointmentHelper.makeIndividualAppointment();
 	});
 
 	it('Make appointment with new client', async () => {

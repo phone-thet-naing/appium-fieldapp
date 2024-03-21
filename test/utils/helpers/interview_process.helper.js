@@ -76,6 +76,7 @@ class InterviewProcessHelper {
 	async clientInfoPage({ phoneNumber }) {
 		const { clientNamePrefix, clientNamePrefixMM } = await driver.waitUntil(async () => {
 			const spinnerItems = await $$('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvSpinnerItem"]');
+			await driver.pause(1000);
 
 			if (spinnerItems.length < 3) return false
 
@@ -119,8 +120,10 @@ class InterviewProcessHelper {
 		}
 
 		// Phone Number
-		// if (await (await InterviewProcess.phoneNoInputBox).getText() === "") {}
-		await Util.choosePhoneNumber(phoneNumber);
+		const phoneInput = await InterviewProcess.phoneNoInputBox;
+		if (await phoneInput.getText() === "") {
+			await Util.choosePhoneNumber(phoneNumber);
+		}
 
 		// fill nrc
 		const nrcInput = await InterviewProcess.etNrc;
@@ -138,6 +141,7 @@ class InterviewProcessHelper {
 		}
 
 		await Util.scrollToEndByClass()
+		await Util.scrollTextIntoViewByClass(undefined, "NEXT");
 
 		if ((await InterviewProcess.fatherNameMMEtBox.getText()) == "") {
 			await InterviewProcess.fatherNameMMEtBox.setValue(generateRandomName())
@@ -154,19 +158,18 @@ class InterviewProcessHelper {
 		}
 		await InterviewProcess.nextBtn.click()
 
-		// The following code is supposed to be executed when the phone number is invalid, but it also gets 
-		// executed even when the phone number is valid, which is something we don't want. Therefore, this will be
-		// commented out util a better solution is found. 4/Dec/23
+		// when the phone number is invalid
+		const selector = '//*[@text="PERSONAL DETAIL"]';
+    	const timeout = 7000;	
 
-		// If the phone number was invalid, this will change the phone number into a valid one
-		// const nextTabTitle = await $('//*[@text="PERSONAL DETAIL"]')
+		if (!await Main.elementAppears(selector, timeout)) {
+			await Util.scrollToBeginning();
+			await Util.choosePhoneNumber(phoneNumber);
 
-		// if (!(await nextTabTitle.isDisplayed())) {
-		// 	await Util.scrollToBeginning()
-		// 	await Util.choosePhoneNumber()
-		// 	await Util.scrollToEndByClass(undefined)
-		// 	await InterviewProcess.nextBtn.click()
-		// }
+			await Util.scrollToEndByClass();
+			await InterviewProcess.nextBtn.click();
+		}
+		
 	}
 
 	async interviewClientScreen() {
@@ -177,28 +180,14 @@ class InterviewProcessHelper {
 		await $('//*[@text="PERSONAL DETAIL"]').waitForExist({
 			timeout: 15000,
 		})
-		// // ပညာအရည်အချင်း
-		// await InterviewProcess.clickDropDown(1)
-		// await InterviewProcess.chooseOption(5, 1)
-		// // အိမ်ထောင်ရှိမရှိ
-		// await InterviewProcess.clickDropDown(2)
-		// await InterviewProcess.chooseOption(4, 1)
-		// // ကိုးကွယ်သည့်ဘာသာ
-		// await InterviewProcess.clickDropDown(3)
-		// await InterviewProcess.chooseOption(5, 1)
-		// // ဘဏ်စာအုပ်ရှိမရှိ
-		// await InterviewProcess.clickRadioBtn(2, 1)
-		// // ဘဏ်အမည်
-		// await InterviewProcess.clickDropDown2(4)
-		// await InterviewProcess.chooseOption(7, 1)
-		// click Next
+
 		await InterviewProcess.nextBtn.click()
 	}
 
 	async householdDetailPage() {
 		// အတူနေမိသားစုဦးရေ
 		// await InterviewProcess.nextBtn.click()
-		await Main.asyncClick(InterviewProcess.nextBtn)
+		await Main.asyncClick(InterviewProcess.nextBtn);
 	}
 
 	async earningFamilyMemberPage() {
@@ -228,6 +217,9 @@ class InterviewProcessHelper {
 				await inputBox.setValue(Math.floor(Math.random() * 35 + 15))
 			}
 		}
+
+		await Util.scrollToEndByClass();
+
 		while (!(await InterviewProcess.nextBtn.isDisplayed())) {
 			await Util.scrollTextIntoViewByClass(undefined, "NEXT")
 		}

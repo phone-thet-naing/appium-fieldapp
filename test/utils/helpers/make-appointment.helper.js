@@ -328,7 +328,7 @@ class MakeAppointmentHelper {
 		await expect(await AppointmentScreen.addExistingMemberIcon).toExist();
 		await AppointmentScreen.addExistingMemberIcon.click();
 
-		await this.addMember(1, input.client_names);
+		await this.addMember(1, input?.client_names);
 
 		await AppointmentScreen.createAppointmentBtn.click();
 	}
