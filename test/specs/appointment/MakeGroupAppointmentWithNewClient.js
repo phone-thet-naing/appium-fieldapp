@@ -32,6 +32,6 @@ describe("Making a Group Appointment with New Client", () => {
 
         await MakeAppointmentHelper.chooseLeader()
 
-        await AppointmentScreen.createNewNgasayaBtn.click();
+        await (await AppointmentScreen.createNewNgasayaBtn).click();
     });
 })
