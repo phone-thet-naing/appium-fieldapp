@@ -110,13 +110,32 @@ class MakeAppointmentHelper {
 
 		await randomLeaf.click();
 
-		// await AppointmentScreen.ivDate.waitForClickable()
-		const datePickerIcon = await AppointmentScreen.ivDate;
-		await datePickerIcon.click();
+		let dateValidationPass = false;
+		let currentDate = parseInt(Date().split(' ')[2]);
 
-		// await expect(await AppointmentScreen.dateOkBtn).toBeClickable()
-		await AppointmentScreen.dateOkBtn.waitForExist();
-		await AppointmentScreen.dateOkBtn.click();
+		while (!dateValidationPass) {		
+			// await AppointmentScreen.ivDate.waitForClickable()
+
+			const datePickerIcon = await AppointmentScreen.ivDate;
+			await datePickerIcon.click();
+
+			// await expect(await AppointmentScreen.dateOkBtn).toBeClickable()
+			await AppointmentScreen.dateOkBtn.waitForExist();
+
+			await $(`//*[@text="${currentDate}"]`).click();
+
+			await AppointmentScreen.dateOkBtn.click();
+
+			const alert = await $('//*[@text="Invalid Date"]');
+			await driver.pause(500);
+
+			dateValidationPass = !(await alert.isDisplayed());
+
+			if (!dateValidationPass) {
+				currentDate++;
+				await $('//*[@text="OK"]').click();
+			}
+		}
 
 		await AppointmentScreen.continueBtn.click();
 	}
@@ -228,6 +247,22 @@ class MakeAppointmentHelper {
 		}
 
 		await AppointmentScreen.addBtn.click();
+	}
+
+	async chooseNewMembersInGroup(numberOfMembers) {
+		const memberList = await driver.waitUntil(async () => {
+			const componentList = await $$(AppointmentScreen.tvGroupMemberName);
+
+			if (componentList.length < numberOfMembers) {
+				return false;
+			}
+
+			return componentList;
+		})
+
+		for  (let i = 0; i < numberOfMembers; i++) {
+			await memberList[i].click();
+		}
 	}
 
 	async chooseLeader() {
@@ -350,49 +385,64 @@ class MakeAppointmentHelper {
 	 * @param {{name: string, phone: string, dob: string, nrcNo: string}[]} members
 	 */
 	async addNewMember(members) {
-		for (let i = 0; i < members.length; i++) {
-			await AppointmentScreen.createNewClientBtn.click();
+		if (members.length === 0) {
+			throw new Error("Member list cannot be empty!");
+		}
 
-			const addNewMemberBtn = await AppointmentScreen.addNewMemberLabel;
+		let firstClient = true;
+
+		for (let i = 0; i < members.length; i++) {
+			// if (!firstClient) {
+			// 	await AppointmentScreen.createNewClientBtn.click();
+			// }
+
+			const addNewMemberBtn = await AppointmentScreen.addNewMemberBtn;
 
 			await expect(addNewMemberBtn).toExist();
 			await addNewMemberBtn.click();
 
-			const { namePrefix, phonePrefix } = await driver.waitUntil(async () => {
-				const spinnerItems = await $$(AppointmentScreen.spinnerItem)
+			// const { namePrefix, phonePrefix } = await driver.waitUntil(async () => {
+			// 	const spinnerItems = await $$(AppointmentScreen.spinnerItem)
 
-				return spinnerItems.length === 2 ? { namePrefix: spinnerItems[0], phonePrefix: spinnerItems[1]} : false;
-			})
+			// 	return spinnerItems.length === 2 ? { namePrefix: spinnerItems[0], phonePrefix: spinnerItems[1]} : false;
+			// })
 
-			const validPrefixList = ["Daw", "U"];
+			// const validPrefixList = ["Daw", "U"];
 
-			const namePrefixExists = validPrefixList.includes(members[i].name.split(" ")[0]);
+			// const namePrefixExists = validPrefixList.includes(members[i].name.split(" ")[0]);
 
-			let namePrefixValue
+			// let namePrefixValue
 
-			if (namePrefixExists) {
-				const namePrefixValue = validPrefixList.includes(members[i].name.split(" ")[0]) ? members[i].name.split(" ")[0] : "U";
-				const lastNameValue = members[i].name.split(" ").slice(1).join(" ");
+			// if (namePrefixExists) {
+			// 	const namePrefixValue = validPrefixList.includes(members[i].name.split(" ")[0]) ? members[i].name.split(" ")[0] : "U";
+			// 	const lastNameValue = members[i].name.split(" ").slice(1).join(" ");
+			// }
+
+			// if ((await namePrefix.getText()).trim() !== namePrefixValue) {
+			// 	await namePrefix.click();
+			// 	await $(`//*[@text="${namePrefixValue}"]`).click();
+			// }		
+
+			const clientNameInput = await AppointmentScreen.nameInput;
+			await clientNameInput.waitForExist();
+			await clientNameInput.setValue(members[i].name);
+
+			await AppointmentScreen.phoneInput.setValue(members[i].phone);
+
+			await AppointmentScreen.datePicker.click();
+			if (members[i].dob) {
+				// todo
 			}
+			await AppointmentScreen.dateOkBtn.click();
 
-			if ((await namePrefix.getText()).trim() !== namePrefixValue) {
-				await namePrefix.click();
-				await $(`//*[@text="${namePrefixValue}"]`).click();
-			}		
+			await Util.fillNrc(false);
 
-			await AppointmentScreen.nameInput.setValue(lastNameValue)
-
-			await AppointmentScreen.phoneInput.setValue(members[i].phone)
-
-			await AppointmentScreen.datePicker.click()
-			await AppointmentScreen.dateOkBtn.click()
-
-			await Util.fillNrc(false)
-
-			await AppointmentScreen.okBtn.click()			
+			// await AppointmentScreen.okBtn.click()
 		}
 
-		await AppointmentScreen.createAppointmentBtn.click()
+		const createUsersBtn = await $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnCreateNewUser"]');
+		// await AppointmentScreen.createAppointmentBtn.click()
+		await createUsersBtn.click();
 	}
 }
 

@@ -4,9 +4,9 @@ class HomeScreen {
 
     async initIcons () {
         const {homeIcon, appointmentIcon, uploadIcon, downloadIcon, settingIcon, profileIcon} = await driver.waitUntil(async () => {
-            const icons = await $$('//*[@class="android.widget.TextView"]')
+            const icons = await $$('//*[@class="android.widget.TextView"]');
         
-            if (icons.length < 0) 
+            if (icons.length < 19) 
                 return false 
         
             return {

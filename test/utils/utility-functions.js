@@ -135,8 +135,10 @@ class Utility {
 	}
 
 
-	async fillNrc() {
-		await InterviewProcess.etNrc.click()
+	async fillNrc(needToClickNrcInput = true) {
+		if (needToClickNrcInput) {
+			await InterviewProcess.etNrc.click()
+		}
 		await InterviewProcess.spinnerState.waitForExist()
 
 		const MAX_STATE = 9
@@ -153,7 +155,7 @@ class Utility {
 		await randomState.click()
 
 
-		const MAX_TOWNSHIP_CODE = 3
+		const MAX_TOWNSHIP_CODE = 5
 		await InterviewProcess.spinnerTownshipCode.click()
 		const randomTownshipCode = await driver.waitUntil(async () => {
 			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
@@ -168,18 +170,20 @@ class Utility {
 		// await $(`//*[@text="မရမ"]`).click()
 
 		await InterviewProcess.spinnerNrcType.click()
-		const MAX_TYPE = 2
-		const randomNrcType = await driver.waitUntil(async () => {
-			const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
+		// const MAX_TYPE = 2
+		// const randomNrcType = await driver.waitUntil(async () => {
+		// 	const dropdownItemList = await $$(InterviewProcess.tvDropDownTitleMultiple)
 
-			if (dropdownItemList.length < MAX_TYPE) return false
+		// 	if (dropdownItemList.length < MAX_TYPE) return false
 
-			const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
+		// 	const index = Math.floor(Math.random() * (dropdownItemList.length - 0)) + 1
 
-			return dropdownItemList[index]
-		})
-		await randomNrcType.click()
-		// await $(`//*[@text="နိုင်"]`).click()
+		// 	return dropdownItemList[index]
+		// })
+		// await randomNrcType.click();
+
+		const nrcType = await $(`//*[@text="နိုင်"]`);
+		await nrcType.click();
 
 		const [MAX, MIN] = [999999, 100000]
 		const randomNrcNo = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN

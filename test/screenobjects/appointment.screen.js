@@ -131,12 +131,16 @@ class AppointmentScreen {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/layoutSelectIcon"]')
     }
 
-    get addNewMemberLabel () {
-        return $('//*[@text="Add New Member"]')
+    get addNewMemberBtn () {
+        return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/btnAddNewUser"]');
     }
 
     get clientNameMp () {
         return $('//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvClientName"]')
+    }
+
+    get tvGroupMemberName () {
+        return '//*[@resource-id="com.hanamicrofinance.FieldApp.uat:id/tvGroupMemberName"]';
     }
 }
 

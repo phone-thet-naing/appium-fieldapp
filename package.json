@@ -17,7 +17,8 @@
 		"advance": "npm run test -- --spec test/specs/collection/FutureCollectionTest.js",
 		"gi": "npm run wdio -- --spec test/specs/interview/gpl-interview-process.js",
 		"ga": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js",
-		"gt": "npm run test -- --spec test/specs/gt.js"
+		"gt": "npm run test -- --spec test/specs/gt.js",
+		"gawnc": "npm run test -- --spec test/specs/appointment/MakeGroupAppointmentWithNewClient.js"
 	},
 	"keywords": [],
 	"author": "",

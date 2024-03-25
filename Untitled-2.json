@@ -1,0 +1,770 @@
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Master Data Server Sync Date Time 2024-03-19 11:30:25"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Master Data Local Sync Date Time 2024-03-21 20:07:04"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Transaction Data Local Sync Date Time null"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Transaction Data Server Sync Date Time 2024-03-20 17:28:12"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Transaction Data Last Downloaded Date On Cache Date Time null"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Generate Transaction Data, processing id : ProgressingId(id=19613608-a9d1-4e78-8b87-bb481082bed8)"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Existing Client Server Sync Date Time : 2024-03-21 20:41:20"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Existing Client Local Sync Date Time : null"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:19",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Sync Existing Group Data Start"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:23",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Sync Existing Client Data Complete"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:23",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "checkTransactionData Start, processing Id ProgressingId(id=19613608-a9d1-4e78-8b87-bb481082bed8)"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:23",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "checkTransactionData Complete"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:41:23",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "download Transaction Data Start"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:42:42",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview count = 208"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:42:53",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=0f7c219e-fbfc-484f-9c3b-03ba3182b3f4) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:42:53",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:08",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=1ace8c87-02ce-4dba-9b5e-373f937607d0) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:08",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:18",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=2d9fa42f-d9a7-41fe-9172-09d27cd06728) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:18",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:33",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=3d192316-2e75-484d-83fb-ffa43c94df71) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:33",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:47",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=57058cd8-44da-48dd-a607-27fff49f2ff6) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:47",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:55",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=59e9a6c3-1f8e-4d11-af7b-ee6e79ce40ac) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:43:55",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:03",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=62ec1211-20c4-47d4-9c64-44cb0b0206cd) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:03",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:08",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=64ab7676-08e2-40ab-9b37-cf78ef3321f5) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:08",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:22",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=688df31c-6f7f-4528-8181-fd8beda3b99d) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:22",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:25",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=6b4b84ac-0496-4720-981a-9c013f302a2b) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:25",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:29",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=7277f1a7-3990-4a4c-a035-9edfc38d2f81) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:29",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:30",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=7e396676-3648-466b-8fab-55bb12d0a800) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:30",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:34",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=8273bf5f-836d-4916-b23b-64db355e5bcd) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:34",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:34",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=8a0f2db2-0722-4367-ae25-20395683edc9) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:34",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:49",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=8f8a18c9-75e5-4dd3-9a28-9cb26fc4f683) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:49",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:56",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=91f8980c-f705-43dd-b924-7f7a821900e1) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:44:56",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:11",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=92ac094a-8e3b-4e38-a2b0-c9b71b9b5cc3) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:11",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:14",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=97d25dac-1bb3-4658-b56b-099d6c8a3556) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:14",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:26",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=9c8af1df-ef28-413e-846d-af0e3f8b1c69) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:26",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:34",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=a42efcc5-32a3-48d9-b951-47a0fd5ef510) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:34",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:48",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=a869ecd2-b744-4ef7-bd52-dc7cc01656f5) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:45:48",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:00",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=c9b935b3-222d-43a8-b96a-f36563924fc2) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:00",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:04",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=ce15ea7a-26c1-4c71-8d90-ff05c0fc4895) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:04",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:18",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=e74dde46-2ecc-4d50-ac42-3be2fce817ec) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:18",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:18",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=e8c9a62e-9cae-443a-bd38-0457404dfe1c) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:18",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:31",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=f8075bd0-9c31-4b2a-b236-0d7b7323709e) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:31",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:44",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result from network by Interview id = InterviewId(id=f93eadac-4c4b-4e22-b622-cb73b4d69ea8) "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:44",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Interview result saved to local database"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:44",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "download Transaction Data Complete"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:45",
+    "action": "download_master_data",
+    "screen_name": "DownloadMasterData",
+    "data": "Sync UpdateGroupNgaSaYa"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:46:45",
+    "action": "download_master_data",
+    "screen_name": "Download Sync data",
+    "data": "Sync  UpdateGroupNgaSaYa data"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:25",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getUpdatedInterviewStatus data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:25",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getModifyNgaSaYa data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:25",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "interviewSyncDateTime : 2024-03-21T20:52:26"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:32",
+    "action": "data",
+    "screen_name": "NgaSaYaEditViewModel",
+    "data": "Selected Loan Id LoanProductId(loanProductId=5a9adacc-35fd-4e89-8940-0f5db00e2f47)Loan nameMm စီးပွားရေးချေးငွေ Loan nameEn Existing Business Loan (Interest only) NgaSaya Group Id ddb85d93-3583-447c-aa00-3c12f959362e"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:32",
+    "action": "data",
+    "screen_name": "NgaSaYaEditViewModel",
+    "data": "Selected Loan Term 6"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:54",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getUpdatedInterviewStatus data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:54",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getModifyNgaSaYa data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:54",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "interviewSyncDateTime : 2024-03-21T20:52:54"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:58",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getUpdatedInterviewStatus data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:58",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getModifyNgaSaYa data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:52:58",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "interviewSyncDateTime : 2024-03-21T20:52:58"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:05",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Dwe, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:05",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Than Nu, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:05",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Hla Swe, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:05",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Aye Mi, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:05",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Bi Pay, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:07",
+    "action": "download_master_data",
+    "screen_name": "InterviewClientVM  parent retrieving",
+    "data": "Label = ဆောင်းပြောင်း (နောက်) (Hsawng Pyaung (West)) || Id = 437474"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:07",
+    "action": "download_master_data",
+    "screen_name": "InterviewClientVM  parent retrieving",
+    "data": "Label = လုံးပျဉ် (Long Pyin) || Id = 153265"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:07",
+    "action": "download_master_data",
+    "screen_name": "InterviewClientVM  parent retrieving",
+    "data": "Label = ပင်လောင်း (Pinlaung) || Id = 179"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:07",
+    "action": "download_master_data",
+    "screen_name": "InterviewClientVM  parent retrieving",
+    "data": "Label = ရှမ်း (Shan (South)) || Id = 7"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:07",
+    "action": "btn_click",
+    "screen_name": "InterviewClientViewModel",
+    "data": "Interview Client: 26361c0a-5023-4f2e-9d6a-b38f6472fae5 Daw Nan Dwe"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:09",
+    "action": "data",
+    "screen_name": "InterviewClientVM SelectedAddress",
+    "data": "AddressId(id=437474)-ဆောင်းပြောင်း (နောက်) (Hsawng Pyaung (West))"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:09",
+    "action": "data",
+    "screen_name": "InterviewClientVM SelectedAddress",
+    "data": "AddressId(id=437474)-ဆောင်းပြောင်း (နောက်) (Hsawng Pyaung (West))"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:09",
+    "action": "init",
+    "screen_name": "InterviewClientViewModel",
+    "data": "onClickOk: 26361c0a-5023-4f2e-9d6a-b38f6472fae5 Daw Nan Dwe AddressId(id=437474)"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:11",
+    "action": "btn_click",
+    "screen_name": "InterviewVIewModel",
+    "data": "callFrom other, appointId ed7fe627-06f5-4934-a411-145bf3530763"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:11",
+    "action": "data",
+    "screen_name": "InterviewVIewModel",
+    "data": "interview tab count to display [personal_detail, household_detail, earning_family_member, household_verification, current_loan_cr_history, business_profile, other_income, business_income, business_expense, personal_expense, current_assets, long_term_assets, liabilities, loan_information, client_app, guarantor, attachment_guarantor, attachment_client, attachment_loan, cash_flow, evaluation, loan_summary, asset_summary]"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:11",
+    "action": "btn_click",
+    "screen_name": "InterviewVIewModel",
+    "data": "existing Interview appointId ed7fe627-06f5-4934-a411-145bf3530763, interview status EDITING"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:22",
+    "action": "data",
+    "screen_name": "Tab History",
+    "data": "personal_detail, household_detail, earning_family_member, household_verification, current_loan_cr_history, business_profile, other_income, business_income, business_expense, personal_expense, current_assets, long_term_assets, liabilities, loan_information, client_app, guarantor, attachment_guarantor, attachment_client, attachment_loan, cash_flow, evaluation, loan_summary, asset_summary, asset_summary, "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:22",
+    "action": "data",
+    "screen_name": "Interview forms before submit",
+    "data": "personal_detail, household_detail, earning_family_member, household_verification, current_loan_cr_history, business_profile, other_income, business_income, business_expense, personal_expense, current_assets, long_term_assets, liabilities, loan_information, client_app, guarantor, attachment_guarantor, attachment_client, attachment_loan, cash_flow, evaluation, loan_summary, asset_summary, "
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:22",
+    "action": "data",
+    "screen_name": "InterviewVIewModel",
+    "data": "interview tab count to save [personal_detail, household_detail, earning_family_member, household_verification, current_loan_cr_history, business_profile, other_income, business_income, business_expense, personal_expense, current_assets, long_term_assets, liabilities, loan_information, client_app, guarantor, attachment_guarantor, attachment_client, attachment_loan, cash_flow, evaluation, loan_summary, asset_summary]"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:27",
+    "action": "init",
+    "screen_name": "InterviewVIewModel",
+    "data": "savedInterviewId 1ace8c87-02ce-4dba-9b5e-373f937607d0,appointmentIded7fe627-06f5-4934-a411-145bf3530763, interview status complete valid true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:27",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Dwe, complete true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:27",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Than Nu, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:27",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Hla Swe, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:27",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Aye Mi, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:27",
+    "action": "btn_click",
+    "screen_name": "InterviewListViewModel",
+    "data": "Interview Status: Group Id null, Daw Nan Bi Pay, editing true"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:30",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getUpdatedInterviewStatus data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:30",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "getModifyNgaSaYa data= 0!"
+}
+{
+    "agent_name": "kyawlinnm",
+    "date_time": "2024-03-21 20:53:30",
+    "action": "interview_status",
+    "screen_name": "InterviewCheckData",
+    "data": "interviewSyncDateTime : 2024-03-21T20:53:30"
+}

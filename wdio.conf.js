@@ -66,7 +66,7 @@ exports.config = {
 	capabilities: [
 		{
 			platformName: 'Android',
-			'appium:platformVersion': '14.0', 
+			'appium:platformVersion': '12.0', 
 			'appium:automationName': 'UiAutomator2', 
 			'appium:app': path.join(process.cwd(), './app/android/Hana-MFI-Field-App-2.5.4 - 2050401-uat 2.apk'),
 			'appium:appPackage': 'com.hanamicrofinance.FieldApp.uat',
