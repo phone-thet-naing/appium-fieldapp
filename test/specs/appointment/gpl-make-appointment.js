@@ -11,7 +11,10 @@ const ngasayaInfo = {
 
 describe('Make Group Interview Appointment', () => {
 	it.only('Make Group Appointment with New Group', async () => {
-		// await (await HomeScreen.appointmentIcon).click();
+		if (!await $('//*[@text="Clients"]').isDisplayed()) {
+			throw new Error("You are currently not in home screen. Go to home screen.");
+		}
+		await HomeScreen.goToAppointment();
 
 		const numberOfClients = 3; // Enter number of clients here
 

@@ -102,11 +102,11 @@ const guarantorTabRequiredFieldLabels = [
 		label: 'အာမခံသူ၏ အမည် *',
 		value: "ဦးအောင်မျိုးလင်း"
 	},
-	{ 
-		label: 'အဘ အမည် - အင်္ဂလိပ်စာဖြင့် စာလုံးပေါင်းရန် *', 
-		value : "Aung Myo Linn"
+	{
+		label: 'အဘ အမည် - အင်္ဂလိပ်စာဖြင့် စာလုံးပေါင်းရန် *',
+		value: "Aung Myo Linn"
 	}
-] 
+]
 
 const mmMaleNames = [
 	'နိုင်နိုင်', 'အာကာ', 'စည်သူ', 'နေမင်း', 'နိုင်လူ', 'ပိုင်ပိုင်', 'ကောင်းကောင်း'
@@ -125,12 +125,12 @@ const landLineNumber = [
 ]
 
 module.exports = {
-	adjective, 
-	object, 
-	guarantorTabRequiredFieldLabels, 
-	idlNgasayaData, 
-	mmMaleNames, 
-	mmFemaleNames, 
+	adjective,
+	object,
+	guarantorTabRequiredFieldLabels,
+	idlNgasayaData,
+	mmMaleNames,
+	mmFemaleNames,
 	phoneNumber,
 	landLineNumber
 };
