@@ -478,6 +478,36 @@ class Utility {
 		await this.scrollTextIntoViewByClass(undefined, "NEXT");
 		await (await $('//*[@text="NEXT"]')).click();
 	}
+
+	async getElement({
+			selector, 
+			maxElementCount, 
+			elementIndex
+		}) {
+		return await driver.waitUntil(async () => {
+			const elements = await $$(`//*[@resource-id="${selector}"]`)
+
+			if (elements.length < maxElementCount) {
+				return false
+			}
+
+			return elements[elementIndex]
+		})
+	}
+
+	async waitForElementExistence(selector, timeoutMs) {
+		const startTime = Date.now();
+
+		while (Date.now() - startTime < timeoutMs) {
+			const isExisting = await $(selector).isExisting();
+			if (isExisting) {
+				return true; // Element found within the duration
+			}
+			await browser.pause(100); // Add a small pause between checks
+		}
+
+		return false; // Element not found before timeout
+	}
 }
 
 module.exports = new Utility();

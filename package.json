@@ -6,6 +6,8 @@
 	"scripts": {
 		"wdio": "wdio run ./wdio.conf.js",
 		"wdio2": "wdio run ./wdio.conf2.js",
+		"wdio:cashier": "wdio run ./cashier.wdio.conf.js",
+		"wdio:dashboard": "wdio run ./dashboard.wdio.conf.js",
 		"run:test": "npm run test -- --spec test/specs/test.js",
 		"tpec": "wdio wdio.conf.js -- --spec",
 		"test": "wdio wdio.conf.js",
@@ -18,7 +20,9 @@
 		"gi": "npm run wdio -- --spec test/specs/interview/gpl-interview-process.js",
 		"ga": "npm run test -- --spec test/specs/appointment/gpl-make-appointment.js",
 		"gt": "npm run test -- --spec test/specs/gt.js",
-		"gawnc": "npm run test -- --spec test/specs/appointment/MakeGroupAppointmentWithNewClient.js"
+		"gawnc": "npm run test -- --spec test/specs/appointment/MakeGroupAppointmentWithNewClient.js",
+		"cashier-test": "npm run wdio:cashier -- --spec test/specs/cashier-app/cashier-test.js",
+		"make-careview": "npm run wdio:dashboard -- --spec test/specs/dashboard/make-ca-review.js"
 	},
 	"keywords": [],
 	"author": "",

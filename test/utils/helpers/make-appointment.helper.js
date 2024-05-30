@@ -220,7 +220,7 @@ class MakeAppointmentHelper {
 			) {
 				await Util.flingToEnd(
 					'androidx.recyclerview.widget.RecyclerView',
-					Math.floor(Math.random() * 4 + 1)
+					Math.floor(Math.random() * 3 + 1)
 				);
 			}
 			const selectedMember = await driver.waitUntil(async () => {

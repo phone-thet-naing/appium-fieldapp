@@ -124,6 +124,10 @@ const landLineNumber = [
 	'251782', '432367', '236457', '658478', '263897'
 ]
 
+const interviewData = {
+	fo_approved_amount: 800000
+}
+
 module.exports = {
 	adjective,
 	object,
@@ -132,5 +136,6 @@ module.exports = {
 	mmMaleNames,
 	mmFemaleNames,
 	phoneNumber,
-	landLineNumber
+	landLineNumber,
+	interviewData
 };

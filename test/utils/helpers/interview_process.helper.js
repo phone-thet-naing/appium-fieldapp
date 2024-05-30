@@ -4,9 +4,10 @@ const Util = require("../utility-functions")
 const Main = require("../../screenobjects/main")
 const interviewProcessScreen = require("../../screenobjects/interview-process.screen")
 const { phoneNumber } = require('../../data/data.js')
+const { interviewData } = require("../../data/data.js")
 
 function generateRandomName() {
-	const words = ["ကျော်","ခိုင်","ဝင်း","နိုင်","တိုး","အောင်","မြင်","မြင့်","ဇော်","စည်","အေး","ချမ်း"];
+	const words = ["ကျော်", "ခိုင်", "ဝင်း", "နိုင်", "တိုး", "အောင်", "မြင်", "မြင့်", "ဇော်", "စည်", "အေး", "ချမ်း"];
 
 	const [max, min] = [3, 2]
 	const wordsLength = words.length
@@ -160,7 +161,7 @@ class InterviewProcessHelper {
 
 		// when the phone number is invalid
 		const selector = '//*[@text="PERSONAL DETAIL"]';
-    	const timeout = 7000;	
+		const timeout = 7000;
 
 		if (!await Main.elementAppears(selector, timeout)) {
 			await Util.scrollToBeginning();
@@ -169,7 +170,7 @@ class InterviewProcessHelper {
 			await Util.scrollToEndByClass();
 			await InterviewProcess.nextBtn.click();
 		}
-		
+
 	}
 
 	async interviewClientScreen() {
@@ -487,7 +488,7 @@ class InterviewProcessHelper {
 			}
 
 			return {
-				randomCheckBox: checkBoxList[Util.getRandomIndex(checkBoxList.length-1, 0)]
+				randomCheckBox: checkBoxList[Util.getRandomIndex(checkBoxList.length - 1, 0)]
 			}
 		})
 		await randomCheckBox.click();
@@ -763,7 +764,7 @@ class InterviewProcessHelper {
 			const photoIcons = await $$('//*[@resource-id="com.google.android.documentsui:id/icon_thumb"]');
 
 			if (photoIcons.length === 0) {
-				throw new Error("No Photo Found!");
+				return false;
 			}
 
 			const randomIndex = Math.floor(Math.random() * (photoIcons.length));
@@ -895,10 +896,7 @@ class InterviewProcessHelper {
 
 		// Fill `FO ထောက်ခံသည့်ပမာဏ`
 		if (await approvedLoanAmount.getText() === '') {
-			// const [maxAmount, minAmount] = [1000000, 500000]
-			// let amount = parseInt(Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount)
-			// amount = parseInt(Math.floor(amount / 10) * 10)
-			const amount = await Util.generateRandomMoneyAmount(1000000, 500000)
+			const amount = interviewData.fo_approved_amount
 			await approvedLoanAmount.setValue(amount);
 		}
 

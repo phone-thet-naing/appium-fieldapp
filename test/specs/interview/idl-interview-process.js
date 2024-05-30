@@ -41,7 +41,7 @@ const loanInformationData = [
 
 describe('Individual Interview Process', () => {
 	it('New Interview', async () => {
-		await InterviewScreen.navigateToFirstIndividualInterview();
+		// await InterviewScreen.navigateToFirstIndividualInterview();
 
 		if (await $('//*[@text="Individual Loan"]').isExisting()) {
 			const { idlNgasayaData } = require('../../data/data');

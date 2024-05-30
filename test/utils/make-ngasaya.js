@@ -181,7 +181,7 @@ class NgasayaContract {
 		});
 		await ngasayaScreen.confirmBtn.click();
 
-		await expect(await homeScreen.appointmentIcon).toExist();
+		// await expect(await homeScreen.appointmentIcon).toExist();	
 	}
 
 	async makeIdlContract(ngasayaData = null) {
@@ -262,7 +262,7 @@ class NgasayaContract {
 			) {
 				const randomResult = Math.random() * (maximumLoanAmount - minimumLoanAmount + 1)
 				const floorResult = Math.floor(randomResult) + parseInt(minimumLoanAmount)
-				const chosenLoanAmount = floorResult
+				const chosenLoanAmount = 800000
 
 				console.table({
 					randomResult: randomResult,

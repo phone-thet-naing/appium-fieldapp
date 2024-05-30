@@ -6,12 +6,16 @@ const HomeScreen = require("../../screenobjects/home.screen");
 const ngasaya_data = require('../../data/input_data.json')['ngasaya_data_gpl_interview'];
 
 const ngasayaInfo = {
-	expectedDisbursementDate: "20"
+	expectedDisbursementDate: "",
 }
 
 describe('Make Group Interview Appointment', () => {
 	it.only('Make Group Appointment with New Group', async () => {
-		if (!await $('//*[@text="Clients"]').isDisplayed()) {
+		const clientsMenu = await $('//*[@text="Clients"]');
+
+		await clientsMenu.waitForDisplayed({ timeout: 10000, interval: 2000 });
+
+		if (!await clientsMenu.isDisplayed()) {
 			throw new Error("You are currently not in home screen. Go to home screen.");
 		}
 		await HomeScreen.goToAppointment();
@@ -21,6 +25,7 @@ describe('Make Group Interview Appointment', () => {
 		await makeAppointmentHelper.makeGroupAppointmentWithNewGroup({
 			totalMembers: numberOfClients,
 		});
+		// Set ngasayaInfo.expectedDisbursementDate to "" if you don't have a specific date
 		await ngasayaContractHelper.makeNgaSaYaContract(ngasayaInfo);
 	});
 

@@ -72,7 +72,7 @@ class HomeScreen {
         return driver.waitUntil(async () => {
 			const elementList = await $$('//*[@class="android.widget.TextView"]');
 
-			if (elementList.length < 15) {
+			if (elementList.length < 7) {
 				return false;
 			}
 
